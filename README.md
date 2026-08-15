@@ -1,4 +1,4 @@
-﻿# The Eighty: 八十崛起
+# The Eighty: 八十崛起
 
 当前版本实现了真实国家标签 `B80`（脚本前缀仍使用 `BJ80_`）及学生自治国策线第一稿，包括：
 
@@ -80,3 +80,123 @@ HOI4 的国家标签只能使用三个字符，因此设计稿中的 `BJ80` 实�
 ## 文件编码
 
 脚本文件使用 UTF-8；HOI4 本地化文件必须保存为 UTF-8 with BOM。提交前应使用游戏错误日志检查本地化编码和脚本引用。
+
+---
+
+# 🤖 面向 AI 协作者的仓库说明（AI ReadMe）
+
+> 本段专为 AI 编程助手编写：请先通读本节再改动本仓库。人类协作者可直接跳过。
+> 本节会随仓库演进持续更新；改动任何系统后，请同步更新本节对应条目。
+
+## 1. 仓库身份与模组定位
+
+- 模组名：**The Eighty: 八十崛起**，北京市第八十中学（望京校区）题材的 HOI4 架空历史模组。
+- `descriptor.mod`：`version="0.3.0"`，`supported_version="1.19.*"`，Steam 创意工坊 ID `3780267949`。
+- 真实国家标签为 **`B80`**（HOI4 限制 3 字符，设计稿 `BJ80` 被缩短）。**脚本前缀两套并存**：学生自治等早期系统用 `BJ80_`，学期制、警觉系统、政治路线等新系统用 `B80_`。新增内容统一用 `B80_` 前缀，除非明确属于学生自治旧系统。
+- 开局即拥有原版北京州 `608`（不新建自定义州），并拥有全中国势力的核心州核心（CHI/PRC/GXC/YUN/SHX/XSM/SIK/MAN/MEN/HBC/SND 的核心全部 `add_core_of = B80`）。
+- 平衡哲学：**爽游**。开局 10000 人力、3000 步枪、四枚强力国家精神；普通国策统一 35 天；学生自治线每个国策都带"爽游基底"（+100 政治点 / +0.03 稳定 / +2500 人力）；关键事件多为三选一且数值慷慨。升学压力是唯一会"难受"的软惩罚，但刻意设计为不锁死游戏。
+
+## 2. 目录地图
+
+```
+common/
+  characters/           12 名人物：任炜东（开局领袖，despotism）、顾问、将领
+  countries/            国家定义（graphical_culture = asian_gfx）
+  country_leader/       领袖特质 B80_pragmatic_education_helmsman 等 8 个
+  country_tags/         B80 = "countries/B80 - The Eighty.txt"
+  decisions/            三个决策系统（学期项目 / 外交反应 / 占领区整合）
+  decisions/categories/ 对应三个决策分类
+  ideas/                六组国家精神：starting / campus_mechanic / opponent_reaction / political_route / legacy / student_autonomy
+  national_focus/       三个国策文件（见第 3 节）
+  on_actions/           学期初始化(on_startup)、警觉月度结算(on_monthly_B80)、战争/吞并反应(on_war_relation_added / on_annex)
+  opinion_modifiers/    外交意见修饰符（value 必须为数字，decay 必须为数字，不能用 yes/no）
+  scripted_effects/     三个系统的共享效果函数（命名全部 `B80_*` / `BJ80_*`）
+  scripted_triggers/    共享触发条件
+events/                 五个命名空间：BJ80_autonomy / B80_campus / B80_opponents / B80_political / B80_legacy
+gfx/                    国旗（含各 cosmetic tag 与四种意识形态旗）、领导人/顾问 DDS 头像、旗帜源 PNG
+history/countries/      国家历史（科技、政治、人物、开局国家精神、初始化调用）
+history/states/         608 北京州（B80 所有，含 CHI/PRC 核心）
+history/units/          学生警卫师模板 + 1 个开局师
+interface/              B80_portraits.gfx 头像映射
+localisation/simp_chinese/  8 个简体中文本地化文件（UTF-8 with BOM，必须！）
+tools/                  4 个 Python 工具（见第 7 节）
+```
+
+## 3. 国策树结构（common/national_focus/）
+
+| 文件 | 内容 | 维护方式 |
+|---|---|---|
+| `BJ80_student_autonomy.txt` | 手写学生自治主线（25 个 focus，坐标 x25–35），树尾部用 `shared_focus =` 挂载政治扩展与 127 个旧国策 | 手写维护；`# BEGIN/END` 注释段由生成器管理，手写段不要放进生成段 |
+| `B80_political_expansion_shared.txt` | 手写续写的三条政治路线共 52 个 shared_focus（同盟国民主线 / 教育处集权线 / 学生公社线），坐标 x41–67 | 手写维护 |
+| `B80_legacy_shared_focuses.txt` | 127 个旧版国策节点（`B80_legacy_newfocus_N`），坐标 x45–131，含日本合作线 | **生成文件，勿手改**；由 `tools/generate_legacy_tree.py` 重新生成 |
+
+四条政治路线在旧树的四个互斥入口（`newfocus_9` 同盟国民主 / `newfocus_10` 教育处 / `newfocus_11` 学生公社 / `newfocus_12` 日本合作）之后分叉，每条最终 `set_cosmetic_tag`。所有 cosmetic tag：`BJ80_STUDENT_REPUBLIC`、`BJ80_NEW_BEIJING_REPUBLIC`、`BJ80_CHINESE_STUDENT_REPUBLIC`、`B80_EASTERN_DEMOCRATIC_REPUBLIC`、`B80_EDUCATION_ADMINISTRATION`、`B80_STUDENT_COMMUNE`、`B80_CHINESE_STUDENT_COMMUNE`。
+
+## 4. 三个核心系统
+
+### 4.1 望京学期制（B80_campus_* / campus mechanic）
+- 以 **120 天任务倒计时**（decision `B80_semester_countdown`，`days_mission_timeout = 120`）为一个学期；超时触发隐藏事件 `B80_campus.10` → `B80_finish_semester` 结算 → 结算事件再通过 `B80_campus.70` 重新激活下个学期任务。
+- 四项玩家可见变量（0–100，`B80_clamp_campus_values` 钳制）：`B80_academic_progress` 学业进度、`B80_campus_vitality` 校园活力、`B80_admission_pressure` 升学压力、`B80_school_reputation` 学校声望。另有内部变量 `B80_semester_projects`（本学期已做项目数）、`B80_semester_number`、`B80_balanced_semester_streak`（连续均衡学期数）。
+- 每学期最多 3 个重点项目（完成国策 `BJ80_the_school_belongs_to_students` 后开放第 4 个，见触发器 `B80_has_semester_project_slot`）。9 个学期项目决策：王选信科、王绶琯科学人才班、数理攻坚、百团招新、食堂改革、跑操制度、工程实践、国际交流、战时课程表（`B80_took_*_project` 旗标防重复）。
+- 升学压力五级国家精神（`B80_admission_pressure_relaxed/balanced/intense/all_out/breaking_point`），由 `B80_update_admission_pressure_idea` 依据变量动态切换；完成教育处国策 `B80_legacy_newfocus_10` 后阈值放宽。
+- 其他子系统：食堂三级升级（`B80_improve_cafeteria`：排队→错峰→中央供餐）、社团四波（百团招新事件 `B80_campus.20`）、跑操三政策（`B80_campus.40`）、睿德项目生（`B80_campus.50`，240 天国家精神）、院士讲座、望京教育论坛（`B80_campus.60`）、校友网络。声望消耗型决策：睿德招生 25、院士讲座 25、教育论坛 40、校友网络 35。
+- 连续 3 次均衡学期 → 永久国家精神 `B80_wangjing_education_model` +1 科研槽。
+
+### 4.2 国际警觉系统（B80_opponents.* / opponent reaction）
+- 玩家变量 `B80_expansion_alarm`（0–100）与 `B80_diplomatic_victories`；`on_monthly_B80` 调用 `B80_update_opponent_reaction` 月度结算：占领里程碑（2/5/9/16/25 州各一次性 +10~20）、战争状态 +2/月、声望 >70 −2/月。
+- 警觉跨过 10/25/45/65/85 依次触发五阶段：外国观察团（`B80_opponents.1`）→ 中日/中共评估（`.10/.20/.30`，由 CHI/JAP/PRC 各自 AI 三选一）→ 定向制裁（`.40`）→ 华北遏制会议（`.50`）→ 最后通牒（`.60`）。
+- 对察南 HBC / 鲁系 SND / 蒙疆 MEN / 满洲 MAN 开战时，`on_war_relation_added` 与 `on_annex` 驱动大国反应：军援、`add_to_war` 真正参战或旁观。
+- 拒绝通牒 → 60 天危机倒计时任务 `B80_containment_crisis_countdown`（`B80_crisis_active` / `B80_crisis_against_china|japan` 旗标），超时后 CHI/JAP 获得吞并战争目标（隐藏事件 `B80_opponents.70`）。化解途径：妥协（`B80_last_minute_compromise`）、路线赞助国（`B80_seek_patron_support` → `B80_receive_route_patron_support`）、学生公投（`B80_public_student_referendum`）、先发制人（`B80_preempt_containment`）。
+- 终局：声望 >50 且（连续均衡学期 ≥2 或外交胜利 ≥3）时可提交"八十中答卷"（`B80_submit_eighty_report` → `B80_secure_international_recognition`），获得永久国际承认并清除主要制裁。
+- 相关国家精神集中在 `B80_opponent_reaction_ideas.txt`；外交决策在 `B80_opponent_reaction_decisions.txt`（记者会、密谈、军演、递交照会、边疆情报准备等）。
+
+### 4.3 学生自治与占领区整合（BJ80_*）
+- 学生自治线：学校属于学生 → 学生代表会 → 工业/军事双分支 → 学生共和国（`BJ80_proclaim_student_republic`，民主化，cosmetic tag）→ 朝阳/北京扩张 → 华北教育革命 → 青年的共和国（终局）。
+- 自治共识五级国家精神（`BJ80_autonomy_consensus_1..5`），由 `BJ80_raise/lower_autonomy_consensus` 升降级；"学校属于学生"直接给 `_2`。
+- 占领区整合三连决策：建立地方学生委员会（10 PP）→ 恢复教育秩序（15 PP）→ 举行加入共和国公投（25 PP，21 天，一次性把全部非核心州核心化并 +1 共享建筑槽）。
+
+## 5. 命名、ID 与引用约定（AI 必读）
+
+- **事件命名空间**：`BJ80_autonomy`（学生自治）、`B80_campus`（学期）、`B80_opponents`（警觉）、`B80_political`（政治路线）、`B80_legacy`（旧事件）。事件 ID 格式 `命名空间.数字`。
+- **变量**：全部以 `B80_` 开头（见 4.1/4.2 清单），新增变量请先全局搜索避免与既有变量冲突。
+- **旗标**：学期项目用 `B80_took_*_project`；系统初始化用 `B80_campus_system_initialized` / `B80_opponent_system_initialized`；警觉用 `B80_alarm_milestone_N`、`B80_opposition_stage_N`、`B80_crisis_*`、`B80_international_recognition_secured`；整合用 `BJ80_*_integration_enabled`。
+- **国家精神**：`B80_*` / `BJ80_*` 小写下划线风格，`allowed = { original_tag = B80 }`（对手用的精神如 `B80_frontier_mobilization` 用 `allowed = { always = yes }`）。
+- **本地化键**：国策 `id_desc`、事件 `id.t` / `id.d` / 选项 `id.a|b|c...`，全部在 `localisation/simp_chinese/` 下，**必须 UTF-8 with BOM**。新增任何文本都要补本地化，否则游戏内显示键名。
+- **编码**：脚本文件 UTF-8 无 BOM；本地化文件 UTF-8 with BOM。`tools/validate_mod.py` 会检查。
+
+## 6. 关键初始化链路
+
+- 开局：`history/countries` 调用 `B80_initialize_campus_system = yes` 与 `B80_initialize_opponent_system = yes`（人类玩家）；`on_actions/on_startup` 对 AI 的 B80 做同样初始化（`is_ai = yes` 判断，`B80_*_initialized` 旗标防重）。
+- 学期任务链：`B80_campus.1`（欢迎事件）→ `activate_mission = B80_semester_countdown` → 120 天后 `B80_campus.10` → `B80_finish_semester`（分支到 `B80_campus.11..16`）→ 各结算事件末尾 `B80_begin_new_semester`（重置项目数、扣底值、`B80_campus.70` 重启任务）。
+- 警觉链：`on_monthly_B80` → `B80_update_opponent_reaction` → 各阶段事件（事件内 `ai_chance` 控制 AI 行为）→ 玩家决策/事件改变变量。
+
+## 7. 工具（tools/）
+
+| 脚本 | 用途 | 何时运行 |
+|---|---|---|
+| `validate_mod.py` | 全套静态校验：括号配平、BOM 检查、国策数量（127 legacy + 52 political，ID 唯一、坐标不冲突、互斥对称）、事件/国家精神引用完整性、学期制不变量（120 天任务、四变量本地化、事件集、食堂三连等）、意见修饰符 decay 数值化、旧状态 1082 不存在等 | **每次提交前必跑**：`python tools/validate_mod.py`，输出 `VALIDATION_OK` 才可推送 |
+| `generate_legacy_tree.py` | 从 `BSZ.xh4prj`（XMind 工程）重新生成旧国策树与汉化；含缺失汉化补全表 | 仅当旧工程更新国策时；**会覆盖** `B80_legacy_shared_focuses.txt`，生成后必须重跑校验 |
+| `boost_autonomy_focuses.py` | 一次性批量注入"爽游基底"的历史脚本（硬编码路径 `E:\钢铁雄心4mod`） | **不要再运行**（已生效，路径也是本机旧路径） |
+| `sanitize_hoi4_text.py` | 一次性图片 token 迁移脚本 | 不要再运行 |
+
+## 8. 已知注意事项 / 陷阱
+
+- `B80_legacy_shared_focuses.txt` 是生成文件：手写改动会在下次生成时丢失；需要改旧树请改生成脚本或改政治扩展文件。
+- 学生自治树有 `# BEGIN/END GENERATED LEGACY SHARED FOCUSES` 注释段，生成器按注释段整段替换。
+- 旧树国策 `B80_legacy_newfocus_5/1/4/6` 是"花钱买州"（−200 PP 换州核心），`B80_legacy_newfocus_38_5` 存在（校验允许 127 个 ID 中含此特例）。
+- `history/states/608-Beijing.txt` 的人力和建筑是原版北京数据增强版（人口 964 万、infra 3、2 民用厂、空港 3、故宫地标），不要改成自定义州。
+- 中国相关原版 TAG：CHI 民国、PRC 中共、HBC 察南、SND 鲁系、MEN 蒙疆、MAN 满洲；世界大国：ENG/USA/FRA/SOV/JAP。
+- 若游戏内出现键名不翻译：先查本地化文件是否为 UTF-8 with BOM，再查键名与脚本引用是否一致。
+- 新增国策/事件/国家精神后，若 validate_mod 报 missing，先全局 grep 确认拼写，再检查文件是否被 `allowed` 条件隐藏。
+
+## 9. 协作约定（重要）
+
+本仓库为 **两人团队** 共同维护，两位成员均通过 AI 辅助编程。约定如下：
+
+1. **直接推 `main`**：不使用 fork，不强制走 PR。有需要就直接 commit + push 到 `main`。
+2. **推送前先拉取**：`git pull`（或 `git fetch` + `git merge`）保持本地与 `origin/main` 同步，避免互相覆盖；冲突时优先保留双方意图（必要时在群里沟通）。
+3. **git 身份独立**：两位成员各自使用独立的 `user.name` / `user.email`（当前机器配置为 CuminCom / cumin2008@126.com），提交时注意 `git config user.name` 是否为自己的身份。
+4. **提交前校验**：`python tools/validate_mod.py` 输出 `VALIDATION_OK` 再推送。
+5. **编码纪律**：脚本 UTF-8 无 BOM；本地化 UTF-8 with BOM；提交后可用游戏错误日志复核。
+6. **改动留痕**：重大机制改动请同步更新本 README 的对应章节（尤其是本节 AI ReadMe），保证 AI 协作者在下一次会话能快速恢复上下文——AI 的记忆不跨会话，仓库文档才是持久记忆。
+7. **提交信息**：简短中文描述即可（如 `学期制：新增期末成绩单事件`），方便另一人（和 AI）从 `git log` 快速定位改动。
