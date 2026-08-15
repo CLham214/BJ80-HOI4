@@ -20,9 +20,19 @@ B80_campus_semester_category = {
 		timeout_effect = { country_event = { id = B80_campus.10 hours = 1 } }
 	}
 
+	B80_semester_project_underway = {
+		icon = generic_research
+		days_mission_timeout = 20
+		is_good = yes
+		selectable_mission = no
+		fire_only_once = no
+		activation = { always = no }
+		available = { always = no }
+	}
+
 	B80_wangxuan_informatics_project = {
 		icon = generic_research
-		cost = 35
+		cost = 40
 		days_remove = 1
 		fire_only_once = no
 		visible = { has_country_flag = B80_campus_system_initialized }
@@ -30,13 +40,15 @@ B80_campus_semester_category = {
 			has_active_mission = B80_semester_countdown
 			B80_has_semester_project_slot = yes
 			NOT = { has_country_flag = B80_took_wangxuan_project }
+			NOT = { has_active_mission = B80_semester_project_underway }
 		}
 		complete_effect = {
 			set_country_flag = B80_took_wangxuan_project
+			activate_mission = B80_semester_project_underway
 			add_to_variable = { B80_academic_progress = 15 }
-			add_to_variable = { B80_admission_pressure = 10 }
+			add_to_variable = { B80_admission_pressure = 13 }
 			add_to_variable = { B80_school_reputation = 5 }
-			add_tech_bonus = { name = B80_wangxuan_bonus bonus = 0.75 uses = 2 category = electronics }
+			add_tech_bonus = { name = B80_wangxuan_bonus bonus = 0.60 uses = 2 category = electronics }
 			if = {
 				limit = { has_completed_focus = B80_legacy_newfocus_12 }
 				if = {
@@ -70,11 +82,13 @@ B80_campus_semester_category = {
 			has_active_mission = B80_semester_countdown
 			B80_has_semester_project_slot = yes
 			NOT = { has_country_flag = B80_took_wangshouguan_project }
+			NOT = { has_active_mission = B80_semester_project_underway }
 		}
 		complete_effect = {
 			set_country_flag = B80_took_wangshouguan_project
+			activate_mission = B80_semester_project_underway
 			add_to_variable = { B80_academic_progress = 12 }
-			add_to_variable = { B80_admission_pressure = 8 }
+			add_to_variable = { B80_admission_pressure = 11 }
 			add_to_variable = { B80_school_reputation = 7 }
 			add_breakthrough_progress = { specialization = specialization_land value = 0.05 }
 			add_breakthrough_progress = { specialization = specialization_air value = 0.05 }
@@ -95,11 +109,13 @@ B80_campus_semester_category = {
 			has_active_mission = B80_semester_countdown
 			B80_has_semester_project_slot = yes
 			NOT = { has_country_flag = B80_took_math_physics_project }
+			NOT = { has_active_mission = B80_semester_project_underway }
 		}
 		complete_effect = {
 			set_country_flag = B80_took_math_physics_project
+			activate_mission = B80_semester_project_underway
 			add_to_variable = { B80_academic_progress = 12 }
-			add_to_variable = { B80_admission_pressure = 7 }
+			add_to_variable = { B80_admission_pressure = 10 }
 			army_experience = 10
 			add_tech_bonus = { name = B80_math_physics_bonus bonus = 0.50 uses = 1 category = industry }
 			if = {
@@ -114,7 +130,7 @@ B80_campus_semester_category = {
 
 	B80_hundred_clubs_project = {
 		icon = generic_research
-		cost = 25
+		cost = 30
 		days_remove = 1
 		fire_only_once = no
 		visible = { has_country_flag = B80_campus_system_initialized }
@@ -122,11 +138,13 @@ B80_campus_semester_category = {
 			has_active_mission = B80_semester_countdown
 			B80_has_semester_project_slot = yes
 			NOT = { has_country_flag = B80_took_hundred_clubs_project }
+			NOT = { has_active_mission = B80_semester_project_underway }
 		}
 		complete_effect = {
 			set_country_flag = B80_took_hundred_clubs_project
-			add_to_variable = { B80_campus_vitality = 18 }
-			subtract_from_variable = { B80_admission_pressure = 10 }
+			activate_mission = B80_semester_project_underway
+			add_to_variable = { B80_campus_vitality = 16 }
+			subtract_from_variable = { B80_admission_pressure = 12 }
 			add_to_variable = { B80_school_reputation = 5 }
 			if = {
 				limit = { has_completed_focus = BJ80_the_school_belongs_to_students }
@@ -153,11 +171,13 @@ B80_campus_semester_category = {
 			has_active_mission = B80_semester_countdown
 			B80_has_semester_project_slot = yes
 			NOT = { has_country_flag = B80_took_cafeteria_project }
+			NOT = { has_active_mission = B80_semester_project_underway }
 		}
 		complete_effect = {
 			set_country_flag = B80_took_cafeteria_project
-			add_to_variable = { B80_campus_vitality = 8 }
-			subtract_from_variable = { B80_admission_pressure = 5 }
+			activate_mission = B80_semester_project_underway
+			add_to_variable = { B80_campus_vitality = 10 }
+			subtract_from_variable = { B80_admission_pressure = 8 }
 			if = {
 				limit = { has_completed_focus = B80_legacy_newfocus_11 }
 				add_manpower = 1000
@@ -179,9 +199,11 @@ B80_campus_semester_category = {
 			has_active_mission = B80_semester_countdown
 			B80_has_semester_project_slot = yes
 			NOT = { has_country_flag = B80_took_running_project }
+			NOT = { has_active_mission = B80_semester_project_underway }
 		}
 		complete_effect = {
 			set_country_flag = B80_took_running_project
+			activate_mission = B80_semester_project_underway
 			country_event = { id = B80_campus.40 days = 1 }
 			B80_record_semester_project = yes
 		}
@@ -190,7 +212,7 @@ B80_campus_semester_category = {
 
 	B80_engineering_practice_project = {
 		icon = generic_construction
-		cost = 30
+		cost = 35
 		days_remove = 1
 		fire_only_once = no
 		visible = { has_country_flag = B80_campus_system_initialized }
@@ -198,12 +220,14 @@ B80_campus_semester_category = {
 			has_active_mission = B80_semester_countdown
 			B80_has_semester_project_slot = yes
 			NOT = { has_country_flag = B80_took_engineering_project }
+			NOT = { has_active_mission = B80_semester_project_underway }
 		}
 		complete_effect = {
 			set_country_flag = B80_took_engineering_project
+			activate_mission = B80_semester_project_underway
 			add_to_variable = { B80_academic_progress = 6 }
 			subtract_from_variable = { B80_campus_vitality = 3 }
-			add_to_variable = { B80_admission_pressure = 5 }
+			add_to_variable = { B80_admission_pressure = 8 }
 			army_experience = 15
 			add_equipment_to_stockpile = { type = support_equipment_1 amount = 150 producer = B80 }
 			if = {
@@ -223,7 +247,7 @@ B80_campus_semester_category = {
 
 	B80_international_exchange_project = {
 		icon = generic_research
-		cost = 35
+		cost = 40
 		days_remove = 1
 		fire_only_once = no
 		visible = { has_country_flag = B80_campus_system_initialized }
@@ -231,12 +255,14 @@ B80_campus_semester_category = {
 			has_active_mission = B80_semester_countdown
 			B80_has_semester_project_slot = yes
 			NOT = { has_country_flag = B80_took_international_project }
+			NOT = { has_active_mission = B80_semester_project_underway }
 		}
 		complete_effect = {
 			set_country_flag = B80_took_international_project
+			activate_mission = B80_semester_project_underway
 			add_to_variable = { B80_academic_progress = 8 }
 			add_to_variable = { B80_campus_vitality = 6 }
-			add_to_variable = { B80_admission_pressure = 3 }
+			add_to_variable = { B80_admission_pressure = 6 }
 			add_to_variable = { B80_school_reputation = 10 }
 			if = {
 				limit = { has_country_flag = B80_opponent_system_initialized }
@@ -267,12 +293,14 @@ B80_campus_semester_category = {
 			has_active_mission = B80_semester_countdown
 			B80_has_semester_project_slot = yes
 			NOT = { has_country_flag = B80_took_wartime_project }
+			NOT = { has_active_mission = B80_semester_project_underway }
 		}
 		complete_effect = {
 			set_country_flag = B80_took_wartime_project
+			activate_mission = B80_semester_project_underway
 			add_to_variable = { B80_academic_progress = 3 }
 			subtract_from_variable = { B80_campus_vitality = 10 }
-			add_to_variable = { B80_admission_pressure = 8 }
+			add_to_variable = { B80_admission_pressure = 10 }
 			add_war_support = 0.03
 			army_experience = 25
 			add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 750 producer = B80 }
@@ -287,7 +315,7 @@ B80_campus_semester_category = {
 
 	B80_recruit_ruide_cohort = {
 		icon = generic_research
-		cost = 50
+		cost = 40
 		days_remove = 21
 		days_re_enable = 300
 		fire_only_once = no

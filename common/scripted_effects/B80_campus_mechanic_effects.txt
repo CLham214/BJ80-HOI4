@@ -131,11 +131,11 @@ B80_finish_semester = {
 			OR = {
 				AND = {
 					NOT = { has_completed_focus = B80_legacy_newfocus_10 }
-					check_variable = { B80_admission_pressure > 89 }
+					check_variable = { B80_admission_pressure > 85 }
 				}
 				AND = {
 					has_completed_focus = B80_legacy_newfocus_10
-					check_variable = { B80_admission_pressure > 94 }
+					check_variable = { B80_admission_pressure > 90 }
 				}
 			}
 		}

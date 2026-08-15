@@ -90,7 +90,7 @@ country_event = {
 		add_to_variable = { B80_school_reputation = 10 }
 		add_to_variable = { B80_admission_pressure = 5 }
 		add_timed_idea = { idea = B80_academic_semester days = 120 }
-		add_tech_bonus = { name = B80_academic_term_bonus bonus = 0.75 uses = 2 category = electronics }
+		add_tech_bonus = { name = B80_academic_term_bonus bonus = 0.60 uses = 2 category = electronics }
 		B80_begin_new_semester = yes
 	}
 	option = {
@@ -197,9 +197,9 @@ country_event = {
 
 	option = {
 		name = B80_campus.16.a
-		add_to_variable = { B80_academic_progress = 8 }
+		add_to_variable = { B80_academic_progress = 6 }
 		add_to_variable = { B80_admission_pressure = 4 }
-		add_political_power = 35
+		add_political_power = 25
 		B80_begin_new_semester = yes
 	}
 	option = {
@@ -268,7 +268,7 @@ country_event = {
 
 	option = {
 		name = B80_campus.30.a
-		add_to_variable = { B80_admission_pressure = 4 }
+		add_to_variable = { B80_admission_pressure = 6 }
 		add_timed_idea = { idea = B80_lunch_rush_instinct days = 120 }
 		army_experience = 10
 		B80_clamp_campus_values = yes
@@ -304,7 +304,7 @@ country_event = {
 	option = {
 		name = B80_campus.40.a
 		subtract_from_variable = { B80_campus_vitality = 8 }
-		add_to_variable = { B80_admission_pressure = 8 }
+		add_to_variable = { B80_admission_pressure = 10 }
 		army_experience = 25
 		add_timed_idea = { idea = B80_compulsory_running days = 120 }
 		if = {
@@ -317,14 +317,14 @@ country_event = {
 	option = {
 		name = B80_campus.40.b
 		subtract_from_variable = { B80_campus_vitality = 2 }
-		add_to_variable = { B80_admission_pressure = 2 }
+		add_to_variable = { B80_admission_pressure = 3 }
 		army_experience = 10
 		add_timed_idea = { idea = B80_symbolic_running days = 120 }
 		B80_clamp_campus_values = yes
 	}
 	option = {
 		name = B80_campus.40.c
-		add_to_variable = { B80_campus_vitality = 10 }
+		add_to_variable = { B80_campus_vitality = 8 }
 		subtract_from_variable = { B80_admission_pressure = 6 }
 		add_timed_idea = { idea = B80_skip_running days = 120 }
 		if = {
@@ -395,7 +395,7 @@ country_event = {
 		add_to_variable = { B80_academic_progress = 5 }
 		add_to_variable = { B80_campus_vitality = 8 }
 		add_to_variable = { B80_school_reputation = 5 }
-		add_political_power = 75
+		add_political_power = 50
 		B80_clamp_campus_values = yes
 	}
 	option = {

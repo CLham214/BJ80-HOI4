@@ -1,6 +1,6 @@
 ﻿l_simp_chinese:
  B80_campus_semester_category: "望京学期议程"
- B80_campus_semester_category_desc: "八十中的战争机器并不只在兵工厂里运转，也藏在每一张课程表、每一次社团招新和每一条食堂队伍之中。每个学期可安排§Y3§!项重点项目；完成§Y学校属于学生§!后，学生代表会将开放第§Y4§!个席位。\n\n§Y第[?ROOT.B80_semester_number|Y0]学期§!　已安排项目：§Y[?ROOT.B80_semester_projects|Y0]§!\n学业进度：§Y[?ROOT.B80_academic_progress|Y0]§!/100\n£stability_texticon  校园活力：§Y[?ROOT.B80_campus_vitality|Y0]§!/100\n£pol_power  升学压力：§Y[?ROOT.B80_admission_pressure|Y0]§!/100\n£world_tension_icon  学校声望：§Y[?ROOT.B80_school_reputation|Y0]§!\n\n学期结束时，学业与活力是否均衡、升学压力是否失控，以及本学期选择过哪些项目，都会改变期末结算。"
+ B80_campus_semester_category_desc: "八十中的战争机器并不只在兵工厂里运转，也藏在每一张课程表、每一次社团招新和每一条食堂队伍之中。每个学期可安排§Y3§!项重点项目（同一时间仅推进一项，每项需§Y20§!天）；完成§Y学校属于学生§!后，学生代表会将开放第§Y4§!个席位。\n\n§Y第[?ROOT.B80_semester_number|Y0]学期§!　已安排项目：§Y[?ROOT.B80_semester_projects|Y0]§!\n学业进度：§Y[?ROOT.B80_academic_progress|Y0]§!/100\n£stability_texticon  校园活力：§Y[?ROOT.B80_campus_vitality|Y0]§!/100\n£pol_power  升学压力：§Y[?ROOT.B80_admission_pressure|Y0]§!/100\n£world_tension_icon  学校声望：§Y[?ROOT.B80_school_reputation|Y0]§!\n\n学期结束时，学业与活力是否均衡、升学压力是否失控，以及本学期选择过哪些项目，都会改变期末结算。"
 
  B80_initialize_campus_mechanic: "召开新学期筹备会"
  B80_initialize_campus_mechanic_desc: "把课程表、社团场地、食堂窗口和跑操安排一起摊到会议桌上。该决议仅供加入本机制前创建的旧存档补充启用。"
@@ -8,6 +8,9 @@
  B80_semester_countdown: "本学期教学进程"
  B80_semester_countdown_desc: "铃声照常响起，试卷照常发下，活动室的灯也照常亮到很晚。学期结束时，学校将根据各项校园指标形成一份真正影响国家的成绩单。"
  B80_semester_countdown_tt: "本学期结束后触发§Y学期总结§!，结算项目组合并开启下一学期。"
+ B80_semester_project_underway: "学期项目推进中"
+ B80_semester_project_underway_desc: "重点项目正在按计划推进：课程调整、社团活动与实验室排班同步展开。项目完成前，无法安排新的学期项目。"
+ B80_semester_project_underway_tt: "当前项目将在§Y20§!天后完成；期间其他学期项目不可用。"
 
  B80_wangxuan_informatics_project: "王选信科专项"
  B80_wangxuan_informatics_project_desc: "让机房、信息竞赛队与工业部门共享算力和人才。程序可以拿奖，也可以优化一整套国家机器。"
