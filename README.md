@@ -192,7 +192,7 @@ tools/                  4 个 Python 工具（见第 7 节）
 4. **同步改 `tools/validate_mod.py`**：凡触及数量/集合断言的，必须同步修改（见 8.2–8.4），否则校验必然失败。
 5. **跑校验**：`python tools/validate_mod.py` 直到 `VALIDATION_OK`。
 6. **同步 README**：按 8.7 的清单更新本节及第 2–5 节相关条目。
-7. **提交推送**：`git add` → commit（简短中文说明）→ `git pull` 确认同步 → push main。
+7. **提交（遵守第 10 节第 4 条）**：AI 完成改动后**停在这里**，把改动清单报告给维护者；维护者本地校验（`validate_mod.py` 输出 `VALIDATION_OK` 等）通过后，由维护者本人提交，或明确指示 AI 提交（`git add` → commit 简短中文说明 → `git pull` 确认同步 → push main）。**AI 不得在未获指示前自行提交。**
 
 ### 8.2 新增国策（focus）
 
@@ -270,7 +270,8 @@ tools/                  4 个 Python 工具（见第 7 节）
 1. **直接推 `main`**：不使用 fork，不强制走 PR。有需要就直接 commit + push 到 `main`。
 2. **推送前先拉取**：`git pull`（或 `git fetch` + `git merge`）保持本地与 `origin/main` 同步，避免互相覆盖；冲突时优先保留双方意图（必要时在群里沟通）。
 3. **git 身份独立**：两位成员各自使用独立的 `user.name` / `user.email`（当前机器配置为 CuminCom / cumin2008@126.com），提交时注意 `git config user.name` 是否为自己的身份。
-4. **提交前校验**：`python tools/validate_mod.py` 输出 `VALIDATION_OK` 再推送。
-5. **编码纪律**：脚本 UTF-8 无 BOM；本地化 UTF-8 with BOM；提交后可用游戏错误日志复核。
-6. **改动留痕**：重大机制改动请同步更新本 README 的对应章节（尤其是本节 AI ReadMe），保证 AI 协作者在下一次会话能快速恢复上下文——AI 的记忆不跨会话，仓库文档才是持久记忆。
-7. **提交信息**：简短中文描述即可（如 `学期制：新增期末成绩单事件`），方便另一人（和 AI）从 `git log` 快速定位改动。
+4. **提交权限（最重要，强制）**：AI 助手完成任何文本改动后**不得自行 `git commit` / `git push`**。所有改动必须先由维护者在本地校验通过，之后**由维护者本人提交，或在维护者明确指示"提交"后** AI 才可执行 git 操作。AI 在未获指示前只能报告改动内容并等待确认。
+5. **本地校验流程（提交前必做）**：维护者本地运行 `python tools/validate_mod.py`，必须输出 `VALIDATION_OK` 方可提交；必要时再用游戏错误日志复核（脚本 UTF-8 无 BOM、本地化 UTF-8 with BOM、无键名不翻译）。
+6. **编码纪律**：脚本 UTF-8 无 BOM；本地化 UTF-8 with BOM；提交后可用游戏错误日志复核。
+7. **改动留痕**：重大机制改动请同步更新本 README 的对应章节（尤其是本节 AI ReadMe），保证 AI 协作者在下一次会话能快速恢复上下文——AI 的记忆不跨会话，仓库文档才是持久记忆。
+8. **提交信息**：简短中文描述即可（如 `学期制：新增期末成绩单事件`），方便另一人（和 AI）从 `git log` 快速定位改动。
