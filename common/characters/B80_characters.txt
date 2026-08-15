@@ -1,0 +1,266 @@
+characters = {
+	B80_ren_weidong = {
+		name = B80_ren_weidong
+		portraits = { civilian = { large = GFX_portrait_B80_ren_weidong small = GFX_idea_B80_ren_weidong } army = { large = GFX_portrait_B80_ren_weidong small = GFX_idea_B80_ren_weidong } }
+		country_leader = {
+			ideology = despotism
+			traits = { B80_pragmatic_education_helmsman }
+			expire = "1965.1.1.1"
+			id = -1
+		}
+		field_marshal = {
+			traits = { politically_connected organizer }
+			skill = 3
+			attack_skill = 2
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 3
+			legacy_id = -1
+		}
+	}
+
+	B80_luo_jingqing = {
+		name = B80_luo_jingqing
+		portraits = { civilian = { large = GFX_portrait_B80_luo_jingqing small = GFX_idea_B80_luo_jingqing } army = { large = GFX_portrait_B80_luo_jingqing small = GFX_idea_B80_luo_jingqing } }
+		advisor = {
+			slot = political_advisor
+			idea_token = B80_luo_jingqing
+			allowed = { original_tag = B80 }
+			traits = { B80_grade_director }
+			cost = 100
+		}
+		advisor = {
+			slot = army_chief
+			idea_token = B80_luo_jingqing_army_chief
+			ledger = army
+			allowed = { original_tag = B80 }
+			traits = { army_chief_organizational_2 }
+			cost = 100
+		}
+	}
+
+	B80_li_ding = {
+		name = B80_li_ding
+		portraits = { civilian = { large = GFX_portrait_B80_li_ding small = GFX_idea_B80_li_ding } army = { large = GFX_portrait_B80_li_ding small = GFX_idea_B80_li_ding } }
+		advisor = {
+			slot = political_advisor
+			idea_token = B80_li_ding
+			allowed = { original_tag = B80 }
+			traits = { B80_mathematical_rigor }
+			cost = 100
+		}
+		advisor = {
+			slot = theorist
+			idea_token = B80_li_ding_theorist
+			ledger = army
+			allowed = { original_tag = B80 }
+			traits = { military_theorist }
+			cost = 100
+		}
+	}
+
+	B80_liang_jifeng = {
+		name = B80_liang_jifeng
+		portraits = { civilian = { large = GFX_portrait_B80_liang_jifeng small = GFX_idea_B80_liang_jifeng } army = { large = GFX_portrait_B80_liang_jifeng small = GFX_idea_B80_liang_jifeng } }
+		advisor = {
+			slot = political_advisor
+			idea_token = B80_liang_jifeng
+			allowed = { original_tag = B80 }
+			traits = { B80_physics_experimentalist }
+			cost = 100
+		}
+		advisor = {
+			slot = air_chief
+			idea_token = B80_liang_jifeng_air_chief
+			ledger = air
+			allowed = { original_tag = B80 }
+			traits = { air_chief_reform_2 }
+			cost = 100
+		}
+	}
+
+	B80_liu_yida = {
+		name = B80_liu_yida
+		portraits = { civilian = { large = GFX_portrait_B80_liu_yida small = GFX_idea_B80_liu_yida } army = { large = GFX_portrait_B80_liu_yida small = GFX_idea_B80_liu_yida } }
+		advisor = {
+			slot = army_chief
+			idea_token = B80_liu_yida
+			ledger = army
+			allowed = { original_tag = B80 }
+			traits = { army_chief_maneuver_2 }
+			cost = 100
+		}
+		corps_commander = {
+			traits = { organizer }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 3
+			logistics_skill = 2
+			legacy_id = -1
+		}
+	}
+
+	B80_wu_wenqi = {
+		name = B80_wu_wenqi
+		portraits = { civilian = { large = GFX_portrait_B80_wu_wenqi small = GFX_idea_B80_wu_wenqi } army = { large = GFX_portrait_B80_wu_wenqi small = GFX_idea_B80_wu_wenqi } }
+		advisor = {
+			slot = high_command
+			idea_token = B80_wu_wenqi
+			ledger = army
+			allowed = { original_tag = B80 }
+			traits = { army_logistics_2 }
+			cost = 100
+		}
+		corps_commander = {
+			traits = { career_officer }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 3
+			legacy_id = -1
+		}
+	}
+
+	B80_shi_jiaao = {
+		name = B80_shi_jiaao
+		portraits = { civilian = { large = GFX_portrait_B80_shi_jiaao small = GFX_idea_B80_shi_jiaao } army = { large = GFX_portrait_B80_shi_jiaao small = GFX_idea_B80_shi_jiaao } }
+		advisor = {
+			slot = air_chief
+			idea_token = B80_shi_jiaao
+			ledger = air
+			allowed = { original_tag = B80 }
+			visible = { has_completed_focus = B80_legacy_newfocus_70 }
+			traits = { air_chief_ground_support_3 }
+			cost = 150
+		}
+		corps_commander = {
+			traits = { commando organizer }
+			skill = 4
+			attack_skill = 4
+			defense_skill = 2
+			planning_skill = 3
+			logistics_skill = 3
+			legacy_id = -1
+			visible = { has_completed_focus = B80_legacy_newfocus_70 }
+		}
+	}
+
+	B80_li_ruicheng = {
+		name = B80_li_ruicheng
+		portraits = { army = { large = GFX_portrait_B80_li_ruicheng small = GFX_idea_B80_li_ruicheng } }
+		corps_commander = {
+			traits = { armor_officer cavalry_leader }
+			skill = 4
+			attack_skill = 4
+			defense_skill = 2
+			planning_skill = 3
+			logistics_skill = 3
+			legacy_id = -1
+			visible = { has_completed_focus = B80_legacy_newfocus_61 }
+		}
+		advisor = {
+			slot = high_command
+			idea_token = B80_li_ruicheng
+			ledger = army
+			allowed = { original_tag = B80 }
+			visible = { has_completed_focus = B80_legacy_newfocus_61 }
+			traits = { army_cavalry_3 }
+			cost = 150
+		}
+	}
+
+	B80_li_weisi = {
+		name = B80_li_weisi
+		portraits = { army = { large = GFX_portrait_B80_li_weisi small = GFX_idea_B80_li_weisi } }
+		corps_commander = {
+			traits = { armor_officer organizer }
+			skill = 4
+			attack_skill = 3
+			defense_skill = 4
+			planning_skill = 4
+			logistics_skill = 3
+			legacy_id = -1
+			visible = { has_completed_focus = B80_legacy_newfocus_62 }
+		}
+		advisor = {
+			slot = high_command
+			idea_token = B80_li_weisi
+			ledger = army
+			allowed = { original_tag = B80 }
+			visible = { has_completed_focus = B80_legacy_newfocus_62 }
+			traits = { army_CombinedArms_3 }
+			cost = 150
+		}
+	}
+
+	B80_song_sitong = {
+		name = B80_song_sitong
+		portraits = { civilian = { large = GFX_portrait_B80_song_sitong small = GFX_idea_B80_song_sitong } army = { large = GFX_portrait_B80_song_sitong small = GFX_idea_B80_song_sitong } }
+		advisor = {
+			slot = high_command
+			idea_token = B80_song_sitong
+			ledger = army
+			allowed = { original_tag = B80 }
+			visible = { has_completed_focus = B80_legacy_newfocus_58 }
+			traits = { army_artillery_3 }
+			cost = 150
+		}
+		corps_commander = {
+			traits = { brilliant_strategist }
+			skill = 3
+			attack_skill = 4
+			defense_skill = 2
+			planning_skill = 3
+			logistics_skill = 2
+			legacy_id = -1
+			visible = { has_completed_focus = B80_legacy_newfocus_58 }
+		}
+	}
+
+	B80_huang_zhenyu = {
+		name = B80_huang_zhenyu
+		portraits = { civilian = { large = GFX_portrait_B80_huang_zhenyu small = GFX_idea_B80_huang_zhenyu } army = { large = GFX_portrait_B80_huang_zhenyu small = GFX_idea_B80_huang_zhenyu } }
+		advisor = {
+			slot = air_chief
+			idea_token = B80_huang_zhenyu
+			ledger = air
+			allowed = { original_tag = B80 }
+			visible = { has_completed_focus = B80_legacy_newfocus_69 }
+			traits = { air_chief_reform_3 }
+			cost = 150
+		}
+	}
+
+	B80_zhang_zihan = {
+		name = B80_zhang_zihan
+		portraits = { army = { large = GFX_portrait_B80_zhang_zihan small = GFX_idea_B80_zhang_zihan } civilian = { large = GFX_portrait_B80_zhang_zihan small = GFX_idea_B80_zhang_zihan } }
+		navy_leader = {
+			traits = { navy_career_officer aviation_enthusiast }
+			skill = 3
+			attack_skill = 2
+			defense_skill = 2
+			maneuvering_skill = 3
+			coordination_skill = 3
+			legacy_id = -1
+		}
+		advisor = {
+			slot = navy_chief
+			idea_token = B80_zhang_zihan_navy_chief
+			ledger = navy
+			allowed = { original_tag = B80 }
+			traits = { navy_chief_naval_aviation_2 }
+			cost = 100
+		}
+		advisor = {
+			slot = air_chief
+			idea_token = B80_zhang_zihan_air_chief
+			ledger = air
+			allowed = { original_tag = B80 }
+			visible = { has_completed_focus = B80_legacy_newfocus_68 }
+			traits = { air_chief_all_weather_3 }
+			cost = 150
+		}
+	}
+}

@@ -1,0 +1,184 @@
+ideas = {
+	country = {
+		# Allied democratic route
+		B80_allied_democratic_mandate = {
+			picture = generic_democratic_opposition
+			allowed = { original_tag = B80 }
+			modifier = { political_power_factor = 0.05 stability_factor = 0.05 }
+		}
+		B80_allied_educational_foundation = {
+			picture = generic_research_bonus
+			allowed = { original_tag = B80 }
+			modifier = { research_speed_factor = 0.04 research_sharing_per_country_bonus = 0.03 }
+		}
+		B80_allied_industrial_credit_idea = {
+			picture = generic_foreign_capital
+			allowed = { original_tag = B80 }
+			modifier = { industrial_capacity_factory = 0.04 production_speed_buildings_factor = 0.05 consumer_goods_factor = 0.01 }
+		}
+		B80_allied_international_department = {
+			picture = generic_research_bonus
+			allowed = { original_tag = B80 }
+			modifier = { research_speed_factor = 0.04 trade_opinion_factor = 0.15 }
+		}
+		B80_allied_security_mission = {
+			picture = generic_infantry_bonus
+			allowed = { original_tag = B80 }
+			modifier = { army_defence_factor = 0.05 planning_speed = 0.05 }
+		}
+		B80_allied_chinese_democratic_front = {
+			picture = generic_democratic_opposition
+			allowed = { original_tag = B80 }
+			modifier = { political_power_factor = 0.05 stability_factor = 0.03 justify_war_goal_time = -0.10 }
+		}
+		B80_allied_arsenal_of_democracy = {
+			picture = generic_improved_industries
+			allowed = { original_tag = B80 }
+			modifier = { industrial_capacity_factory = 0.05 production_factory_efficiency_gain_factor = 0.05 }
+		}
+		B80_allied_china_command_idea = {
+			picture = generic_army_asia_3
+			allowed = { original_tag = B80 }
+			modifier = { army_org_factor = 0.05 army_defence_factor = 0.05 max_planning_factor = 0.05 }
+		}
+		B80_allied_beacon_of_democracy = {
+			picture = generic_democratic_opposition
+			allowed = { original_tag = B80 }
+			modifier = { political_power_factor = 0.10 stability_factor = 0.08 research_speed_factor = 0.05 army_defence_factor = 0.05 }
+		}
+
+		# Education Department route
+		B80_order_discipline_code = {
+			picture = generic_pp_unity_bonus
+			allowed = { original_tag = B80 }
+			modifier = { stability_factor = 0.08 political_power_factor = 0.05 }
+		}
+		B80_order_grade_director_network = {
+			picture = generic_pp_unity_bonus
+			allowed = { original_tag = B80 }
+			modifier = { political_power_factor = 0.08 drift_defence_factor = 0.10 }
+		}
+		B80_order_standardized_schedule = {
+			picture = generic_improved_industries
+			allowed = { original_tag = B80 }
+			modifier = { production_factory_efficiency_gain_factor = 0.05 training_time_army_factor = -0.05 }
+		}
+		B80_order_examination_authority = {
+			picture = generic_research_bonus
+			allowed = { original_tag = B80 }
+			modifier = { research_speed_factor = 0.04 stability_factor = 0.03 }
+		}
+		B80_order_inspection_corps = {
+			picture = generic_spy_intel
+			allowed = { original_tag = B80 }
+			modifier = { operative_slot = 1 enemy_operative_detection_chance_factor = 0.10 intelligence_agency_defense = 0.05 }
+		}
+		B80_order_quantified_management = {
+			picture = generic_improved_industries
+			allowed = { original_tag = B80 }
+			modifier = { industrial_capacity_factory = 0.05 production_factory_max_efficiency_factor = 0.05 }
+		}
+		B80_order_professional_civil_service = {
+			picture = generic_pp_unity_bonus
+			allowed = { original_tag = B80 }
+			modifier = { political_power_factor = 0.10 stability_factor = 0.04 }
+		}
+		B80_order_central_budget = {
+			picture = generic_foreign_capital
+			allowed = { original_tag = B80 }
+			modifier = { consumer_goods_factor = -0.03 production_speed_buildings_factor = 0.08 }
+		}
+		B80_order_security_bureau = {
+			picture = generic_spy_intel
+			allowed = { original_tag = B80 }
+			modifier = { operative_slot = 1 intel_network_gain_factor = 0.10 enemy_operative_detection_chance_factor = 0.10 }
+		}
+		B80_order_continuity_of_command = {
+			picture = generic_neutrality_drift_bonus
+			allowed = { original_tag = B80 }
+			modifier = { stability_factor = 0.08 surrender_limit = 0.05 }
+		}
+		B80_order_efficient_state = {
+			picture = generic_improved_industries
+			allowed = { original_tag = B80 }
+			modifier = { political_power_factor = 0.08 industrial_capacity_factory = 0.06 production_speed_buildings_factor = 0.08 }
+		}
+		B80_order_education_state = {
+			picture = generic_neutrality_drift_bonus
+			allowed = { original_tag = B80 }
+			modifier = { political_power_factor = 0.12 stability_factor = 0.10 industrial_capacity_factory = 0.08 research_speed_factor = 0.04 }
+		}
+
+		# Student commune route
+		B80_commune_emergency_committee = {
+			picture = generic_democratic_opposition
+			allowed = { original_tag = B80 }
+			modifier = { political_power_factor = 0.05 war_support_factor = 0.03 }
+		}
+		B80_commune_all_student_congress = {
+			picture = generic_democratic_opposition
+			allowed = { original_tag = B80 }
+			modifier = { political_power_factor = 0.08 stability_factor = 0.04 }
+		}
+		B80_commune_class_committees = {
+			picture = generic_pp_unity_bonus
+			allowed = { original_tag = B80 }
+			modifier = { political_power_factor = 0.08 conscription_factor = 0.05 }
+		}
+		B80_commune_collective_canteen = {
+			picture = generic_manpower_bonus
+			allowed = { original_tag = B80 }
+			modifier = { supply_consumption_factor = -0.05 consumer_goods_factor = -0.02 weekly_manpower = 100 }
+		}
+		B80_commune_red_education = {
+			picture = generic_research_bonus
+			allowed = { original_tag = B80 }
+			modifier = { research_speed_factor = 0.04 stability_factor = 0.03 }
+		}
+		B80_commune_workshops = {
+			picture = generic_improved_industries
+			allowed = { original_tag = B80 }
+			modifier = { industrial_capacity_factory = 0.05 production_speed_arms_factory_factor = 0.08 }
+		}
+		B80_commune_underground_educators = {
+			picture = generic_spy_intel
+			allowed = { original_tag = B80 }
+			modifier = { operative_slot = 1 intel_network_gain_factor = 0.12 agency_upgrade_time = -0.10 }
+		}
+		B80_commune_independent_revolution = {
+			picture = generic_pp_unity_bonus
+			allowed = { original_tag = B80 }
+			modifier = { political_power_factor = 0.10 justify_war_goal_time = -0.10 }
+		}
+		B80_commune_peoples_arsenal = {
+			picture = generic_improved_industries
+			allowed = { original_tag = B80 }
+			modifier = { industrial_capacity_factory = 0.06 production_factory_efficiency_gain_factor = 0.05 }
+		}
+		B80_commune_mass_education = {
+			picture = generic_research_bonus
+			allowed = { original_tag = B80 }
+			modifier = { research_speed_factor = 0.05 weekly_manpower = 100 }
+		}
+		B80_commune_youth_vanguard = {
+			picture = generic_infantry_bonus
+			allowed = { original_tag = B80 }
+			modifier = { army_org_factor = 0.05 training_time_army_factor = -0.08 conscription_factor = 0.10 }
+		}
+		B80_commune_export_revolution = {
+			picture = generic_pp_unity_bonus
+			allowed = { original_tag = B80 }
+			modifier = { justify_war_goal_time = -0.15 generate_wargoal_tension = -0.10 }
+		}
+		B80_commune_revolutionary_curriculum = {
+			picture = generic_research_bonus
+			allowed = { original_tag = B80 }
+			modifier = { research_speed_factor = 0.05 army_org_factor = 0.03 }
+		}
+		B80_commune_all_power_to_students = {
+			picture = generic_democratic_opposition
+			allowed = { original_tag = B80 }
+			modifier = { political_power_factor = 0.10 stability_factor = 0.08 war_support_factor = 0.08 industrial_capacity_factory = 0.08 army_attack_factor = 0.08 }
+		}
+	}
+}

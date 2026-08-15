@@ -1,0 +1,683 @@
+focus_tree = {
+	id = BJ80_student_autonomy_tree
+
+	country = {
+		factor = 0
+		modifier = {
+			add = 100
+			tag = B80
+		}
+	}
+
+	default = no
+	continuous_focus_position = { x = 50 y = 1000 }
+
+	focus = {
+		id = BJ80_the_school_belongs_to_students
+		icon = GFX_goal_support_democracy
+		x = 30
+		y = 0
+		cost = 5
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			# Overpowered student-autonomy baseline
+			add_political_power = 100
+			add_stability = 0.03
+			add_manpower = 2500
+			add_political_power = 75
+			add_stability = 0.05
+			add_popularity = { ideology = democratic popularity = 0.10 }
+			add_ideas = BJ80_autonomy_consensus_2
+			country_event = { id = BJ80_autonomy.1 days = 1 }
+		}
+	}
+
+	focus = {
+		id = BJ80_restore_student_congress
+		icon = GFX_goal_generic_forceful_treaty
+		prerequisite = { focus = BJ80_the_school_belongs_to_students }
+		x = 30
+		y = 1
+		cost = 5
+		completion_reward = {
+			# Overpowered student-autonomy baseline
+			add_political_power = 100
+			add_stability = 0.03
+			add_manpower = 2500
+			add_political_power = 50
+			add_stability = 0.05
+			BJ80_raise_autonomy_consensus = yes
+		}
+	}
+
+	# Industrial branch
+	focus = {
+		id = BJ80_campus_industrial_cooperatives
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = BJ80_restore_student_congress }
+		x = 26
+		y = 2
+		cost = 5
+		completion_reward = {
+			# Overpowered student-autonomy baseline
+			add_political_power = 100
+			add_stability = 0.03
+			add_manpower = 2500
+			capital_scope = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+			}
+			BJ80_raise_autonomy_consensus = yes
+		}
+	}
+
+	focus = {
+		id = BJ80_convert_unused_classrooms
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = BJ80_campus_industrial_cooperatives }
+		x = 25
+		y = 3
+		cost = 5
+		completion_reward = {
+			# Overpowered student-autonomy baseline
+			add_political_power = 100
+			add_stability = 0.03
+			add_manpower = 2500
+			capital_scope = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			add_stability = -0.02
+		}
+	}
+
+	focus = {
+		id = BJ80_school_industrial_system
+		icon = GFX_goal_generic_production
+		prerequisite = { focus = BJ80_convert_unused_classrooms }
+		x = 25
+		y = 4
+		cost = 5
+		completion_reward = {
+			# Overpowered student-autonomy baseline
+			add_political_power = 100
+			add_stability = 0.03
+			add_manpower = 2500
+			capital_scope = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			add_ideas = BJ80_school_industrial_system_idea
+		}
+	}
+
+	# Military branch
+	focus = {
+		id = BJ80_student_defense_committee
+		icon = GFX_goal_generic_demand_territory
+		prerequisite = { focus = BJ80_restore_student_congress }
+		x = 34
+		y = 2
+		cost = 5
+		completion_reward = {
+			# Overpowered student-autonomy baseline
+			add_political_power = 100
+			add_stability = 0.03
+			add_manpower = 2500
+			add_war_support = 0.10
+			army_experience = 15
+			BJ80_lower_autonomy_consensus = yes
+		}
+	}
+
+	focus = {
+		id = BJ80_establish_student_citizen_army
+		icon = GFX_goal_generic_allies_build_infantry
+		prerequisite = { focus = BJ80_student_defense_committee }
+		x = 35
+		y = 3
+		cost = 5
+		completion_reward = {
+			# Overpowered student-autonomy baseline
+			add_political_power = 100
+			add_stability = 0.03
+			add_manpower = 2500
+			add_manpower = 500
+			army_experience = 20
+			add_ideas = BJ80_student_citizen_army_idea
+			add_equipment_to_stockpile = {
+				type = infantry_equipment_0
+				amount = 500
+				producer = B80
+			}
+		}
+	}
+
+	focus = {
+		id = BJ80_underground_arsenal_laboratory
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = BJ80_establish_student_citizen_army }
+		x = 35
+		y = 4
+		cost = 5
+		completion_reward = {
+			# Overpowered student-autonomy baseline
+			add_political_power = 100
+			add_stability = 0.03
+			add_manpower = 2500
+			capital_scope = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = arms_factory level = 2 instant_build = yes }
+			}
+			add_research_slot = 1
+			add_tech_bonus = {
+				name = BJ80_underground_arsenal_bonus
+				bonus = 1.0
+				uses = 1
+				category = infantry_weapons
+			}
+			add_stability = -0.03
+		}
+	}
+
+	focus = {
+		id = BJ80_democratic_arsenal
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = BJ80_school_industrial_system }
+		prerequisite = { focus = BJ80_underground_arsenal_laboratory }
+		x = 30
+		y = 5
+		cost = 5
+		completion_reward = {
+			# Overpowered student-autonomy baseline
+			add_political_power = 100
+			add_stability = 0.03
+			add_manpower = 2500
+			capital_scope = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = arms_factory level = 2 instant_build = yes }
+			}
+			add_ideas = BJ80_democratic_arsenal_idea
+		}
+	}
+
+	# Political convergence
+	focus = {
+		id = BJ80_proclaim_student_republic
+		icon = GFX_goal_generic_national_unity
+		prerequisite = { focus = BJ80_democratic_arsenal }
+		x = 30
+		y = 6
+		cost = 5
+		completion_reward = {
+			# Overpowered student-autonomy baseline
+			add_political_power = 100
+			add_stability = 0.03
+			add_manpower = 2500
+			set_politics = { ruling_party = democratic elections_allowed = yes }
+			add_country_leader_role = {
+				character = B80_liu_yida
+				promote_leader = yes
+				country_leader = {
+					ideology = liberalism
+					expire = "1965.1.1.1"
+					traits = { B80_student_autonomy_convener }
+				}
+			}
+			add_stability = 0.10
+			add_war_support = 0.10
+			add_political_power = 100
+			add_ideas = BJ80_revolutionary_campus_idea
+			set_cosmetic_tag = BJ80_STUDENT_REPUBLIC
+			country_event = { id = BJ80_autonomy.10 days = 1 }
+		}
+	}
+
+	focus = {
+		id = BJ80_first_student_congress
+		icon = GFX_goal_support_democracy
+		prerequisite = { focus = BJ80_proclaim_student_republic }
+		x = 30
+		y = 7
+		cost = 5
+		completion_reward = {
+			# Overpowered student-autonomy baseline
+			add_political_power = 100
+			add_stability = 0.03
+			add_manpower = 2500
+			add_stability = 0.05
+			add_political_power = 75
+			BJ80_raise_autonomy_consensus = yes
+			country_event = { id = BJ80_autonomy.11 days = 1 }
+		}
+	}
+
+	# Chaoyang expansion
+	focus = {
+		id = BJ80_chaoyang_student_union_plan
+		icon = GFX_goal_generic_improve_relations
+		prerequisite = { focus = BJ80_first_student_congress }
+		x = 26
+		y = 8
+		cost = 5
+		completion_reward = {
+			# Overpowered student-autonomy baseline
+			add_political_power = 100
+			add_stability = 0.03
+			add_manpower = 2500
+			add_political_power = 50
+			add_ideas = BJ80_liberation_propaganda_idea
+			BJ80_raise_autonomy_consensus = yes
+		}
+	}
+
+	focus = {
+		id = BJ80_contact_neighboring_schools
+		icon = GFX_goal_generic_intelligence_exchange
+		prerequisite = { focus = BJ80_chaoyang_student_union_plan }
+		x = 25
+		y = 9
+		cost = 5
+		completion_reward = {
+			# Overpowered student-autonomy baseline
+			add_political_power = 100
+			add_stability = 0.03
+			add_manpower = 2500
+			country_event = { id = BJ80_autonomy.20 days = 1 }
+		}
+	}
+
+	focus = {
+		id = BJ80_chaoyang_unification_war
+		icon = GFX_goal_generic_major_war
+		prerequisite = { focus = BJ80_contact_neighboring_schools }
+		x = 25
+		y = 10
+		cost = 5
+		available = { HBC = { exists = yes } }
+		bypass = {
+			OR = {
+				HBC = { exists = no }
+				HBC = { is_subject_of = ROOT }
+			}
+		}
+		completion_reward = {
+			# Overpowered student-autonomy baseline
+			add_political_power = 100
+			add_stability = 0.03
+			add_manpower = 2500
+			add_war_support = 0.10
+			add_timed_idea = { idea = BJ80_liberation_war_idea days = 180 }
+			create_wargoal = { type = annex_everything target = HBC }
+		}
+	}
+
+	focus = {
+		id = BJ80_integrate_chaoyang_education_zone
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		prerequisite = { focus = BJ80_chaoyang_unification_war }
+		x = 25
+		y = 11
+		cost = 5
+		completion_reward = {
+			# Overpowered student-autonomy baseline
+			add_political_power = 100
+			add_stability = 0.03
+			add_manpower = 2500
+			add_political_power = 100
+			add_manpower = 1000
+			capital_scope = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			set_country_flag = BJ80_chaoyang_integration_enabled
+		}
+	}
+
+	# Beijing expansion
+	focus = {
+		id = BJ80_free_campus_declaration
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = BJ80_first_student_congress }
+		x = 34
+		y = 8
+		cost = 5
+		completion_reward = {
+			# Overpowered student-autonomy baseline
+			add_political_power = 100
+			add_stability = 0.03
+			add_manpower = 2500
+			add_war_support = 0.10
+			if = {
+				limit = { CHI = { exists = yes } }
+				CHI = { add_opinion_modifier = { target = ROOT modifier = BJ80_free_campus_declaration_opinion } }
+			}
+			country_event = { id = BJ80_autonomy.30 days = 1 }
+		}
+	}
+
+	focus = {
+		id = BJ80_liberate_oppressed_students
+		icon = GFX_goal_generic_dangerous_deal
+		prerequisite = { focus = BJ80_free_campus_declaration }
+		x = 35
+		y = 9
+		cost = 5
+		completion_reward = {
+			# Overpowered student-autonomy baseline
+			add_political_power = 100
+			add_stability = 0.03
+			add_manpower = 2500
+			add_ideas = BJ80_students_liberation_movement_idea
+			set_country_flag = BJ80_beijing_targeting_enabled
+			country_event = { id = BJ80_autonomy.31 days = 1 }
+		}
+	}
+
+	focus = {
+		id = BJ80_beijing_campus_revolution
+		icon = GFX_goal_generic_major_war
+		prerequisite = { focus = BJ80_liberate_oppressed_students }
+		x = 35
+		y = 10
+		cost = 5
+		available = { SND = { exists = yes } }
+		bypass = {
+			OR = {
+				SND = { exists = no }
+				SND = { is_subject_of = ROOT }
+			}
+		}
+		completion_reward = {
+			# Overpowered student-autonomy baseline
+			add_political_power = 100
+			add_stability = 0.03
+			add_manpower = 2500
+			add_war_support = 0.15
+			add_timed_idea = { idea = BJ80_revolutionary_offensive_idea days = 120 }
+			create_wargoal = { type = annex_everything target = SND }
+		}
+	}
+
+	focus = {
+		id = BJ80_new_beijing_republic
+		icon = GFX_goal_generic_national_unity
+		prerequisite = { focus = BJ80_beijing_campus_revolution }
+		prerequisite = { focus = BJ80_integrate_chaoyang_education_zone }
+		x = 30
+		y = 12
+		cost = 5
+		completion_reward = {
+			# Overpowered student-autonomy baseline
+			add_political_power = 100
+			add_stability = 0.03
+			add_manpower = 2500
+			add_manpower = 2500
+			capital_scope = {
+				add_extra_state_shared_building_slots = 5
+				add_building_construction = { type = industrial_complex level = 3 instant_build = yes }
+				add_building_construction = { type = arms_factory level = 2 instant_build = yes }
+			}
+			set_cosmetic_tag = BJ80_NEW_BEIJING_REPUBLIC
+			set_country_flag = BJ80_beijing_integration_enabled
+			add_ideas = BJ80_new_beijing_republic_idea
+		}
+	}
+
+	# National endgame
+	focus = {
+		id = BJ80_national_student_liberation_committee
+		icon = GFX_goal_generic_intelligence_exchange
+		prerequisite = { focus = BJ80_new_beijing_republic }
+		x = 30
+		y = 13
+		cost = 5
+		completion_reward = {
+			# Overpowered student-autonomy baseline
+			add_political_power = 100
+			add_stability = 0.03
+			add_manpower = 2500
+			add_political_power = 100
+			add_ideas = BJ80_national_liberation_committee_idea
+			country_event = { id = BJ80_autonomy.40 days = 1 }
+		}
+	}
+
+	focus = {
+		id = BJ80_north_china_education_revolution
+		icon = GFX_goal_generic_demand_territory
+		prerequisite = { focus = BJ80_national_student_liberation_committee }
+		x = 27
+		y = 14
+		cost = 5
+		completion_reward = {
+			# Overpowered student-autonomy baseline
+			add_political_power = 100
+			add_stability = 0.03
+			add_manpower = 2500
+			set_country_flag = BJ80_north_china_targeting_enabled
+			country_event = { id = BJ80_autonomy.41 days = 1 }
+		}
+	}
+
+	focus = {
+		id = BJ80_liberate_north_china_campuses
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		prerequisite = { focus = BJ80_north_china_education_revolution }
+		x = 27
+		y = 15
+		cost = 5
+		completion_reward = {
+			# Overpowered student-autonomy baseline
+			add_political_power = 100
+			add_stability = 0.03
+			add_manpower = 2500
+			add_manpower = 5000
+			capital_scope = {
+				add_extra_state_shared_building_slots = 5
+				add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+				add_building_construction = { type = arms_factory level = 3 instant_build = yes }
+			}
+			set_country_flag = BJ80_north_china_integration_enabled
+		}
+	}
+
+	focus = {
+		id = BJ80_call_to_the_nation
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = BJ80_national_student_liberation_committee }
+		x = 33
+		y = 14
+		cost = 5
+		completion_reward = {
+			# Overpowered student-autonomy baseline
+			add_political_power = 100
+			add_stability = 0.03
+			add_manpower = 2500
+			add_war_support = 0.10
+			add_ideas = BJ80_national_student_uprising_idea
+		}
+	}
+
+	focus = {
+		id = BJ80_free_campus_alliance
+		icon = GFX_goal_generic_alliance
+		prerequisite = { focus = BJ80_call_to_the_nation }
+		x = 33
+		y = 15
+		cost = 5
+		completion_reward = {
+			# Overpowered student-autonomy baseline
+			add_political_power = 100
+			add_stability = 0.03
+			add_manpower = 2500
+			if = {
+				limit = { is_in_faction = no }
+				create_faction = BJ80_FREE_CAMPUS_ALLIANCE
+			}
+			add_ideas = BJ80_free_campus_alliance_idea
+		}
+	}
+
+	focus = {
+		id = BJ80_republic_of_youth
+		icon = GFX_goal_generic_national_unity
+		prerequisite = { focus = BJ80_liberate_north_china_campuses }
+		prerequisite = { focus = BJ80_free_campus_alliance }
+		x = 30
+		y = 16
+		cost = 5
+		available = { has_war_support > 0.3 }
+		completion_reward = {
+			# Overpowered student-autonomy baseline
+			add_political_power = 100
+			add_stability = 0.03
+			add_manpower = 2500
+			set_cosmetic_tag = BJ80_CHINESE_STUDENT_REPUBLIC
+			add_ideas = BJ80_armed_youth_idea
+			add_stability = 0.10
+			add_war_support = 0.15
+			add_political_power = 200
+			set_country_flag = BJ80_national_integration_enabled
+		}
+	}
+
+	# BEGIN HAND-WRITTEN POLITICAL EXPANSION BRANCHES
+	shared_focus = B80_allied_public_broadcast
+	shared_focus = B80_discipline_code
+	shared_focus = B80_all_student_congress
+	# END HAND-WRITTEN POLITICAL EXPANSION BRANCHES
+
+	# BEGIN GENERATED LEGACY SHARED FOCUSES
+	shared_focus = B80_legacy_newfocus_9
+	shared_focus = B80_legacy_newfocus_8
+	shared_focus = B80_legacy_newfocus_5
+	shared_focus = B80_legacy_newfocus_3
+	shared_focus = B80_legacy_newfocus_0
+	shared_focus = B80_legacy_newfocus_1
+	shared_focus = B80_legacy_newfocus_2
+	shared_focus = B80_legacy_newfocus_4
+	shared_focus = B80_legacy_newfocus_10
+	shared_focus = B80_legacy_newfocus_6
+	shared_focus = B80_legacy_newfocus_7
+	shared_focus = B80_legacy_newfocus_11
+	shared_focus = B80_legacy_newfocus_21
+	shared_focus = B80_legacy_newfocus_20
+	shared_focus = B80_legacy_newfocus_19
+	shared_focus = B80_legacy_newfocus_23
+	shared_focus = B80_legacy_newfocus_38
+	shared_focus = B80_legacy_newfocus_22
+	shared_focus = B80_legacy_newfocus_14
+	shared_focus = B80_legacy_newfocus_33
+	shared_focus = B80_legacy_newfocus_12
+	shared_focus = B80_legacy_newfocus_15
+	shared_focus = B80_legacy_newfocus_35
+	shared_focus = B80_legacy_newfocus_13
+	shared_focus = B80_legacy_newfocus_17
+	shared_focus = B80_legacy_newfocus_16
+	shared_focus = B80_legacy_newfocus_34
+	shared_focus = B80_legacy_newfocus_18
+	shared_focus = B80_legacy_newfocus_36
+	shared_focus = B80_legacy_newfocus_25
+	shared_focus = B80_legacy_newfocus_29
+	shared_focus = B80_legacy_newfocus_26
+	shared_focus = B80_legacy_newfocus_30
+	shared_focus = B80_legacy_newfocus_24
+	shared_focus = B80_legacy_newfocus_37
+	shared_focus = B80_legacy_newfocus_27
+	shared_focus = B80_legacy_newfocus_31
+	shared_focus = B80_legacy_newfocus_28
+	shared_focus = B80_legacy_newfocus_32
+	shared_focus = B80_legacy_newfocus_55
+	shared_focus = B80_legacy_newfocus_56
+	shared_focus = B80_legacy_newfocus_59
+	shared_focus = B80_legacy_newfocus_57
+	shared_focus = B80_legacy_newfocus_58
+	shared_focus = B80_legacy_newfocus_54
+	shared_focus = B80_legacy_newfocus_65
+	shared_focus = B80_legacy_newfocus_61
+	shared_focus = B80_legacy_newfocus_63
+	shared_focus = B80_legacy_newfocus_60
+	shared_focus = B80_legacy_newfocus_62
+	shared_focus = B80_legacy_newfocus_64
+	shared_focus = B80_legacy_newfocus_67
+	shared_focus = B80_legacy_newfocus_77
+	shared_focus = B80_legacy_newfocus_73
+	shared_focus = B80_legacy_newfocus_72
+	shared_focus = B80_legacy_newfocus_76
+	shared_focus = B80_legacy_newfocus_53
+	shared_focus = B80_legacy_newfocus_66
+	shared_focus = B80_legacy_newfocus_68
+	shared_focus = B80_legacy_newfocus_78
+	shared_focus = B80_legacy_newfocus_74
+	shared_focus = B80_legacy_newfocus_69
+	shared_focus = B80_legacy_newfocus_71
+	shared_focus = B80_legacy_newfocus_75
+	shared_focus = B80_legacy_newfocus_70
+	shared_focus = B80_legacy_newfocus_81
+	shared_focus = B80_legacy_newfocus_80
+	shared_focus = B80_legacy_newfocus_83
+	shared_focus = B80_legacy_newfocus_82
+	shared_focus = B80_legacy_newfocus_92
+	shared_focus = B80_legacy_newfocus_43
+	shared_focus = B80_legacy_newfocus_79
+	shared_focus = B80_legacy_newfocus_84
+	shared_focus = B80_legacy_newfocus_87
+	shared_focus = B80_legacy_newfocus_47
+	shared_focus = B80_legacy_newfocus_90
+	shared_focus = B80_legacy_newfocus_44
+	shared_focus = B80_legacy_newfocus_85
+	shared_focus = B80_legacy_newfocus_88
+	shared_focus = B80_legacy_newfocus_91
+	shared_focus = B80_legacy_newfocus_40
+	shared_focus = B80_legacy_newfocus_52
+	shared_focus = B80_legacy_newfocus_86
+	shared_focus = B80_legacy_newfocus_89
+	shared_focus = B80_legacy_newfocus_48
+	shared_focus = B80_legacy_newfocus_39
+	shared_focus = B80_legacy_newfocus_38_5
+	shared_focus = B80_legacy_newfocus_51
+	shared_focus = B80_legacy_newfocus_99
+	shared_focus = B80_legacy_newfocus_41
+	shared_focus = B80_legacy_newfocus_96
+	shared_focus = B80_legacy_newfocus_102
+	shared_focus = B80_legacy_newfocus_49
+	shared_focus = B80_legacy_newfocus_95
+	shared_focus = B80_legacy_newfocus_98
+	shared_focus = B80_legacy_newfocus_100
+	shared_focus = B80_legacy_newfocus_42
+	shared_focus = B80_legacy_newfocus_93
+	shared_focus = B80_legacy_newfocus_97
+	shared_focus = B80_legacy_newfocus_103
+	shared_focus = B80_legacy_newfocus_101
+	shared_focus = B80_legacy_newfocus_45
+	shared_focus = B80_legacy_newfocus_108
+	shared_focus = B80_legacy_newfocus_111
+	shared_focus = B80_legacy_newfocus_116
+	shared_focus = B80_legacy_newfocus_50
+	shared_focus = B80_legacy_newfocus_114
+	shared_focus = B80_legacy_newfocus_46
+	shared_focus = B80_legacy_newfocus_106
+	shared_focus = B80_legacy_newfocus_109
+	shared_focus = B80_legacy_newfocus_112
+	shared_focus = B80_legacy_newfocus_117
+	shared_focus = B80_legacy_newfocus_115
+	shared_focus = B80_legacy_newfocus_110
+	shared_focus = B80_legacy_newfocus_113
+	shared_focus = B80_legacy_newfocus_118
+	shared_focus = B80_legacy_newfocus_94
+	shared_focus = B80_legacy_newfocus_119
+	shared_focus = B80_legacy_newfocus_122
+	shared_focus = B80_legacy_newfocus_123
+	shared_focus = B80_legacy_newfocus_125
+	shared_focus = B80_legacy_newfocus_107
+	shared_focus = B80_legacy_newfocus_121
+	shared_focus = B80_legacy_newfocus_127
+	shared_focus = B80_legacy_newfocus_124
+	shared_focus = B80_legacy_newfocus_156
+	shared_focus = B80_legacy_newfocus_120
+	# END GENERATED LEGACY SHARED FOCUSES
+}

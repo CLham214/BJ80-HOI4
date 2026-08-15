@@ -1,0 +1,288 @@
+ideas = {
+	country = {
+		# Admission pressure: only one tier should be active at a time.
+		B80_admission_pressure_relaxed = {
+			picture = generic_pp_unity_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				research_speed_factor = -0.03
+				stability_factor = 0.04
+				political_power_factor = 0.05
+			}
+		}
+
+		B80_admission_pressure_balanced = {
+			picture = generic_research_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				research_speed_factor = 0.04
+				stability_factor = 0.03
+				production_factory_efficiency_gain_factor = 0.03
+			}
+		}
+
+		B80_admission_pressure_intense = {
+			picture = generic_research_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				research_speed_factor = 0.07
+				industrial_capacity_factory = -0.03
+				stability_factor = -0.03
+				political_power_factor = -0.03
+			}
+		}
+
+		B80_admission_pressure_all_out = {
+			picture = generic_research_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				research_speed_factor = 0.10
+				industrial_capacity_factory = -0.08
+				production_speed_buildings_factor = -0.05
+				stability_factor = -0.06
+				political_power_factor = -0.08
+				consumer_goods_factor = 0.02
+			}
+		}
+
+		B80_admission_pressure_breaking_point = {
+			picture = generic_research_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				research_speed_factor = 0.12
+				industrial_capacity_factory = -0.15
+				production_speed_buildings_factor = -0.10
+				stability_factor = -0.10
+				political_power_factor = -0.15
+				consumer_goods_factor = 0.03
+			}
+		}
+
+		# The huge Wangjing cafeteria gradually becomes a national logistics school.
+		B80_cafeteria_queue = {
+			picture = generic_improved_industries
+			allowed = { original_tag = B80 }
+			modifier = {
+				supply_consumption_factor = -0.03
+				stability_factor = -0.02
+			}
+		}
+
+		B80_staggered_cafeteria = {
+			picture = generic_improved_industries
+			allowed = { original_tag = B80 }
+			modifier = {
+				supply_consumption_factor = -0.05
+				stability_factor = 0.02
+				production_factory_efficiency_gain_factor = 0.02
+			}
+		}
+
+		B80_central_cafeteria_system = {
+			picture = generic_improved_industries
+			allowed = { original_tag = B80 }
+			modifier = {
+				supply_consumption_factor = -0.10
+				attrition = -0.05
+				production_factory_max_efficiency_factor = 0.03
+				stability_factor = 0.03
+			}
+		}
+
+		# Club recruitment waves.
+		B80_club_science_wave = {
+			picture = generic_research_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				research_speed_factor = 0.05
+				production_factory_efficiency_gain_factor = 0.04
+			}
+		}
+
+		B80_club_arts_wave = {
+			picture = generic_democratic_opposition
+			allowed = { original_tag = B80 }
+			modifier = {
+				stability_factor = 0.06
+				political_power_factor = 0.05
+				drift_defence_factor = 0.05
+			}
+		}
+
+		B80_club_media_wave = {
+			picture = generic_spy_intel
+			allowed = { original_tag = B80 }
+			modifier = {
+				political_power_factor = 0.08
+				trade_opinion_factor = 0.15
+				intel_network_gain_factor = 0.05
+			}
+		}
+
+		B80_club_everything_wave = {
+			picture = generic_pp_unity_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				stability_factor = 0.04
+				research_speed_factor = 0.03
+				political_power_factor = 0.04
+				weekly_manpower = 75
+			}
+		}
+
+		# Running-exercise policies.
+		B80_compulsory_running = {
+			picture = generic_infantry_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				army_org_factor = 0.05
+				training_time_army_factor = -0.08
+				war_support_factor = 0.03
+				stability_factor = -0.03
+			}
+		}
+
+		B80_symbolic_running = {
+			picture = generic_infantry_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				army_org_factor = 0.02
+				training_time_army_factor = -0.03
+				stability_factor = 0.01
+			}
+		}
+
+		B80_skip_running = {
+			picture = generic_democratic_opposition
+			allowed = { original_tag = B80 }
+			modifier = {
+				stability_factor = 0.05
+				political_power_factor = 0.03
+				training_time_army_factor = 0.05
+			}
+		}
+
+		# Semester outcomes and short-lived campus moods.
+		B80_exam_sprint = {
+			picture = generic_research_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				research_speed_factor = 0.10
+				production_factory_efficiency_gain_factor = 0.05
+				stability_factor = -0.05
+				political_power_factor = -0.05
+			}
+		}
+
+		B80_balanced_semester = {
+			picture = generic_pp_unity_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				research_speed_factor = 0.04
+				stability_factor = 0.04
+				industrial_capacity_factory = 0.04
+			}
+		}
+
+		B80_academic_semester = {
+			picture = generic_research_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				research_speed_factor = 0.08
+				production_factory_efficiency_gain_factor = 0.04
+				consumer_goods_factor = 0.01
+			}
+		}
+
+		B80_vibrant_semester = {
+			picture = generic_democratic_opposition
+			allowed = { original_tag = B80 }
+			modifier = {
+				stability_factor = 0.08
+				political_power_factor = 0.08
+				conscription_factor = 0.05
+			}
+		}
+
+		B80_practical_semester = {
+			picture = generic_improved_industries
+			allowed = { original_tag = B80 }
+			modifier = {
+				industrial_capacity_factory = 0.06
+				production_speed_buildings_factor = 0.08
+				production_speed_arms_factory_factor = 0.05
+			}
+		}
+
+		B80_lunch_rush_instinct = {
+			picture = generic_army_asia_3
+			allowed = { original_tag = B80 }
+			modifier = {
+				army_speed_factor = 0.03
+				planning_speed = 0.05
+				attrition = -0.03
+			}
+		}
+
+		# Awarded after repeatedly balancing study, clubs and student well-being.
+		B80_wangjing_education_model = {
+			picture = generic_pp_unity_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				research_speed_factor = 0.05
+				stability_factor = 0.05
+				political_power_factor = 0.05
+				industrial_capacity_factory = 0.04
+				consumer_goods_factor = -0.02
+			}
+		}
+
+		# Ruide cohorts bring a smaller but deliberately different campus culture.
+		B80_ruide_science_cohort = {
+			picture = generic_research_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				research_speed_factor = 0.04
+				production_factory_efficiency_gain_factor = 0.02
+			}
+		}
+
+		B80_ruide_humanities_cohort = {
+			picture = generic_democratic_opposition
+			allowed = { original_tag = B80 }
+			modifier = {
+				political_power_factor = 0.06
+				stability_factor = 0.04
+			}
+		}
+
+		B80_ruide_engineering_cohort = {
+			picture = generic_improved_industries
+			allowed = { original_tag = B80 }
+			modifier = {
+				production_speed_buildings_factor = 0.06
+				production_factory_efficiency_gain_factor = 0.04
+			}
+		}
+
+		B80_ruide_allround_cohort = {
+			picture = generic_pp_unity_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				research_speed_factor = 0.02
+				stability_factor = 0.03
+				army_org_factor = 0.02
+			}
+		}
+
+		B80_academician_lecture = {
+			picture = generic_research_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				research_speed_factor = 0.06
+				research_sharing_per_country_bonus = 0.03
+				trade_opinion_factor = 0.10
+			}
+		}
+	}
+}

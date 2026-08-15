@@ -1,0 +1,396 @@
+# Bookkeeping and escalation for the international-reaction system.
+
+B80_clamp_opponent_values = {
+	clamp_variable = { var = B80_expansion_alarm min = 0 max = 100 }
+	clamp_variable = { var = B80_diplomatic_victories min = 0 max = 10 }
+}
+
+B80_add_alarm_5 = {
+	add_to_variable = { B80_expansion_alarm = 5 }
+	B80_clamp_opponent_values = yes
+}
+
+B80_add_alarm_10 = {
+	add_to_variable = { B80_expansion_alarm = 10 }
+	B80_clamp_opponent_values = yes
+}
+
+B80_add_alarm_15 = {
+	add_to_variable = { B80_expansion_alarm = 15 }
+	B80_clamp_opponent_values = yes
+}
+
+B80_add_alarm_20 = {
+	add_to_variable = { B80_expansion_alarm = 20 }
+	B80_clamp_opponent_values = yes
+}
+
+B80_reduce_alarm_5 = {
+	subtract_from_variable = { B80_expansion_alarm = 5 }
+	B80_clamp_opponent_values = yes
+}
+
+B80_reduce_alarm_10 = {
+	subtract_from_variable = { B80_expansion_alarm = 10 }
+	B80_clamp_opponent_values = yes
+}
+
+B80_reduce_alarm_15 = {
+	subtract_from_variable = { B80_expansion_alarm = 15 }
+	B80_clamp_opponent_values = yes
+}
+
+B80_reduce_alarm_20 = {
+	subtract_from_variable = { B80_expansion_alarm = 20 }
+	B80_clamp_opponent_values = yes
+}
+
+B80_record_diplomatic_victory = {
+	add_to_variable = { B80_diplomatic_victories = 1 }
+	B80_reduce_alarm_15 = yes
+}
+
+B80_clear_hostile_ai_strategies = {
+	if = {
+		limit = { CHI = { exists = yes } }
+		CHI = {
+			add_ai_strategy = { type = antagonize id = B80 value = -200 }
+			add_ai_strategy = { type = conquer id = B80 value = -200 }
+			add_ai_strategy = { type = declare_war id = B80 value = -200 }
+		}
+	}
+	if = {
+		limit = { JAP = { exists = yes } }
+		JAP = {
+			add_ai_strategy = { type = antagonize id = B80 value = -200 }
+			add_ai_strategy = { type = conquer id = B80 value = -200 }
+			add_ai_strategy = { type = declare_war id = B80 value = -200 }
+		}
+	}
+}
+
+B80_initialize_opponent_system = {
+	if = {
+		limit = { NOT = { has_country_flag = B80_opponent_system_initialized } }
+		set_country_flag = B80_opponent_system_initialized
+		set_variable = { B80_expansion_alarm = 0 }
+		set_variable = { B80_diplomatic_victories = 0 }
+		B80_clamp_opponent_values = yes
+	}
+}
+
+# Territorial size is sampled monthly. Each milestone is paid only once, so a
+# large annexation cannot produce a monthly feedback loop.
+B80_update_expansion_milestones = {
+	if = {
+		limit = {
+			check_variable = { num_owned_states > 1 }
+			NOT = { has_country_flag = B80_alarm_milestone_1 }
+		}
+		set_country_flag = B80_alarm_milestone_1
+		B80_add_alarm_10 = yes
+	}
+	if = {
+		limit = {
+			check_variable = { num_owned_states > 4 }
+			NOT = { has_country_flag = B80_alarm_milestone_2 }
+		}
+		set_country_flag = B80_alarm_milestone_2
+		B80_add_alarm_15 = yes
+	}
+	if = {
+		limit = {
+			check_variable = { num_owned_states > 8 }
+			NOT = { has_country_flag = B80_alarm_milestone_3 }
+		}
+		set_country_flag = B80_alarm_milestone_3
+		B80_add_alarm_20 = yes
+	}
+	if = {
+		limit = {
+			check_variable = { num_owned_states > 15 }
+			NOT = { has_country_flag = B80_alarm_milestone_4 }
+		}
+		set_country_flag = B80_alarm_milestone_4
+		B80_add_alarm_20 = yes
+	}
+	if = {
+		limit = {
+			check_variable = { num_owned_states > 25 }
+			NOT = { has_country_flag = B80_alarm_milestone_5 }
+		}
+		set_country_flag = B80_alarm_milestone_5
+		B80_add_alarm_20 = yes
+	}
+}
+
+B80_arm_frontier_states = {
+	if = {
+		limit = { HBC = { exists = yes } }
+		HBC = {
+			add_ideas = B80_frontier_mobilization
+			add_ideas = B80_foreign_arms_mission
+			add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1000 producer = CHI }
+			add_manpower = 10000
+		}
+	}
+	if = {
+		limit = { SND = { exists = yes } }
+		SND = {
+			add_ideas = B80_frontier_mobilization
+			add_ideas = B80_foreign_arms_mission
+			add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1000 producer = CHI }
+			add_manpower = 10000
+		}
+	}
+}
+
+B80_form_chinese_containment = {
+	CHI = {
+		set_country_flag = B80_containment_leader
+		add_ideas = B80_containment_defense_plan
+		add_ai_strategy = { type = antagonize id = B80 value = 100 }
+		add_ai_strategy = { type = conquer id = B80 value = 40 }
+		if = { limit = { HBC = { exists = yes } } give_guarantee = HBC }
+		if = { limit = { SND = { exists = yes } } give_guarantee = SND }
+	}
+	B80_arm_frontier_states = yes
+}
+
+B80_form_japanese_containment = {
+	JAP = {
+		set_country_flag = B80_containment_leader
+		add_ideas = B80_containment_defense_plan
+		add_ai_strategy = { type = antagonize id = B80 value = 100 }
+		add_ai_strategy = { type = conquer id = B80 value = 40 }
+		if = { limit = { MEN = { exists = yes } } give_guarantee = MEN }
+		if = { limit = { MAN = { exists = yes } } give_guarantee = MAN }
+	}
+	if = {
+		limit = { MEN = { exists = yes } }
+		MEN = {
+			add_ideas = B80_frontier_mobilization
+			add_ideas = B80_foreign_arms_mission
+			add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1200 producer = JAP }
+		}
+	}
+	if = {
+		limit = { MAN = { exists = yes } }
+		MAN = {
+			add_ideas = B80_frontier_mobilization
+			add_ideas = B80_foreign_arms_mission
+			add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1200 producer = JAP }
+		}
+	}
+}
+
+# A deliberately smaller response than a full containment bloc: the major
+# strengthens the frontier but accepts no guarantee and no leadership role.
+B80_prepare_limited_frontier_defense = {
+	add_ideas = B80_containment_defense_plan
+	add_ai_strategy = { type = antagonize id = B80 value = 40 }
+	if = {
+		limit = { original_tag = CHI }
+		if = {
+			limit = { HBC = { exists = yes } }
+			HBC = {
+				add_ideas = B80_frontier_mobilization
+				add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 750 producer = CHI }
+			}
+		}
+		if = {
+			limit = { SND = { exists = yes } }
+			SND = {
+				add_ideas = B80_frontier_mobilization
+				add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 750 producer = CHI }
+			}
+		}
+	}
+	else_if = {
+		limit = { original_tag = JAP }
+		if = {
+			limit = { MEN = { exists = yes } }
+			MEN = {
+				add_ideas = B80_frontier_mobilization
+				add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 750 producer = JAP }
+			}
+		}
+		if = {
+			limit = { MAN = { exists = yes } }
+			MAN = {
+				add_ideas = B80_frontier_mobilization
+				add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 750 producer = JAP }
+			}
+		}
+	}
+}
+
+# Find the most plausible outside patron without forcing faction membership.
+B80_receive_route_patron_support = {
+	if = {
+		limit = { has_completed_focus = B80_legacy_newfocus_9 ENG = { exists = yes } }
+		ENG = {
+			add_opinion_modifier = { target = B80 modifier = B80_patron_of_campus_opinion }
+			add_ai_strategy = { type = protect id = B80 value = 100 }
+		}
+		add_ideas = B80_patron_dependency
+		add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1800 producer = ENG }
+		add_offsite_building = { type = arms_factory level = 1 }
+	}
+	else_if = {
+		limit = { has_completed_focus = B80_legacy_newfocus_11 SOV = { exists = yes } }
+		SOV = {
+			add_opinion_modifier = { target = B80 modifier = B80_patron_of_campus_opinion }
+			add_ai_strategy = { type = protect id = B80 value = 100 }
+		}
+		add_ideas = B80_patron_dependency
+		add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1800 producer = SOV }
+		add_manpower = 10000
+	}
+	else_if = {
+		limit = {
+			has_completed_focus = B80_legacy_newfocus_12
+			NOT = { has_completed_focus = B80_legacy_newfocus_23 }
+			JAP = { exists = yes }
+		}
+		JAP = {
+			add_opinion_modifier = { target = B80 modifier = B80_patron_of_campus_opinion }
+			add_ai_strategy = { type = protect id = B80 value = 100 }
+		}
+		add_ideas = B80_patron_dependency
+		add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1600 producer = JAP }
+		add_equipment_to_stockpile = { type = support_equipment_1 amount = 300 producer = JAP }
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_completed_focus = BJ80_the_school_belongs_to_students
+				has_completed_focus = B80_legacy_newfocus_23
+			}
+			USA = { exists = yes }
+		}
+		USA = {
+			add_opinion_modifier = { target = B80 modifier = B80_patron_of_campus_opinion }
+			add_ai_strategy = { type = protect id = B80 value = 75 }
+		}
+		add_ideas = B80_patron_dependency
+		add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1500 producer = USA }
+		add_offsite_building = { type = industrial_complex level = 1 }
+	}
+	add_timed_idea = { idea = B80_wartime_foreign_support days = 180 }
+	B80_reduce_alarm_10 = yes
+}
+
+B80_secure_international_recognition = {
+	set_country_flag = B80_international_recognition_secured
+	set_variable = { B80_expansion_alarm = 25 }
+	add_to_variable = { B80_diplomatic_victories = 1 }
+	remove_ideas = {
+		B80_targeted_sanctions
+		B80_border_observers
+		B80_boundary_freeze_inspection
+	}
+	add_ideas = B80_internationally_recognized_campus
+	add_political_power = 150
+	add_stability = 0.05
+	B80_clear_hostile_ai_strategies = yes
+	if = { limit = { CHI = { exists = yes } } CHI = { add_opinion_modifier = { target = B80 modifier = B80_recognized_campus_opinion } } }
+	if = { limit = { JAP = { exists = yes } } JAP = { add_opinion_modifier = { target = B80 modifier = B80_recognized_campus_opinion } } }
+	if = { limit = { PRC = { exists = yes } } PRC = { add_opinion_modifier = { target = B80 modifier = B80_recognized_campus_opinion } } }
+	B80_clamp_opponent_values = yes
+}
+
+B80_end_containment_crisis = {
+	clr_country_flag = B80_crisis_active
+	clr_country_flag = B80_crisis_against_china
+	clr_country_flag = B80_crisis_against_japan
+	if = { limit = { has_active_mission = B80_containment_crisis_countdown } remove_mission = B80_containment_crisis_countdown }
+}
+
+# Monthly stage dispatcher. Stages are one-shot, but military aggression may
+# continue to increase the visible alarm after all narrative stages have fired.
+B80_update_opponent_reaction = {
+	if = { limit = { NOT = { has_country_flag = B80_opponent_system_initialized } } B80_initialize_opponent_system = yes }
+	B80_update_expansion_milestones = yes
+	if = {
+		limit = { has_war = yes }
+		add_to_variable = { B80_expansion_alarm = 2 }
+	}
+	else_if = {
+		limit = { check_variable = { B80_school_reputation > 69 } }
+		subtract_from_variable = { B80_expansion_alarm = 2 }
+	}
+	B80_clamp_opponent_values = yes
+
+	if = {
+		limit = {
+			check_variable = { B80_expansion_alarm > 9 }
+			NOT = { has_country_flag = B80_opposition_stage_1 }
+		}
+		set_country_flag = B80_opposition_stage_1
+		country_event = { id = B80_opponents.1 days = 2 }
+	}
+	else_if = {
+		limit = {
+			check_variable = { B80_expansion_alarm > 24 }
+			has_country_flag = B80_opposition_stage_1
+			NOT = { has_country_flag = B80_opposition_stage_2 }
+		}
+		set_country_flag = B80_opposition_stage_2
+		if = { limit = { CHI = { exists = yes NOT = { has_war_with = B80 } } } CHI = { country_event = { id = B80_opponents.10 days = 2 } } }
+		if = { limit = { JAP = { exists = yes NOT = { has_war_with = B80 } } } JAP = { country_event = { id = B80_opponents.20 days = 4 } } }
+		if = { limit = { PRC = { exists = yes NOT = { has_war_with = B80 } } } PRC = { country_event = { id = B80_opponents.30 days = 6 } } }
+	}
+	else_if = {
+		limit = {
+			check_variable = { B80_expansion_alarm > 44 }
+			has_country_flag = B80_opposition_stage_2
+			NOT = { has_country_flag = B80_opposition_stage_3 }
+		}
+		set_country_flag = B80_opposition_stage_3
+		country_event = { id = B80_opponents.40 days = 2 }
+	}
+	else_if = {
+		limit = {
+			check_variable = { B80_expansion_alarm > 64 }
+			has_country_flag = B80_opposition_stage_3
+			NOT = { has_country_flag = B80_opposition_stage_4 }
+			OR = {
+				CHI = { exists = yes NOT = { has_war_with = B80 } NOT = { is_in_faction_with = B80 } }
+				JAP = { exists = yes NOT = { has_war_with = B80 } NOT = { is_in_faction_with = B80 } }
+			}
+		}
+		set_country_flag = B80_opposition_stage_4
+		if = {
+			limit = { CHI = { exists = yes NOT = { has_war_with = B80 } NOT = { is_in_faction_with = B80 } } }
+			CHI = { country_event = { id = B80_opponents.50 days = 2 } }
+		}
+		else_if = {
+			limit = { JAP = { exists = yes NOT = { has_war_with = B80 } NOT = { is_in_faction_with = B80 } } }
+			JAP = { country_event = { id = B80_opponents.50 days = 2 } }
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = { B80_expansion_alarm > 84 }
+			has_country_flag = B80_opposition_stage_4
+			NOT = { has_country_flag = B80_opposition_stage_5 }
+			NOT = { has_war = yes }
+			OR = {
+				CHI = { exists = yes NOT = { has_war_with = B80 } NOT = { is_in_faction_with = B80 } }
+				JAP = { exists = yes NOT = { has_war_with = B80 } NOT = { is_in_faction_with = B80 } }
+			}
+		}
+		set_country_flag = B80_opposition_stage_5
+		if = {
+			limit = { CHI = { exists = yes NOT = { has_war_with = B80 } NOT = { is_in_faction_with = B80 } } }
+			set_country_flag = B80_crisis_against_china
+			CHI = { country_event = { id = B80_opponents.60 days = 2 } }
+		}
+		else_if = {
+			limit = { JAP = { exists = yes NOT = { has_war_with = B80 } NOT = { is_in_faction_with = B80 } } }
+			set_country_flag = B80_crisis_against_japan
+			JAP = { country_event = { id = B80_opponents.60 days = 2 } }
+		}
+	}
+}

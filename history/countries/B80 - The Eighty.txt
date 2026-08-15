@@ -1,0 +1,80 @@
+capital = 608
+
+set_research_slots = 3
+
+set_stability = 0.70
+set_war_support = 0.15
+
+set_technology = {
+	infantry_weapons = 1
+	tech_support = 1
+	electronic_mechanical_engineering = 1
+	basic_machine_tools = 1
+}
+
+set_politics = {
+	ruling_party = neutrality
+	last_election = "1935.9.1"
+	election_frequency = 24
+	elections_allowed = no
+}
+
+set_popularities = {
+	neutrality = 45
+	democratic = 40
+	communism = 10
+	fascism = 5
+}
+
+recruit_character = B80_ren_weidong
+recruit_character = B80_luo_jingqing
+recruit_character = B80_li_ding
+recruit_character = B80_liang_jifeng
+recruit_character = B80_liu_yida
+recruit_character = B80_wu_wenqi
+recruit_character = B80_shi_jiaao
+recruit_character = B80_li_ruicheng
+recruit_character = B80_li_weisi
+recruit_character = B80_song_sitong
+recruit_character = B80_huang_zhenyu
+recruit_character = B80_zhang_zihan
+
+# 八十中自开局拥有全中国的核心。
+every_state = {
+	limit = {
+		OR = {
+			is_core_of = CHI
+			is_core_of = PRC
+			is_core_of = GXC
+			is_core_of = YUN
+			is_core_of = SHX
+			is_core_of = XSM
+			is_core_of = SIK
+			is_core_of = MAN
+			is_core_of = MEN
+			is_core_of = HBC
+			is_core_of = SND
+		}
+	}
+	add_core_of = B80
+}
+
+add_ideas = B80_eighty_education_legacy
+add_ideas = B80_gaokao_pressure
+add_ideas = B80_campus_autonomy_tradition
+add_ideas = B80_protagonist_campus
+
+# The Wangjing semester system is available from day one. Players receive the
+# introduction on the first day; AI is initialized defensively by on_startup.
+B80_initialize_campus_system = yes
+B80_initialize_opponent_system = yes
+
+add_manpower = 10000
+
+oob = "B80_1936"
+
+add_equipment_to_stockpile = {
+	type = infantry_equipment_0
+	amount = 3000
+	producer = B80
+}

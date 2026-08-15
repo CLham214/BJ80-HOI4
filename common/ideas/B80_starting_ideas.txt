@@ -1,0 +1,49 @@
+ideas = {
+	country = {
+		B80_eighty_education_legacy = {
+			picture = generic_research_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				research_speed_factor = 0.25
+				stability_factor = 0.15
+				conscription_factor = 0.20
+			}
+		}
+
+		B80_gaokao_pressure = {
+			picture = generic_research_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				research_speed_factor = 0.15
+				industrial_capacity_factory = 0.15
+				production_factory_efficiency_gain_factor = 0.10
+				war_support_factor = 0.10
+			}
+		}
+
+		B80_campus_autonomy_tradition = {
+			picture = generic_democratic_opposition
+			allowed = { original_tag = B80 }
+			modifier = {
+				political_power_gain = 0.25
+				production_speed_buildings_factor = 0.20
+			}
+		}
+
+		B80_protagonist_campus = {
+			picture = generic_pp_unity_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				industrial_capacity_factory = 0.20
+				production_factory_efficiency_gain_factor = 0.15
+				research_speed_factor = 0.10
+				army_attack_factor = 0.15
+				army_defence_factor = 0.20
+				army_org_factor = 0.10
+				attrition = -0.25
+				supply_consumption_factor = -0.20
+				weekly_manpower = 250
+			}
+		}
+	}
+}

@@ -1,0 +1,274 @@
+add_namespace = BJ80_autonomy
+
+country_event = {
+	id = BJ80_autonomy.1
+	title = BJ80_autonomy.1.t
+	desc = BJ80_autonomy.1.d
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+
+	option = {
+		name = BJ80_autonomy.1.a
+		ai_chance = { factor = 50 }
+		BJ80_civilian_boom_reward = yes
+		BJ80_raise_autonomy_consensus = yes
+	}
+	option = {
+		name = BJ80_autonomy.1.b
+		ai_chance = { factor = 30 }
+		BJ80_science_boom_reward = yes
+		add_offsite_building = { type = industrial_complex level = 2 }
+	}
+	option = {
+		name = BJ80_autonomy.1.c
+		ai_chance = { factor = 20 }
+		BJ80_military_boom_reward = yes
+		add_war_support = 0.10
+		BJ80_lower_autonomy_consensus = yes
+	}
+}
+
+country_event = {
+	id = BJ80_autonomy.10
+	title = BJ80_autonomy.10.t
+	desc = BJ80_autonomy.10.d
+	picture = GFX_report_event_generic_crowd
+	is_triggered_only = yes
+
+	option = {
+		name = BJ80_autonomy.10.a
+		add_stability = 0.15
+		add_political_power = 250
+		BJ80_raise_autonomy_consensus = yes
+		add_offsite_building = { type = industrial_complex level = 3 }
+	}
+	option = {
+		name = BJ80_autonomy.10.b
+		add_war_support = 0.20
+		BJ80_military_boom_reward = yes
+		add_offsite_building = { type = arms_factory level = 3 }
+	}
+	option = {
+		name = BJ80_autonomy.10.c
+		BJ80_science_boom_reward = yes
+		add_offsite_building = { type = industrial_complex level = 3 }
+		add_offsite_building = { type = arms_factory level = 3 }
+	}
+}
+
+country_event = {
+	id = BJ80_autonomy.11
+	title = BJ80_autonomy.11.t
+	desc = BJ80_autonomy.11.d
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+
+	option = {
+		name = BJ80_autonomy.11.a
+		BJ80_civilian_boom_reward = yes
+		add_offsite_building = { type = industrial_complex level = 3 }
+		BJ80_raise_autonomy_consensus = yes
+	}
+	option = {
+		name = BJ80_autonomy.11.b
+		BJ80_military_boom_reward = yes
+		add_offsite_building = { type = arms_factory level = 3 }
+		add_war_support = 0.15
+	}
+	option = {
+		name = BJ80_autonomy.11.c
+		BJ80_science_boom_reward = yes
+		add_tech_bonus = { name = BJ80_congress_industry_bonus bonus = 1.0 uses = 4 category = industry }
+		BJ80_raise_autonomy_consensus = yes
+	}
+}
+
+# 周边学校：和平扩张、美国投资、苏联军援三选一。
+country_event = {
+	id = BJ80_autonomy.20
+	title = BJ80_autonomy.20.t
+	desc = BJ80_autonomy.20.d
+	picture = GFX_report_event_generic_diplomacy
+	is_triggered_only = yes
+
+	option = {
+		name = BJ80_autonomy.20.a
+		trigger = { HBC = { exists = yes } }
+		ai_chance = { factor = 60 }
+		HBC = { every_owned_state = { add_core_of = B80 } }
+		annex_country = { target = HBC transfer_troops = yes }
+		BJ80_civilian_boom_reward = yes
+		add_stability = 0.10
+		BJ80_raise_autonomy_consensus = yes
+		set_country_flag = BJ80_peacefully_integrated_hbc
+	}
+	option = {
+		name = BJ80_autonomy.20.b
+		ai_chance = { factor = 25 }
+		USA = { give_guarantee = B80 }
+		add_offsite_building = { type = industrial_complex level = 7 }
+		add_offsite_building = { type = arms_factory level = 3 }
+		add_research_slot = 1
+		add_equipment_to_stockpile = { type = motorized_equipment_1 amount = 1000 producer = USA }
+		add_stability = 0.10
+	}
+	option = {
+		name = BJ80_autonomy.20.c
+		ai_chance = { factor = 15 }
+		SOV = { give_guarantee = B80 }
+		BJ80_military_boom_reward = yes
+		add_offsite_building = { type = arms_factory level = 5 }
+		add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 5000 producer = SOV }
+		add_war_support = 0.20
+	}
+}
+
+# 大国保护：每种选择都给保独，但发展方向不同。
+country_event = {
+	id = BJ80_autonomy.30
+	title = BJ80_autonomy.30.t
+	desc = BJ80_autonomy.30.d
+	picture = GFX_report_event_generic_propaganda
+	is_triggered_only = yes
+
+	option = {
+		name = BJ80_autonomy.30.a
+		USA = { give_guarantee = B80 }
+		add_offsite_building = { type = industrial_complex level = 8 }
+		BJ80_science_boom_reward = yes
+		add_stability = 0.10
+	}
+	option = {
+		name = BJ80_autonomy.30.b
+		SOV = { give_guarantee = B80 }
+		add_offsite_building = { type = arms_factory level = 8 }
+		BJ80_military_boom_reward = yes
+		add_war_support = 0.20
+	}
+	option = {
+		name = BJ80_autonomy.30.c
+		CHI = { give_guarantee = B80 }
+		BJ80_civilian_boom_reward = yes
+		BJ80_military_boom_reward = yes
+		add_stability = 0.15
+	}
+}
+
+# 山东问题：完整吞并、附属国或战争准备。
+country_event = {
+	id = BJ80_autonomy.31
+	title = BJ80_autonomy.31.t
+	desc = BJ80_autonomy.31.d
+	picture = GFX_report_event_generic_diplomacy
+	is_triggered_only = yes
+
+	option = {
+		name = BJ80_autonomy.31.a
+		trigger = { SND = { exists = yes } }
+		ai_chance = { factor = 55 }
+		SND = { every_owned_state = { add_core_of = B80 } }
+		annex_country = { target = SND transfer_troops = yes }
+		add_offsite_building = { type = industrial_complex level = 5 }
+		add_offsite_building = { type = arms_factory level = 5 }
+		add_manpower = 10000
+		BJ80_raise_autonomy_consensus = yes
+		set_country_flag = BJ80_peacefully_integrated_snd
+	}
+	option = {
+		name = BJ80_autonomy.31.b
+		trigger = { SND = { exists = yes } }
+		ai_chance = { factor = 25 }
+		puppet = SND
+		add_offsite_building = { type = industrial_complex level = 4 }
+		add_offsite_building = { type = arms_factory level = 4 }
+		add_political_power = 250
+	}
+	option = {
+		name = BJ80_autonomy.31.c
+		ai_chance = { factor = 20 }
+		BJ80_military_boom_reward = yes
+		add_offsite_building = { type = arms_factory level = 5 }
+		add_war_support = 0.25
+		set_country_flag = BJ80_beijing_target_selected
+	}
+}
+
+country_event = {
+	id = BJ80_autonomy.40
+	title = BJ80_autonomy.40.t
+	desc = BJ80_autonomy.40.d
+	picture = GFX_report_event_generic_crowd
+	is_triggered_only = yes
+
+	option = {
+		name = BJ80_autonomy.40.a
+		if = {
+			limit = { HBC = { exists = yes } }
+			HBC = { every_owned_state = { add_core_of = B80 } }
+			annex_country = { target = HBC transfer_troops = yes }
+		}
+		if = {
+			limit = { SND = { exists = yes } }
+			SND = { every_owned_state = { add_core_of = B80 } }
+			annex_country = { target = SND transfer_troops = yes }
+		}
+		BJ80_civilian_boom_reward = yes
+		BJ80_military_boom_reward = yes
+		add_stability = 0.15
+	}
+	option = {
+		name = BJ80_autonomy.40.b
+		USA = { give_guarantee = B80 }
+		SOV = { give_guarantee = B80 }
+		add_offsite_building = { type = industrial_complex level = 10 }
+		add_offsite_building = { type = arms_factory level = 5 }
+		BJ80_science_boom_reward = yes
+	}
+	option = {
+		name = BJ80_autonomy.40.c
+		add_offsite_building = { type = arms_factory level = 12 }
+		BJ80_military_boom_reward = yes
+		add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 15000 producer = B80 }
+		add_equipment_to_stockpile = { type = artillery_equipment_1 amount = 1500 producer = B80 }
+		add_manpower = 20000
+		army_experience = 100
+	}
+}
+
+country_event = {
+	id = BJ80_autonomy.41
+	title = BJ80_autonomy.41.t
+	desc = BJ80_autonomy.41.d
+	picture = GFX_report_event_generic_major_war
+	is_triggered_only = yes
+
+	option = {
+		name = BJ80_autonomy.41.a
+		608 = { transfer_state_to = B80 add_core_of = B80 }
+		611 = { transfer_state_to = B80 add_core_of = B80 }
+		614 = { transfer_state_to = B80 add_core_of = B80 }
+		597 = { transfer_state_to = B80 add_core_of = B80 }
+		add_offsite_building = { type = industrial_complex level = 8 }
+		add_offsite_building = { type = arms_factory level = 8 }
+		add_manpower = 30000
+		add_stability = 0.15
+	}
+	option = {
+		name = BJ80_autonomy.41.b
+		USA = { give_guarantee = B80 }
+		SOV = { give_guarantee = B80 }
+		CHI = { give_guarantee = B80 }
+		BJ80_civilian_boom_reward = yes
+		BJ80_military_boom_reward = yes
+		BJ80_science_boom_reward = yes
+	}
+	option = {
+		name = BJ80_autonomy.41.c
+		if = { limit = { CHI = { exists = yes } } create_wargoal = { type = annex_everything target = CHI } }
+		BJ80_military_boom_reward = yes
+		add_offsite_building = { type = arms_factory level = 10 }
+		add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 20000 producer = B80 }
+		add_manpower = 30000
+		add_war_support = 0.30
+	}
+}

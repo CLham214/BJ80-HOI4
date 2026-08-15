@@ -1,0 +1,15 @@
+on_actions = {
+	on_startup = {
+		effect = {
+			B80 = {
+				if = {
+					limit = {
+						exists = yes
+						is_ai = yes
+					}
+					B80_initialize_campus_system = yes
+				}
+			}
+		}
+	}
+}

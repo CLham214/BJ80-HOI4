@@ -1,0 +1,21 @@
+B80_has_semester_project_slot = {
+	OR = {
+		check_variable = { B80_semester_projects < 3 }
+		AND = {
+			has_completed_focus = BJ80_the_school_belongs_to_students
+			check_variable = { B80_semester_projects < 4 }
+		}
+	}
+}
+
+B80_can_spend_25_reputation = {
+	check_variable = { B80_school_reputation > 24 }
+}
+
+B80_can_spend_35_reputation = {
+	check_variable = { B80_school_reputation > 34 }
+}
+
+B80_can_spend_40_reputation = {
+	check_variable = { B80_school_reputation > 39 }
+}

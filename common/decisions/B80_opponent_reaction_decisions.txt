@@ -1,0 +1,235 @@
+B80_opponent_reaction_category = {
+	B80_hold_press_conference = {
+		icon = generic_political_discourse
+		cost = 50
+		days_remove = 7
+		days_re_enable = 90
+		visible = { check_variable = { B80_expansion_alarm > 9 } }
+		available = { has_war = no }
+		complete_effect = {
+			B80_reduce_alarm_10 = yes
+			add_to_variable = { B80_school_reputation = 3 }
+			if = { limit = { has_idea = B80_open_campus_diplomacy } B80_reduce_alarm_5 = yes }
+			B80_clamp_campus_values = yes
+		}
+		ai_will_do = { factor = 2 modifier = { factor = 3 check_variable = { B80_expansion_alarm > 64 } } }
+	}
+
+	B80_backchannel_diplomacy = {
+		icon = generic_political_discourse
+		cost = 100
+		days_remove = 14
+		days_re_enable = 150
+		visible = { check_variable = { B80_expansion_alarm > 24 } }
+		available = { check_variable = { B80_school_reputation > 19 } }
+		complete_effect = {
+			subtract_from_variable = { B80_school_reputation = 20 }
+			B80_reduce_alarm_15 = yes
+			if = { limit = { CHI = { exists = yes } } CHI = { add_opinion_modifier = { target = B80 modifier = B80_mediated_crisis_opinion } } }
+			if = { limit = { JAP = { exists = yes } } JAP = { add_opinion_modifier = { target = B80 modifier = B80_mediated_crisis_opinion } } }
+			B80_clamp_campus_values = yes
+		}
+		ai_will_do = { factor = 1 }
+	}
+
+	B80_stage_campus_exercise = {
+		icon = generic_military
+		cost = 35
+		days_remove = 7
+		days_re_enable = 120
+		visible = { check_variable = { B80_expansion_alarm > 24 } }
+		complete_effect = {
+			B80_add_alarm_5 = yes
+			army_experience = 20
+			add_war_support = 0.03
+			add_timed_idea = { idea = B80_encircled_campus_mobilization days = 60 }
+		}
+		ai_will_do = { factor = 0.5 modifier = { factor = 4 has_war = yes } }
+	}
+
+	B80_reduce_alarm_with_exchange = {
+		icon = generic_political_discourse
+		cost = 25
+		days_remove = 10
+		days_re_enable = 120
+		visible = { has_country_flag = B80_campus_system_initialized }
+		available = { check_variable = { B80_school_reputation > 14 } }
+		complete_effect = {
+			subtract_from_variable = { B80_school_reputation = 15 }
+			B80_reduce_alarm_10 = yes
+			if = {
+				limit = { NOT = { has_idea = B80_open_campus_diplomacy } }
+				add_ideas = B80_open_campus_diplomacy
+			}
+			B80_clamp_campus_values = yes
+		}
+		ai_will_do = { factor = 1.5 }
+	}
+
+	B80_appeal_to_china = {
+		icon = generic_political_address
+		cost = 40
+		days_remove = 10
+		days_re_enable = 180
+		visible = { CHI = { exists = yes } }
+		available = { NOT = { has_war_with = CHI } }
+		complete_effect = {
+			CHI = { add_opinion_modifier = { target = B80 modifier = B80_mediated_crisis_opinion } }
+			B80_reduce_alarm_5 = yes
+		}
+		ai_will_do = { factor = 1 }
+	}
+
+	B80_appeal_to_japan = {
+		icon = generic_political_address
+		cost = 40
+		days_remove = 10
+		days_re_enable = 180
+		visible = { JAP = { exists = yes } }
+		available = { NOT = { has_war_with = JAP } }
+		complete_effect = {
+			JAP = { add_opinion_modifier = { target = B80 modifier = B80_mediated_crisis_opinion } }
+			B80_reduce_alarm_5 = yes
+			if = { limit = { has_completed_focus = B80_legacy_newfocus_12 } B80_reduce_alarm_5 = yes }
+		}
+		ai_will_do = { factor = 1 }
+	}
+
+	B80_prepare_frontier_agents = {
+		icon = generic_military
+		cost = 50
+		days_remove = 14
+		days_re_enable = 180
+		visible = { check_variable = { B80_expansion_alarm > 24 } }
+		complete_effect = {
+			if = {
+				limit = { has_intelligence_agency = no }
+				create_intelligence_agency = yes
+			}
+			if = {
+				limit = {
+					has_intelligence_agency = yes
+					NOT = { has_done_agency_upgrade = upgrade_invisible_ink }
+				}
+				upgrade_intelligence_agency = upgrade_invisible_ink
+			}
+			add_command_power = 25
+			B80_add_alarm_5 = yes
+		}
+		ai_will_do = { factor = 0.5 }
+	}
+
+	B80_submit_eighty_report = {
+		icon = generic_political_discourse
+		cost = 100
+		days_remove = 30
+		fire_only_once = yes
+		visible = { NOT = { has_country_flag = B80_international_recognition_secured } }
+		available = { B80_can_submit_eighty_report = yes }
+		complete_effect = {
+			subtract_from_variable = { B80_school_reputation = 50 }
+			B80_secure_international_recognition = yes
+			B80_clamp_campus_values = yes
+			country_event = { id = B80_opponents.100 hours = 2 }
+		}
+		ai_will_do = { factor = 5 }
+	}
+
+	B80_public_student_referendum = {
+		icon = generic_political_rally
+		cost = 50
+		days_remove = 21
+		fire_only_once = yes
+		visible = {
+			has_completed_focus = BJ80_the_school_belongs_to_students
+			check_variable = { B80_expansion_alarm > 44 }
+		}
+		available = {
+			B80_has_high_autonomy_consensus = yes
+			NOT = { has_country_flag = B80_public_referendum_used }
+		}
+		complete_effect = {
+			set_country_flag = B80_public_referendum_used
+			B80_record_diplomatic_victory = yes
+			if = {
+				limit = { has_country_flag = B80_crisis_active }
+				B80_clear_hostile_ai_strategies = yes
+				B80_end_containment_crisis = yes
+			}
+			add_stability = 0.05
+		}
+		ai_will_do = { factor = 5 }
+	}
+
+	B80_containment_crisis_countdown = {
+		icon = generic_military
+		days_mission_timeout = 60
+		is_good = no
+		selectable_mission = no
+		fire_only_once = no
+		activation = { always = no }
+		available = { always = no }
+		timeout_effect = { country_event = { id = B80_opponents.70 hours = 1 } }
+	}
+
+	B80_last_minute_compromise = {
+		icon = generic_political_discourse
+		cost = 75
+		days_remove = 7
+		visible = { has_country_flag = B80_crisis_active }
+		available = { B80_has_active_containment_leader = yes }
+		complete_effect = {
+			B80_end_containment_crisis = yes
+			B80_clear_hostile_ai_strategies = yes
+			set_variable = { B80_expansion_alarm = 55 }
+			add_timed_idea = { idea = B80_boundary_freeze_inspection days = 365 }
+			add_stability = 0.03
+		}
+		ai_will_do = { factor = 2 modifier = { factor = 3 strength_ratio = { tag = CHI ratio < 0.7 } } }
+	}
+
+	B80_seek_patron_support = {
+		icon = generic_political_address
+		cost = 100
+		days_remove = 10
+		fire_only_once = no
+		visible = { has_country_flag = B80_crisis_active }
+		available = {
+			check_variable = { B80_school_reputation > 24 }
+			B80_has_available_route_patron = yes
+		}
+		complete_effect = {
+			subtract_from_variable = { B80_school_reputation = 25 }
+			B80_receive_route_patron_support = yes
+			B80_clear_hostile_ai_strategies = yes
+			B80_end_containment_crisis = yes
+			B80_clamp_campus_values = yes
+			country_event = { id = B80_opponents.83 hours = 2 }
+		}
+		ai_will_do = { factor = 3 }
+	}
+
+	B80_preempt_containment = {
+		icon = generic_military
+		cost = 50
+		days_remove = 3
+		visible = { has_country_flag = B80_crisis_active }
+		available = { B80_has_active_containment_leader = yes }
+		complete_effect = {
+			if = {
+				limit = { has_country_flag = B80_crisis_against_china CHI = { exists = yes } }
+				create_wargoal = { type = annex_everything target = CHI }
+			}
+			else_if = {
+				limit = { has_country_flag = B80_crisis_against_japan JAP = { exists = yes } }
+				create_wargoal = { type = annex_everything target = JAP }
+			}
+			B80_end_containment_crisis = yes
+			B80_add_alarm_15 = yes
+			add_timed_idea = { idea = B80_encircled_campus_mobilization days = 180 }
+			add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1500 producer = B80 }
+			army_experience = 15
+		}
+		ai_will_do = { factor = 1 modifier = { factor = 3 has_war_support > 0.65 } }
+	}
+}

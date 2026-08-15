@@ -1,0 +1,5 @@
+B80_campus_semester_category = {
+	icon = generic_research
+	allowed = { original_tag = B80 }
+	visible = { original_tag = B80 }
+}

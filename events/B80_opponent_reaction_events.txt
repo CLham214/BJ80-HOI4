@@ -1,0 +1,714 @@
+add_namespace = B80_opponents
+
+# First contact with outside observers.
+country_event = {
+	id = B80_opponents.1
+	title = B80_opponents.1.t
+	desc = B80_opponents.1.d
+	picture = GFX_report_event_generic_handshake
+	is_triggered_only = yes
+
+	option = {
+		name = B80_opponents.1.a
+		ai_chance = { base = 55 }
+		remove_ideas = B80_closed_campus_security
+		add_ideas = B80_open_campus_diplomacy
+		B80_reduce_alarm_5 = yes
+		add_to_variable = { B80_school_reputation = 5 }
+		B80_clamp_campus_values = yes
+		country_event = { id = B80_opponents.2 days = 14 }
+	}
+	option = {
+		name = B80_opponents.1.b
+		ai_chance = { base = 25 modifier = { factor = 2 has_war = yes } }
+		remove_ideas = B80_open_campus_diplomacy
+		add_ideas = B80_closed_campus_security
+		B80_add_alarm_5 = yes
+		country_event = { id = B80_opponents.2 days = 14 }
+	}
+	option = {
+		name = B80_opponents.1.c
+		trigger = { B80_has_available_route_patron = yes }
+		ai_chance = { base = 20 modifier = { factor = 2 has_completed_focus = B80_legacy_newfocus_9 } }
+		B80_receive_route_patron_support = yes
+		country_event = { id = B80_opponents.2 days = 14 }
+	}
+}
+
+country_event = {
+	id = B80_opponents.2
+	title = B80_opponents.2.t
+	desc = B80_opponents.2.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = { name = B80_opponents.2.a }
+}
+
+# Chinese government assessment. ROOT=CHI, FROM=B80.
+country_event = {
+	id = B80_opponents.10
+	title = B80_opponents.10.t
+	desc = B80_opponents.10.d
+	picture = GFX_report_event_generic_handshake
+	is_triggered_only = yes
+
+	option = {
+		name = B80_opponents.10.a
+		ai_chance = {
+			base = 35
+			modifier = { factor = 2 FROM = { has_government = democratic } }
+			modifier = { factor = 2 FROM = { check_variable = { B80_school_reputation > 59 } } }
+		}
+		add_opinion_modifier = { target = FROM modifier = B80_recognized_campus_opinion }
+		add_ai_strategy = { type = befriend id = B80 value = 50 }
+		FROM = { country_event = { id = B80_opponents.11 hours = 2 } }
+	}
+	option = {
+		name = B80_opponents.10.b
+		trigger = { NOT = { is_in_faction_with = FROM } }
+		ai_chance = { base = 40 }
+		FROM = { country_event = { id = B80_opponents.12 hours = 2 } }
+	}
+	option = {
+		name = B80_opponents.10.c
+		trigger = { NOT = { is_in_faction_with = FROM } }
+		ai_chance = {
+			base = 25
+			modifier = { factor = 2 FROM = { check_variable = { B80_expansion_alarm > 54 } } }
+			modifier = { factor = 2 strength_ratio = { tag = FROM ratio > 1.25 } }
+		}
+		add_opinion_modifier = { target = FROM modifier = B80_expansion_alarm_opinion }
+		add_ai_strategy = { type = antagonize id = B80 value = 75 }
+		FROM = {
+			B80_add_alarm_10 = yes
+			B80_form_chinese_containment = yes
+			country_event = { id = B80_opponents.13 hours = 2 }
+		}
+	}
+}
+
+country_event = {
+	id = B80_opponents.11
+	title = B80_opponents.11.t
+	desc = B80_opponents.11.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = {
+		name = B80_opponents.11.a
+		B80_record_diplomatic_victory = yes
+		add_political_power = 50
+		if = {
+			limit = { CHI = { exists = yes NOT = { has_non_aggression_pact_with = B80 } } }
+			diplomatic_relation = { country = CHI relation = non_aggression_pact }
+		}
+	}
+}
+
+country_event = {
+	id = B80_opponents.12
+	title = B80_opponents.12.t
+	desc = B80_opponents.12.d
+	picture = GFX_report_event_generic_handshake
+	is_triggered_only = yes
+	option = {
+		name = B80_opponents.12.a
+		ai_chance = { base = 35 }
+		add_timed_idea = { idea = B80_border_observers days = 180 }
+		B80_record_diplomatic_victory = yes
+		if = { limit = { CHI = { exists = yes } } diplomatic_relation = { country = CHI relation = non_aggression_pact } }
+	}
+	option = {
+		name = B80_opponents.12.b
+		trigger = { check_variable = { B80_school_reputation > 29 } }
+		ai_chance = { base = 45 }
+		subtract_from_variable = { B80_school_reputation = 30 }
+		B80_record_diplomatic_victory = yes
+		add_political_power = 75
+		B80_clamp_campus_values = yes
+	}
+	option = {
+		name = B80_opponents.12.c
+		ai_chance = { base = 20 }
+		B80_add_alarm_10 = yes
+		CHI = { add_opinion_modifier = { target = B80 modifier = B80_rejected_ultimatum_opinion } }
+		B80_form_chinese_containment = yes
+	}
+}
+
+country_event = {
+	id = B80_opponents.13
+	title = B80_opponents.13.t
+	desc = B80_opponents.13.d
+	picture = GFX_report_event_generic_military_parade
+	is_triggered_only = yes
+	option = { name = B80_opponents.13.a add_war_support = 0.03 }
+}
+
+# Japanese assessment. ROOT=JAP, FROM=B80.
+country_event = {
+	id = B80_opponents.20
+	title = B80_opponents.20.t
+	desc = B80_opponents.20.d
+	picture = GFX_report_event_generic_handshake
+	is_triggered_only = yes
+	option = {
+		name = B80_opponents.20.a
+		ai_chance = {
+			base = 35
+			modifier = { factor = 4 FROM = { has_completed_focus = B80_legacy_newfocus_12 NOT = { has_completed_focus = B80_legacy_newfocus_23 } } }
+			modifier = { factor = 0.1 FROM = { has_completed_focus = B80_legacy_newfocus_23 } }
+		}
+		add_opinion_modifier = { target = FROM modifier = B80_patron_of_campus_opinion }
+		add_ai_strategy = { type = befriend id = B80 value = 75 }
+		FROM = { country_event = { id = B80_opponents.21 hours = 2 } }
+	}
+	option = {
+		name = B80_opponents.20.b
+		trigger = { NOT = { is_in_faction_with = FROM } }
+		ai_chance = { base = 35 modifier = { factor = 2 strength_ratio = { tag = FROM ratio > 1.5 } } }
+		FROM = { country_event = { id = B80_opponents.22 hours = 2 } }
+	}
+	option = {
+		name = B80_opponents.20.c
+		trigger = { NOT = { is_in_faction_with = FROM } }
+		ai_chance = {
+			base = 30
+			modifier = { factor = 3 FROM = { has_completed_focus = B80_legacy_newfocus_23 } }
+			modifier = { factor = 2 FROM = { check_variable = { B80_expansion_alarm > 54 } } }
+		}
+		add_opinion_modifier = { target = FROM modifier = B80_expansion_alarm_opinion }
+		FROM = {
+			B80_add_alarm_10 = yes
+			B80_form_japanese_containment = yes
+			country_event = { id = B80_opponents.23 hours = 2 }
+		}
+	}
+}
+
+country_event = {
+	id = B80_opponents.21
+	title = B80_opponents.21.t
+	desc = B80_opponents.21.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	option = {
+		name = B80_opponents.21.a
+		add_ideas = B80_patron_dependency
+		add_offsite_building = { type = arms_factory level = 1 }
+		add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1000 producer = JAP }
+		B80_reduce_alarm_10 = yes
+	}
+}
+
+country_event = {
+	id = B80_opponents.22
+	title = B80_opponents.22.t
+	desc = B80_opponents.22.d
+	picture = GFX_report_event_generic_handshake
+	is_triggered_only = yes
+	option = {
+		name = B80_opponents.22.a
+		ai_chance = { base = 25 }
+		add_ideas = B80_patron_dependency
+		JAP = { give_guarantee = B80 add_ai_strategy = { type = protect id = B80 value = 100 } }
+		B80_reduce_alarm_15 = yes
+	}
+	option = {
+		name = B80_opponents.22.b
+		trigger = { OR = { has_completed_focus = B80_legacy_newfocus_12 check_variable = { B80_school_reputation > 39 } } }
+		ai_chance = { base = 50 }
+		subtract_from_variable = { B80_school_reputation = 25 }
+		JAP = { give_guarantee = B80 }
+		add_timed_idea = { idea = B80_border_observers days = 180 }
+		B80_record_diplomatic_victory = yes
+		B80_clamp_campus_values = yes
+	}
+	option = {
+		name = B80_opponents.22.c
+		ai_chance = { base = 25 }
+		B80_add_alarm_10 = yes
+		JAP = { add_opinion_modifier = { target = B80 modifier = B80_rejected_ultimatum_opinion } }
+		B80_form_japanese_containment = yes
+	}
+}
+
+country_event = {
+	id = B80_opponents.23
+	title = B80_opponents.23.t
+	desc = B80_opponents.23.d
+	picture = GFX_report_event_generic_military_parade
+	is_triggered_only = yes
+	option = { name = B80_opponents.23.a add_war_support = 0.03 }
+}
+
+# Communist assessment. ROOT=PRC, FROM=B80.
+country_event = {
+	id = B80_opponents.30
+	title = B80_opponents.30.t
+	desc = B80_opponents.30.d
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+	option = {
+		name = B80_opponents.30.a
+		ai_chance = {
+			base = 35
+			modifier = { factor = 3 FROM = { OR = { has_completed_focus = B80_legacy_newfocus_11 has_completed_focus = BJ80_the_school_belongs_to_students } } }
+		}
+		add_opinion_modifier = { target = FROM modifier = B80_patron_of_campus_opinion }
+		add_ai_strategy = { type = befriend id = B80 value = 50 }
+		FROM = { country_event = { id = B80_opponents.31 hours = 2 } }
+	}
+	option = {
+		name = B80_opponents.30.b
+		trigger = { NOT = { is_in_faction_with = FROM } }
+		ai_chance = { base = 30 modifier = { factor = 2 FROM = { check_variable = { B80_expansion_alarm > 64 } } } }
+		if = { limit = { HBC = { exists = yes } } HBC = { add_ideas = B80_foreign_arms_mission add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 750 producer = PRC } } }
+		if = { limit = { SND = { exists = yes } } SND = { add_ideas = B80_foreign_arms_mission add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 750 producer = PRC } } }
+		FROM = {
+			B80_add_alarm_5 = yes
+			country_event = { id = B80_opponents.32 hours = 2 }
+		}
+	}
+	option = { name = B80_opponents.30.c ai_chance = { base = 35 } }
+}
+
+country_event = {
+	id = B80_opponents.32
+	title = B80_opponents.32.t
+	desc = B80_opponents.32.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = { name = B80_opponents.32.a add_war_support = 0.01 }
+}
+
+country_event = {
+	id = B80_opponents.31
+	title = B80_opponents.31.t
+	desc = B80_opponents.31.d
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+	option = {
+		name = B80_opponents.31.a
+		add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 750 producer = PRC }
+		add_political_power = 50
+		B80_reduce_alarm_5 = yes
+	}
+}
+
+# Stage three: sanctions are real, but every choice gives the player a route out.
+country_event = {
+	id = B80_opponents.40
+	title = B80_opponents.40.t
+	desc = B80_opponents.40.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	option = {
+		name = B80_opponents.40.a
+		ai_chance = { base = 35 }
+		add_timed_idea = { idea = B80_border_observers days = 180 }
+		B80_reduce_alarm_20 = yes
+		add_stability = 0.03
+	}
+	option = {
+		name = B80_opponents.40.b
+		trigger = { check_variable = { B80_school_reputation > 29 } }
+		ai_chance = { base = 40 }
+		subtract_from_variable = { B80_school_reputation = 30 }
+		B80_reduce_alarm_15 = yes
+		B80_record_diplomatic_victory = yes
+		B80_clamp_campus_values = yes
+	}
+	option = {
+		name = B80_opponents.40.c
+		ai_chance = { base = 25 }
+		add_timed_idea = { idea = B80_targeted_sanctions days = 240 }
+		add_timed_idea = { idea = B80_campus_self_reliance days = 240 }
+		B80_add_alarm_5 = yes
+		add_offsite_building = { type = arms_factory level = 1 }
+	}
+}
+
+# Stage four: ROOT is whichever major receives the conference request.
+country_event = {
+	id = B80_opponents.50
+	title = B80_opponents.50.t
+	desc = B80_opponents.50.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = {
+		name = B80_opponents.50.a
+		ai_chance = { base = 50 modifier = { factor = 2 B80 = { check_variable = { B80_expansion_alarm > 74 } } } }
+		if = { limit = { original_tag = CHI } B80 = { B80_form_chinese_containment = yes } }
+		else_if = { limit = { original_tag = JAP } B80 = { B80_form_japanese_containment = yes } }
+		B80 = { country_event = { id = B80_opponents.51 hours = 2 } }
+	}
+	option = {
+		name = B80_opponents.50.b
+		ai_chance = { base = 35 }
+		B80_prepare_limited_frontier_defense = yes
+		B80 = { B80_add_alarm_5 = yes country_event = { id = B80_opponents.53 hours = 2 } }
+	}
+	option = {
+		name = B80_opponents.50.c
+		ai_chance = { base = 15 modifier = { factor = 3 B80 = { check_variable = { B80_school_reputation > 74 } } } }
+		B80 = { B80_record_diplomatic_victory = yes country_event = { id = B80_opponents.52 hours = 2 } }
+	}
+}
+
+country_event = {
+	id = B80_opponents.53
+	title = B80_opponents.53.t
+	desc = B80_opponents.53.d
+	picture = GFX_report_event_generic_military_parade
+	is_triggered_only = yes
+	option = { name = B80_opponents.53.a add_war_support = 0.02 }
+}
+
+country_event = {
+	id = B80_opponents.51
+	title = B80_opponents.51.t
+	desc = B80_opponents.51.d
+	picture = GFX_report_event_generic_military_parade
+	is_triggered_only = yes
+	option = {
+		name = B80_opponents.51.a
+		add_timed_idea = { idea = B80_encircled_campus_mobilization days = 90 }
+		add_war_support = 0.05
+	}
+}
+
+country_event = {
+	id = B80_opponents.52
+	title = B80_opponents.52.t
+	desc = B80_opponents.52.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = { name = B80_opponents.52.a add_political_power = 50 }
+}
+
+# Stage five decision by the selected containment leader.
+country_event = {
+	id = B80_opponents.60
+	title = B80_opponents.60.t
+	desc = B80_opponents.60.d
+	picture = GFX_report_event_generic_battle
+	is_triggered_only = yes
+	option = {
+		name = B80_opponents.60.a
+		ai_chance = { base = 55 }
+		set_country_flag = B80_containment_leader
+		B80 = { country_event = { id = B80_opponents.61 hours = 2 } }
+	}
+	option = {
+		name = B80_opponents.60.b
+		ai_chance = { base = 30 modifier = { factor = 2 strength_ratio = { tag = B80 ratio > 1.5 } } }
+		set_country_flag = B80_containment_leader
+		add_ai_strategy = { type = declare_war id = B80 value = 100 }
+		B80 = {
+			set_country_flag = B80_crisis_active
+			activate_mission = B80_containment_crisis_countdown
+			country_event = { id = B80_opponents.61 hours = 2 }
+		}
+	}
+	option = {
+		name = B80_opponents.60.c
+		ai_chance = { base = 15 modifier = { factor = 3 strength_ratio = { tag = B80 ratio < 0.8 } } }
+		B80 = { B80_record_diplomatic_victory = yes B80_clear_hostile_ai_strategies = yes B80_end_containment_crisis = yes country_event = { id = B80_opponents.62 hours = 2 } }
+	}
+}
+
+country_event = {
+	id = B80_opponents.61
+	title = B80_opponents.61.t
+	desc = B80_opponents.61.d
+	picture = GFX_report_event_generic_handshake
+	is_triggered_only = yes
+	option = {
+		name = B80_opponents.61.a
+		ai_chance = { base = 30 }
+		add_timed_idea = { idea = B80_boundary_freeze_inspection days = 365 }
+		set_variable = { B80_expansion_alarm = 55 }
+		B80_record_diplomatic_victory = yes
+		B80_clear_hostile_ai_strategies = yes
+		B80_end_containment_crisis = yes
+	}
+	option = {
+		name = B80_opponents.61.b
+		trigger = { check_variable = { B80_school_reputation > 49 } has_political_power > 149 }
+		ai_chance = { base = 40 }
+		subtract_from_variable = { B80_school_reputation = 50 }
+		add_political_power = -150
+		B80_secure_international_recognition = yes
+		B80_end_containment_crisis = yes
+		B80_clamp_campus_values = yes
+	}
+	option = {
+		name = B80_opponents.61.c
+		ai_chance = { base = 30 modifier = { factor = 2 has_war_support > 0.65 } }
+		B80_add_alarm_15 = yes
+		add_timed_idea = { idea = B80_encircled_campus_mobilization days = 180 }
+		add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1500 producer = B80 }
+		army_experience = 15
+		set_country_flag = B80_crisis_active
+		if = { limit = { NOT = { has_active_mission = B80_containment_crisis_countdown } } activate_mission = B80_containment_crisis_countdown }
+		if = { limit = { CHI = { exists = yes has_country_flag = B80_containment_leader } } set_country_flag = B80_crisis_against_china }
+		else_if = { limit = { JAP = { exists = yes has_country_flag = B80_containment_leader } } set_country_flag = B80_crisis_against_japan }
+	}
+}
+
+country_event = {
+	id = B80_opponents.62
+	title = B80_opponents.62.t
+	desc = B80_opponents.62.d
+	picture = GFX_report_event_generic_handshake
+	is_triggered_only = yes
+	option = { name = B80_opponents.62.a add_stability = 0.02 }
+}
+
+# Hidden timeout: the leader gets a wargoal and may immediately act if the AI
+# has already chosen direct preparations.
+country_event = {
+	id = B80_opponents.70
+	hidden = yes
+	is_triggered_only = yes
+	immediate = {
+		if = {
+			limit = { has_country_flag = B80_crisis_against_china CHI = { exists = yes NOT = { has_war_with = B80 } } }
+			CHI = {
+				create_wargoal = { type = annex_everything target = B80 }
+				add_ai_strategy = { type = declare_war id = B80 value = 200 }
+			}
+		}
+		else_if = {
+			limit = { has_country_flag = B80_crisis_against_japan JAP = { exists = yes NOT = { has_war_with = B80 } } }
+			JAP = {
+				create_wargoal = { type = annex_everything target = B80 }
+				add_ai_strategy = { type = declare_war id = B80 value = 200 }
+			}
+		}
+		B80_end_containment_crisis = yes
+	}
+}
+
+# Local war event for B80.
+country_event = {
+	id = B80_opponents.80
+	title = B80_opponents.80.t
+	desc = B80_opponents.80.d
+	picture = GFX_report_event_generic_battle
+	is_triggered_only = yes
+	option = {
+		name = B80_opponents.80.a
+		ai_chance = { base = 45 }
+		add_timed_idea = { idea = B80_encircled_campus_mobilization days = 90 }
+		B80_add_alarm_5 = yes
+		army_experience = 15
+	}
+	option = {
+		name = B80_opponents.80.b
+		trigger = { B80_has_available_route_patron = yes }
+		ai_chance = { base = 35 }
+		B80_receive_route_patron_support = yes
+		country_event = { id = B80_opponents.83 hours = 2 }
+	}
+	option = {
+		name = B80_opponents.80.c
+		ai_chance = { base = 20 }
+		B80_reduce_alarm_10 = yes
+		add_stability = 0.02
+	}
+}
+
+# CHI decides whether the war against HBC is worth entering. Each possible
+# frontier target has its own event so simultaneous wars cannot cross wires.
+country_event = {
+	id = B80_opponents.81
+	title = B80_opponents.81.t
+	desc = B80_opponents.81.d
+	picture = GFX_report_event_generic_handshake
+	is_triggered_only = yes
+	option = {
+		name = B80_opponents.81.a
+		trigger = { HBC = { exists = yes has_war_with = B80 } }
+		ai_chance = { base = 50 }
+		HBC = { add_ideas = B80_foreign_arms_mission add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1500 producer = CHI } }
+		B80 = { add_opinion_modifier = { target = ROOT modifier = B80_supported_our_enemy_opinion } }
+		B80 = { country_event = { id = B80_opponents.82 hours = 2 } }
+	}
+	option = {
+		name = B80_opponents.81.b
+		trigger = { NOT = { has_war_with = B80 } HBC = { exists = yes has_war_with = B80 } }
+		ai_chance = { base = 25 modifier = { factor = 2 strength_ratio = { tag = B80 ratio > 1.5 } } }
+		add_to_war = { targeted_alliance = HBC enemy = B80 hostility_reason = asked_to_join single_target_only = yes }
+		B80 = { add_opinion_modifier = { target = ROOT modifier = B80_supported_our_enemy_opinion } }
+		B80 = { country_event = { id = B80_opponents.82 hours = 2 } }
+	}
+	option = { name = B80_opponents.81.c ai_chance = { base = 25 } }
+}
+
+# CHI response to SND.
+country_event = {
+	id = B80_opponents.84
+	title = B80_opponents.84.t
+	desc = B80_opponents.84.d
+	picture = GFX_report_event_generic_handshake
+	is_triggered_only = yes
+	option = {
+		name = B80_opponents.84.a
+		trigger = { SND = { exists = yes has_war_with = B80 } }
+		ai_chance = { base = 50 }
+		SND = { add_ideas = B80_foreign_arms_mission add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1500 producer = CHI } }
+		B80 = { add_opinion_modifier = { target = ROOT modifier = B80_supported_our_enemy_opinion } country_event = { id = B80_opponents.82 hours = 2 } }
+	}
+	option = {
+		name = B80_opponents.84.b
+		trigger = { NOT = { has_war_with = B80 } SND = { exists = yes has_war_with = B80 } }
+		ai_chance = { base = 25 modifier = { factor = 2 strength_ratio = { tag = B80 ratio > 1.5 } } }
+		add_to_war = { targeted_alliance = SND enemy = B80 hostility_reason = asked_to_join single_target_only = yes }
+		B80 = { add_opinion_modifier = { target = ROOT modifier = B80_supported_our_enemy_opinion } country_event = { id = B80_opponents.82 hours = 2 } }
+	}
+	option = { name = B80_opponents.84.c ai_chance = { base = 25 } }
+}
+
+# JAP response to MEN.
+country_event = {
+	id = B80_opponents.85
+	title = B80_opponents.85.t
+	desc = B80_opponents.85.d
+	picture = GFX_report_event_generic_handshake
+	is_triggered_only = yes
+	option = {
+		name = B80_opponents.85.a
+		trigger = { MEN = { exists = yes has_war_with = B80 } }
+		ai_chance = { base = 50 }
+		MEN = { add_ideas = B80_foreign_arms_mission add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1500 producer = JAP } }
+		B80 = { add_opinion_modifier = { target = ROOT modifier = B80_supported_our_enemy_opinion } country_event = { id = B80_opponents.82 hours = 2 } }
+	}
+	option = {
+		name = B80_opponents.85.b
+		trigger = { NOT = { has_war_with = B80 } MEN = { exists = yes has_war_with = B80 } }
+		ai_chance = { base = 25 modifier = { factor = 2 strength_ratio = { tag = B80 ratio > 1.5 } } }
+		add_to_war = { targeted_alliance = MEN enemy = B80 hostility_reason = asked_to_join single_target_only = yes }
+		B80 = { add_opinion_modifier = { target = ROOT modifier = B80_supported_our_enemy_opinion } country_event = { id = B80_opponents.82 hours = 2 } }
+	}
+	option = { name = B80_opponents.85.c ai_chance = { base = 25 } }
+}
+
+# JAP response to MAN.
+country_event = {
+	id = B80_opponents.86
+	title = B80_opponents.86.t
+	desc = B80_opponents.86.d
+	picture = GFX_report_event_generic_handshake
+	is_triggered_only = yes
+	option = {
+		name = B80_opponents.86.a
+		trigger = { MAN = { exists = yes has_war_with = B80 } }
+		ai_chance = { base = 50 }
+		MAN = { add_ideas = B80_foreign_arms_mission add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1500 producer = JAP } }
+		B80 = { add_opinion_modifier = { target = ROOT modifier = B80_supported_our_enemy_opinion } country_event = { id = B80_opponents.82 hours = 2 } }
+	}
+	option = {
+		name = B80_opponents.86.b
+		trigger = { NOT = { has_war_with = B80 } MAN = { exists = yes has_war_with = B80 } }
+		ai_chance = { base = 25 modifier = { factor = 2 strength_ratio = { tag = B80 ratio > 1.5 } } }
+		add_to_war = { targeted_alliance = MAN enemy = B80 hostility_reason = asked_to_join single_target_only = yes }
+		B80 = { add_opinion_modifier = { target = ROOT modifier = B80_supported_our_enemy_opinion } country_event = { id = B80_opponents.82 hours = 2 } }
+	}
+	option = { name = B80_opponents.86.c ai_chance = { base = 25 } }
+}
+
+country_event = {
+	id = B80_opponents.82
+	title = B80_opponents.82.t
+	desc = B80_opponents.82.d
+	picture = GFX_report_event_generic_military_parade
+	is_triggered_only = yes
+	option = { name = B80_opponents.82.a add_war_support = 0.03 }
+}
+
+country_event = {
+	id = B80_opponents.83
+	title = B80_opponents.83.t
+	desc = B80_opponents.83.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	option = { name = B80_opponents.83.a add_war_support = 0.02 }
+}
+
+# B80 chooses the presentation of a completed annexation.
+country_event = {
+	id = B80_opponents.90
+	title = B80_opponents.90.t
+	desc = B80_opponents.90.d
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+	option = {
+		name = B80_opponents.90.a
+		ai_chance = { base = 40 }
+		B80_reduce_alarm_10 = yes
+		add_stability = 0.03
+		add_to_variable = { B80_school_reputation = 5 }
+		B80_clamp_campus_values = yes
+	}
+	option = {
+		name = B80_opponents.90.b
+		ai_chance = { base = 35 }
+		B80_add_alarm_10 = yes
+		add_war_support = 0.05
+		add_political_power = 75
+	}
+	option = {
+		name = B80_opponents.90.c
+		ai_chance = { base = 25 }
+		B80_reduce_alarm_5 = yes
+		add_political_power = 25
+	}
+}
+
+# ROOT is CHI or JAP after an annexation.
+country_event = {
+	id = B80_opponents.91
+	title = B80_opponents.91.t
+	desc = B80_opponents.91.d
+	picture = GFX_report_event_generic_handshake
+	is_triggered_only = yes
+	option = {
+		name = B80_opponents.91.a
+		ai_chance = { base = 35 modifier = { factor = 2 B80 = { check_variable = { B80_school_reputation > 59 } } } }
+		add_opinion_modifier = { target = B80 modifier = B80_recognized_campus_opinion }
+		B80 = { B80_reduce_alarm_10 = yes country_event = { id = B80_opponents.92 hours = 2 } }
+	}
+	option = {
+		name = B80_opponents.91.b
+		ai_chance = { base = 40 }
+		add_opinion_modifier = { target = B80 modifier = B80_expansion_alarm_opinion }
+		B80 = { add_timed_idea = { idea = B80_targeted_sanctions days = 180 } B80_add_alarm_5 = yes country_event = { id = B80_opponents.92 hours = 2 } }
+	}
+	option = {
+		name = B80_opponents.91.c
+		ai_chance = { base = 25 modifier = { factor = 2 strength_ratio = { tag = B80 ratio > 1.5 } } }
+		add_ai_strategy = { type = antagonize id = B80 value = 100 }
+		add_ai_strategy = { type = conquer id = B80 value = 75 }
+		add_ideas = B80_containment_defense_plan
+		B80 = { B80_add_alarm_10 = yes country_event = { id = B80_opponents.92 hours = 2 } }
+	}
+}
+
+country_event = {
+	id = B80_opponents.92
+	title = B80_opponents.92.t
+	desc = B80_opponents.92.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = { name = B80_opponents.92.a }
+}
+
+country_event = {
+	id = B80_opponents.100
+	title = B80_opponents.100.t
+	desc = B80_opponents.100.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = { name = B80_opponents.100.a }
+}

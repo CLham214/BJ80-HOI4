@@ -1,0 +1,5 @@
+B80_opponent_reaction_category = {
+	icon = generic_political_actions
+	allowed = { original_tag = B80 }
+	visible = { original_tag = B80 has_country_flag = B80_opponent_system_initialized }
+}

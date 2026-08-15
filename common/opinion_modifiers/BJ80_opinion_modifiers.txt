@@ -1,0 +1,63 @@
+opinion_modifiers = {
+	BJ80_free_campus_declaration_opinion = {
+		value = -25
+	}
+
+	B80_legacy_education_deal_opinion = {
+		value = 50
+		months = 24
+		decay = 1
+	}
+
+	B80_allied_education_partner = {
+		value = 50
+		months = 24
+		decay = 1
+	}
+
+	B80_revolutionary_education_partner = {
+		value = 50
+	}
+
+	B80_democratic_appeal_opinion = {
+		value = 35
+		months = 24
+		decay = 1
+	}
+
+	B80_rejected_ultimatum_opinion = {
+		value = -50
+		months = 24
+		decay = 1
+	}
+
+	B80_expansion_alarm_opinion = {
+		value = -40
+		months = 36
+		decay = 1
+	}
+
+	B80_recognized_campus_opinion = {
+		value = 60
+		months = 36
+		decay = 1
+	}
+
+	B80_mediated_crisis_opinion = {
+		value = 35
+		months = 24
+		decay = 1
+	}
+
+	B80_supported_our_enemy_opinion = {
+		value = -50
+		months = 36
+		decay = 1
+	}
+
+	B80_patron_of_campus_opinion = {
+		value = 50
+		months = 36
+		decay = 1
+	}
+}

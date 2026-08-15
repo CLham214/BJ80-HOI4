@@ -1,0 +1,66 @@
+BJ80_raise_autonomy_consensus = {
+	if = {
+		limit = { has_idea = BJ80_autonomy_consensus_1 }
+		swap_ideas = { remove_idea = BJ80_autonomy_consensus_1 add_idea = BJ80_autonomy_consensus_2 }
+	}
+	else_if = {
+		limit = { has_idea = BJ80_autonomy_consensus_2 }
+		swap_ideas = { remove_idea = BJ80_autonomy_consensus_2 add_idea = BJ80_autonomy_consensus_3 }
+	}
+	else_if = {
+		limit = { has_idea = BJ80_autonomy_consensus_3 }
+		swap_ideas = { remove_idea = BJ80_autonomy_consensus_3 add_idea = BJ80_autonomy_consensus_4 }
+	}
+	else_if = {
+		limit = { has_idea = BJ80_autonomy_consensus_4 }
+		swap_ideas = { remove_idea = BJ80_autonomy_consensus_4 add_idea = BJ80_autonomy_consensus_5 }
+	}
+}
+
+BJ80_lower_autonomy_consensus = {
+	if = {
+		limit = { has_idea = BJ80_autonomy_consensus_5 }
+		swap_ideas = { remove_idea = BJ80_autonomy_consensus_5 add_idea = BJ80_autonomy_consensus_4 }
+	}
+	else_if = {
+		limit = { has_idea = BJ80_autonomy_consensus_4 }
+		swap_ideas = { remove_idea = BJ80_autonomy_consensus_4 add_idea = BJ80_autonomy_consensus_3 }
+	}
+	else_if = {
+		limit = { has_idea = BJ80_autonomy_consensus_3 }
+		swap_ideas = { remove_idea = BJ80_autonomy_consensus_3 add_idea = BJ80_autonomy_consensus_2 }
+	}
+	else_if = {
+		limit = { has_idea = BJ80_autonomy_consensus_2 }
+		swap_ideas = { remove_idea = BJ80_autonomy_consensus_2 add_idea = BJ80_autonomy_consensus_1 }
+	}
+}
+
+# 爽游奖励包：事件和国策可以复用，避免每个事件重复堆叠效果。
+BJ80_civilian_boom_reward = {
+	add_offsite_building = { type = industrial_complex level = 5 }
+	add_political_power = 150
+	add_stability = 0.05
+	add_manpower = 2000
+}
+
+BJ80_military_boom_reward = {
+	add_offsite_building = { type = arms_factory level = 5 }
+	add_manpower = 5000
+	army_experience = 50
+	add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 5000 producer = B80 }
+	add_equipment_to_stockpile = { type = artillery_equipment_1 amount = 500 producer = B80 }
+	add_equipment_to_stockpile = { type = support_equipment_1 amount = 500 producer = B80 }
+}
+
+BJ80_science_boom_reward = {
+	add_research_slot = 1
+	add_political_power = 100
+	add_stability = 0.05
+	add_tech_bonus = {
+		name = BJ80_science_boom_bonus
+		bonus = 1.0
+		uses = 4
+		category = electronics
+	}
+}

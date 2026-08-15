@@ -1,0 +1,13 @@
+BJ80_student_integration_category = {
+	icon = generic_territory_or_war
+	allowed = { original_tag = B80 }
+	visible = {
+		OR = {
+			has_country_flag = BJ80_chaoyang_integration_enabled
+			has_country_flag = BJ80_beijing_integration_enabled
+			has_country_flag = BJ80_north_china_integration_enabled
+			has_country_flag = BJ80_national_integration_enabled
+		}
+	}
+}
+

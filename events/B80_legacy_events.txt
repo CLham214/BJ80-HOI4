@@ -1,0 +1,151 @@
+add_namespace = B80_legacy
+
+country_event = {
+	id = B80_legacy.1
+	title = B80_legacy.1.t
+	desc = B80_legacy.1.d
+	picture = GFX_report_event_generic_crowd
+	is_triggered_only = yes
+	option = { name = B80_legacy.1.a add_stability = 0.05 add_political_power = 50 }
+	option = { name = B80_legacy.1.b add_war_support = 0.05 army_experience = 15 }
+}
+
+country_event = {
+	id = B80_legacy.2
+	title = B80_legacy.2.t
+	desc = B80_legacy.2.d
+	picture = GFX_report_event_generic_crowd
+	is_triggered_only = yes
+	option = { name = B80_legacy.2.a add_stability = 0.05 add_manpower = 2000 }
+	option = { name = B80_legacy.2.b add_political_power = 75 add_offsite_building = { type = industrial_complex level = 1 } }
+}
+
+country_event = {
+	id = B80_legacy.3
+	title = B80_legacy.3.t
+	desc = B80_legacy.3.d
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+	option = { name = B80_legacy.3.a add_stability = 0.05 add_political_power = 50 }
+	option = { name = B80_legacy.3.b add_war_support = 0.05 add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 500 producer = B80 } }
+}
+
+country_event = {
+	id = B80_legacy.4
+	title = B80_legacy.4.t
+	desc = B80_legacy.4.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+	option = {
+		name = B80_legacy.4.a
+		add_research_slot = 1
+		add_political_power = 50
+	}
+	option = { name = B80_legacy.4.b add_offsite_building = { type = industrial_complex level = 1 } add_offsite_building = { type = arms_factory level = 1 } }
+}
+
+country_event = {
+	id = B80_legacy.5
+	title = B80_legacy.5.t
+	desc = B80_legacy.5.d
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+	option = {
+		name = B80_legacy.5.a
+		set_politics = { ruling_party = democratic elections_allowed = yes }
+		if = {
+			limit = { has_idea = B80_legacy_campus_democracy }
+			swap_ideas = { remove_idea = B80_legacy_campus_democracy add_idea = B80_legacy_campus_democracy_2 }
+		}
+		else_if = { limit = { NOT = { has_idea = B80_legacy_campus_democracy_2 } } add_ideas = B80_legacy_campus_democracy }
+		add_political_power = 50
+	}
+	option = {
+		name = B80_legacy.5.b
+		set_politics = { ruling_party = neutrality elections_allowed = no }
+		if = {
+			limit = { has_idea = B80_legacy_orderly_teaching }
+			swap_ideas = { remove_idea = B80_legacy_orderly_teaching add_idea = B80_legacy_education_department_order }
+		}
+		else_if = { limit = { NOT = { has_idea = B80_legacy_education_department_order } } add_ideas = B80_legacy_orderly_teaching }
+		add_stability = 0.05
+	}
+}
+
+country_event = {
+	id = B80_legacy.6
+	title = B80_legacy.6.t
+	desc = B80_legacy.6.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		name = B80_legacy.6.a
+		add_tech_bonus = { name = B80_legacy_interdisciplinary_fund bonus = 0.5 uses = 2 category = electronics }
+		add_political_power = 50
+	}
+	option = { name = B80_legacy.6.b add_offsite_building = { type = industrial_complex level = 1 } add_stability = 0.03 }
+	option = { name = B80_legacy.6.c add_offsite_building = { type = arms_factory level = 1 } add_war_support = 0.05 }
+}
+
+country_event = {
+	id = B80_legacy.7
+	title = B80_legacy.7.t
+	desc = B80_legacy.7.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	option = {
+		name = B80_legacy.7.a
+		add_stability = 0.05
+		add_offsite_building = { type = industrial_complex level = 2 }
+	}
+	option = {
+		name = B80_legacy.7.b
+		add_war_support = 0.10
+		add_offsite_building = { type = arms_factory level = 2 }
+		army_experience = 20
+	}
+}
+
+country_event = {
+	id = B80_legacy.8
+	title = B80_legacy.8.t
+	desc = B80_legacy.8.d
+	picture = GFX_report_event_generic_navy
+	is_triggered_only = yes
+	option = {
+		name = B80_legacy.8.a
+		navy_experience = 35
+		if = { limit = { NOT = { has_idea = B80_legacy_campus_fleet } } add_ideas = B80_legacy_campus_fleet }
+	}
+	option = {
+		name = B80_legacy.8.b
+		add_offsite_building = { type = dockyard level = 1 }
+		add_equipment_to_stockpile = { type = convoy_1 amount = 30 producer = B80 }
+	}
+}
+
+country_event = {
+	id = B80_legacy.10
+	title = B80_legacy.10.t
+	desc = B80_legacy.10.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		name = B80_legacy.10.a
+		add_stability = 0.05
+		add_political_power = 75
+		if = { limit = { ENG = { exists = yes } } ENG = { add_opinion_modifier = { target = B80 modifier = B80_legacy_education_deal_opinion } } }
+	}
+	option = {
+		name = B80_legacy.10.b
+		add_ideas = B80_legacy_french_civic_education
+		add_stability = 0.03
+		if = { limit = { FRA = { exists = yes } } FRA = { add_opinion_modifier = { target = B80 modifier = B80_legacy_education_deal_opinion } } }
+	}
+	option = {
+		name = B80_legacy.10.c
+		add_offsite_building = { type = industrial_complex level = 1 }
+		add_tech_bonus = { name = B80_legacy_german_technical_education bonus = 0.5 uses = 1 category = industry }
+		if = { limit = { GER = { exists = yes } } GER = { add_opinion_modifier = { target = B80 modifier = B80_legacy_education_deal_opinion } } }
+	}
+}

@@ -1,0 +1,61 @@
+# Shared checks for the regional-reaction system.
+
+B80_has_high_autonomy_consensus = {
+	OR = {
+		has_idea = BJ80_autonomy_consensus_4
+		has_idea = BJ80_autonomy_consensus_5
+	}
+}
+
+# A real foreign patron must both match the chosen political route and still
+# exist. This prevents a self-produced fallback package from masquerading as
+# outside intervention in event text.
+B80_has_available_route_patron = {
+	OR = {
+		AND = { has_completed_focus = B80_legacy_newfocus_9 ENG = { exists = yes } }
+		AND = { has_completed_focus = B80_legacy_newfocus_11 SOV = { exists = yes } }
+		AND = {
+			has_completed_focus = B80_legacy_newfocus_12
+			NOT = { has_completed_focus = B80_legacy_newfocus_23 }
+			JAP = { exists = yes }
+		}
+		AND = {
+			OR = {
+				has_completed_focus = BJ80_the_school_belongs_to_students
+				has_completed_focus = B80_legacy_newfocus_23
+			}
+			USA = { exists = yes }
+		}
+	}
+}
+
+B80_has_local_frontier_enemy = {
+	OR = {
+		HBC = { exists = yes has_war_with = B80 }
+		SND = { exists = yes has_war_with = B80 }
+		MEN = { exists = yes has_war_with = B80 }
+		MAN = { exists = yes has_war_with = B80 }
+	}
+}
+
+B80_can_submit_eighty_report = {
+	check_variable = { B80_school_reputation > 49 }
+	OR = {
+		check_variable = { B80_balanced_semester_streak > 1 }
+		check_variable = { B80_diplomatic_victories > 2 }
+	}
+	NOT = { has_country_flag = B80_international_recognition_secured }
+}
+
+B80_has_active_containment_leader = {
+	OR = {
+		AND = {
+			has_country_flag = B80_crisis_against_china
+			CHI = { exists = yes NOT = { has_war_with = B80 } }
+		}
+		AND = {
+			has_country_flag = B80_crisis_against_japan
+			JAP = { exists = yes NOT = { has_war_with = B80 } }
+		}
+	}
+}

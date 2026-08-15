@@ -1,0 +1,154 @@
+ideas = {
+	country = {
+		BJ80_autonomy_consensus_1 = {
+			picture = generic_democratic_opposition
+			allowed = { original_tag = B80 }
+			modifier = {
+				stability_factor = -0.10
+				political_power_factor = -0.10
+				industrial_capacity_factory = -0.05
+			}
+		}
+		BJ80_autonomy_consensus_2 = {
+			picture = generic_democratic_opposition
+			allowed = { original_tag = B80 }
+			modifier = { stability_factor = -0.03 }
+		}
+		BJ80_autonomy_consensus_3 = {
+			picture = generic_democratic_opposition
+			allowed = { original_tag = B80 }
+		}
+		BJ80_autonomy_consensus_4 = {
+			picture = generic_democratic_opposition
+			allowed = { original_tag = B80 }
+			modifier = {
+				stability_factor = 0.05
+				political_power_factor = 0.05
+			}
+		}
+		BJ80_autonomy_consensus_5 = {
+			picture = generic_democratic_opposition
+			allowed = { original_tag = B80 }
+			modifier = {
+				stability_factor = 0.10
+				political_power_factor = 0.10
+				research_speed_factor = 0.05
+			}
+		}
+		BJ80_school_industrial_system_idea = {
+			picture = generic_improved_industries
+			allowed = { original_tag = B80 }
+			modifier = {
+				industrial_capacity_factory = 0.05
+				production_factory_efficiency_gain_factor = 0.05
+			}
+		}
+		BJ80_student_citizen_army_idea = {
+			picture = generic_manpower_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				conscription_factor = 0.20
+				training_time_army_factor = -0.10
+				army_org_factor = 0.05
+			}
+		}
+		BJ80_democratic_arsenal_idea = {
+			picture = generic_improved_industries
+			allowed = { original_tag = B80 }
+			modifier = {
+				production_factory_max_efficiency_factor = 0.05
+				production_speed_arms_factory_factor = 0.15
+			}
+		}
+		BJ80_revolutionary_campus_idea = {
+			picture = generic_democratic_opposition
+			allowed = { original_tag = B80 }
+			modifier = {
+				political_power_gain = 0.10
+				stability_factor = 0.05
+				war_support_factor = 0.05
+			}
+		}
+		BJ80_liberation_propaganda_idea = {
+			picture = generic_pp_unity_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				justify_war_goal_time = -0.20
+				generate_wargoal_tension = -0.10
+			}
+		}
+		BJ80_liberation_war_idea = {
+			picture = generic_infantry_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				army_attack_factor = 0.10
+				supply_consumption_factor = -0.10
+				surrender_limit = 0.10
+			}
+		}
+		BJ80_students_liberation_movement_idea = {
+			picture = generic_democratic_opposition
+			allowed = { original_tag = B80 }
+			modifier = {
+				subversive_activites_upkeep = -0.25
+				political_power_factor = 0.05
+			}
+		}
+		BJ80_revolutionary_offensive_idea = {
+			picture = generic_infantry_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				army_attack_factor = 0.10
+				army_speed_factor = 0.05
+				supply_consumption_factor = -0.10
+			}
+		}
+		BJ80_new_beijing_republic_idea = {
+			picture = generic_democratic_opposition
+			allowed = { original_tag = B80 }
+			modifier = {
+				local_resources_factor = 0.10
+				industrial_capacity_factory = 0.10
+				conscription_factor = 0.10
+			}
+		}
+		BJ80_national_liberation_committee_idea = {
+			picture = generic_spy_intel
+			allowed = { original_tag = B80 }
+			modifier = {
+				justify_war_goal_time = -0.25
+				political_power_factor = 0.10
+			}
+		}
+		BJ80_national_student_uprising_idea = {
+			picture = generic_pp_unity_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				drift_defence_factor = 0.15
+				war_support_factor = 0.10
+			}
+		}
+		BJ80_free_campus_alliance_idea = {
+			picture = generic_infantry_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				research_sharing_per_country_bonus = 0.05
+				max_command_power_mult = 0.10
+			}
+		}
+		BJ80_armed_youth_idea = {
+			picture = generic_manpower_bonus
+			allowed = { original_tag = B80 }
+			modifier = {
+				conscription_factor = 0.30
+				industrial_capacity_factory = 0.25
+				production_factory_max_efficiency_factor = 0.15
+				research_speed_factor = 0.15
+				army_org_factor = 0.15
+				army_core_attack_factor = 0.20
+				army_core_defence_factor = 0.25
+				justify_war_goal_time = -0.50
+			}
+		}
+	}
+}

@@ -1,0 +1,99 @@
+on_actions = {
+	on_startup = {
+		effect = {
+			B80 = {
+				if = {
+					limit = { exists = yes NOT = { has_country_flag = B80_opponent_system_initialized } }
+					B80_initialize_opponent_system = yes
+				}
+			}
+		}
+	}
+
+	on_monthly_B80 = {
+		effect = { B80_update_opponent_reaction = yes }
+	}
+
+	# ROOT is the attacker and FROM is the defender. Only the first B80/local
+	# relationship receives the narrative event; later faction joins are ignored.
+	on_war_relation_added = {
+		effect = {
+			if = {
+				limit = {
+					ROOT = { original_tag = B80 }
+					FROM = {
+						OR = { original_tag = HBC original_tag = SND original_tag = MEN original_tag = MAN }
+						NOT = { has_country_flag = B80_local_war_reaction_fired }
+					}
+				}
+				FROM = {
+					set_country_flag = B80_local_war_reaction_fired
+					add_ideas = B80_frontier_mobilization
+				}
+				ROOT = {
+					B80_add_alarm_15 = yes
+					country_event = { id = B80_opponents.80 hours = 3 }
+				}
+				if = {
+					limit = {
+						FROM = { original_tag = HBC }
+						CHI = { exists = yes NOT = { has_war_with = B80 } }
+					}
+					CHI = { country_event = { id = B80_opponents.81 days = 2 } }
+				}
+				else_if = {
+					limit = {
+						FROM = { original_tag = SND }
+						CHI = { exists = yes NOT = { has_war_with = B80 } }
+					}
+					CHI = { country_event = { id = B80_opponents.84 days = 2 } }
+				}
+				else_if = {
+					limit = {
+						FROM = { original_tag = MEN }
+						JAP = { exists = yes NOT = { has_war_with = B80 } }
+					}
+					JAP = { country_event = { id = B80_opponents.85 days = 2 } }
+				}
+				else_if = {
+					limit = {
+						FROM = { original_tag = MAN }
+						JAP = { exists = yes NOT = { has_war_with = B80 } }
+					}
+					JAP = { country_event = { id = B80_opponents.86 days = 2 } }
+				}
+			}
+		}
+	}
+
+	# ROOT annexes FROM. Direct peaceful annexations and peace-conference annexes
+	# therefore both feed the same reaction system.
+	on_annex = {
+		effect = {
+			if = {
+				limit = {
+					ROOT = { original_tag = B80 }
+					FROM = { OR = { original_tag = HBC original_tag = SND original_tag = MEN original_tag = MAN } }
+				}
+				ROOT = {
+					B80_add_alarm_15 = yes
+					country_event = { id = B80_opponents.90 hours = 3 }
+				}
+				if = {
+					limit = {
+						FROM = { OR = { original_tag = HBC original_tag = SND } }
+						CHI = { exists = yes NOT = { has_war_with = B80 } }
+					}
+					CHI = { country_event = { id = B80_opponents.91 days = 2 } }
+				}
+				else_if = {
+					limit = {
+						FROM = { OR = { original_tag = MEN original_tag = MAN } }
+						JAP = { exists = yes NOT = { has_war_with = B80 } }
+					}
+					JAP = { country_event = { id = B80_opponents.91 days = 2 } }
+				}
+			}
+		}
+	}
+}

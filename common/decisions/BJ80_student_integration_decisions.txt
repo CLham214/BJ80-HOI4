@@ -1,0 +1,51 @@
+BJ80_student_integration_category = {
+	BJ80_establish_local_student_committee = {
+		icon = generic_prepare_civil_war
+		cost = 10
+		days_remove = 7
+		fire_only_once = no
+		available = {
+			any_owned_state = {
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		complete_effect = {
+			set_country_flag = BJ80_local_committee_established
+			add_stability = 0.01
+		}
+	}
+
+	BJ80_restore_education_order = {
+		icon = generic_construction
+		cost = 15
+		days_remove = 14
+		fire_only_once = no
+		available = { has_country_flag = BJ80_local_committee_established }
+		complete_effect = {
+			clr_country_flag = BJ80_local_committee_established
+			set_country_flag = BJ80_education_order_restored
+			add_stability = 0.02
+		}
+	}
+
+	BJ80_hold_local_referendum = {
+		icon = generic_political_reform
+		cost = 25
+		days_remove = 21
+		fire_only_once = no
+		available = {
+			has_country_flag = BJ80_education_order_restored
+			has_war = no
+		}
+		complete_effect = {
+			clr_country_flag = BJ80_education_order_restored
+			every_owned_state = {
+				limit = { NOT = { is_core_of = ROOT } }
+				add_core_of = ROOT
+				add_extra_state_shared_building_slots = 1
+			}
+			add_stability = 0.03
+			BJ80_raise_autonomy_consensus = yes
+		}
+	}
+}

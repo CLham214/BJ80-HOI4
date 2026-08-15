@@ -1,0 +1,428 @@
+add_namespace = B80_campus
+
+# Welcome to the first Wangjing semester.
+country_event = {
+	id = B80_campus.1
+	title = B80_campus.1.t
+	desc = B80_campus.1.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+
+	option = {
+		name = B80_campus.1.a
+		add_political_power = 25
+		activate_mission = B80_semester_countdown
+	}
+}
+
+# Hidden dispatcher. It runs after the mission has expired so the next mission
+# can be activated safely from the result event.
+country_event = {
+	id = B80_campus.10
+	title = B80_campus.10.t
+	desc = B80_campus.10.d
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+
+	option = {
+		name = B80_campus.10.a
+		B80_finish_semester = yes
+	}
+}
+
+# Balanced semester.
+country_event = {
+	id = B80_campus.11
+	title = B80_campus.11.t
+	desc = B80_campus.11.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = B80_campus.11.a
+		add_political_power = 75
+		add_stability = 0.03
+		add_to_variable = { B80_school_reputation = 15 }
+		add_timed_idea = { idea = B80_balanced_semester days = 120 }
+		if = {
+			limit = { has_country_flag = B80_opponent_system_initialized }
+			subtract_from_variable = { B80_expansion_alarm = 3 }
+			B80_clamp_opponent_values = yes
+		}
+		if = {
+			limit = {
+				check_variable = { B80_balanced_semester_streak > 2 }
+				NOT = { has_idea = B80_wangjing_education_model }
+			}
+			add_ideas = B80_wangjing_education_model
+			add_research_slot = 1
+			add_to_variable = { B80_school_reputation = 20 }
+		}
+		B80_begin_new_semester = yes
+	}
+	option = {
+		name = B80_campus.11.b
+		add_to_variable = { B80_school_reputation = 8 }
+		add_breakthrough_progress = { specialization = specialization_land value = 0.025 }
+		add_breakthrough_progress = { specialization = specialization_air value = 0.025 }
+		add_breakthrough_progress = { specialization = specialization_naval value = 0.025 }
+		add_breakthrough_progress = { specialization = specialization_nuclear value = 0.025 }
+		add_tech_bonus = { name = B80_balanced_term_bonus bonus = 0.50 uses = 2 category = electronics }
+		if = {
+			limit = { has_country_flag = B80_opponent_system_initialized }
+			subtract_from_variable = { B80_expansion_alarm = 3 }
+			B80_clamp_opponent_values = yes
+		}
+		B80_begin_new_semester = yes
+	}
+}
+
+# Academic semester.
+country_event = {
+	id = B80_campus.12
+	title = B80_campus.12.t
+	desc = B80_campus.12.d
+	picture = GFX_report_event_generic_research_lab
+	is_triggered_only = yes
+
+	option = {
+		name = B80_campus.12.a
+		add_to_variable = { B80_school_reputation = 10 }
+		add_to_variable = { B80_admission_pressure = 5 }
+		add_timed_idea = { idea = B80_academic_semester days = 120 }
+		add_tech_bonus = { name = B80_academic_term_bonus bonus = 0.75 uses = 2 category = electronics }
+		B80_begin_new_semester = yes
+	}
+	option = {
+		name = B80_campus.12.b
+		subtract_from_variable = { B80_admission_pressure = 12 }
+		add_to_variable = { B80_campus_vitality = 8 }
+		add_stability = 0.03
+		B80_begin_new_semester = yes
+	}
+}
+
+# Vibrant semester.
+country_event = {
+	id = B80_campus.13
+	title = B80_campus.13.t
+	desc = B80_campus.13.d
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+
+	option = {
+		name = B80_campus.13.a
+		add_to_variable = { B80_school_reputation = 10 }
+		subtract_from_variable = { B80_admission_pressure = 5 }
+		add_timed_idea = { idea = B80_vibrant_semester days = 120 }
+		add_political_power = 75
+		B80_begin_new_semester = yes
+	}
+	option = {
+		name = B80_campus.13.b
+		subtract_from_variable = { B80_campus_vitality = 6 }
+		add_to_variable = { B80_academic_progress = 10 }
+		add_to_variable = { B80_school_reputation = 6 }
+		B80_begin_new_semester = yes
+	}
+}
+
+# Practical / ordinary semester.
+country_event = {
+	id = B80_campus.14
+	title = B80_campus.14.t
+	desc = B80_campus.14.d
+	picture = GFX_report_event_gathering_protest
+	is_triggered_only = yes
+
+	option = {
+		name = B80_campus.14.a
+		add_timed_idea = { idea = B80_practical_semester days = 120 }
+		add_offsite_building = { type = industrial_complex level = 1 }
+		add_political_power = 35
+		B80_begin_new_semester = yes
+	}
+	option = {
+		name = B80_campus.14.b
+		add_timed_idea = { idea = B80_practical_semester days = 120 }
+		add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 750 producer = B80 }
+		add_equipment_to_stockpile = { type = support_equipment_1 amount = 150 producer = B80 }
+		army_experience = 15
+		B80_begin_new_semester = yes
+	}
+}
+
+# Pressure crisis. All options relieve it to some degree; continuing the sprint
+# is powerful but deliberately remains uncomfortable.
+country_event = {
+	id = B80_campus.15
+	title = B80_campus.15.t
+	desc = B80_campus.15.d
+	picture = GFX_report_event_gathering_protest
+	is_triggered_only = yes
+
+	option = {
+		name = B80_campus.15.a
+		subtract_from_variable = { B80_academic_progress = 10 }
+		add_to_variable = { B80_campus_vitality = 15 }
+		subtract_from_variable = { B80_admission_pressure = 30 }
+		add_stability = 0.04
+		B80_begin_new_semester = yes
+	}
+	option = {
+		name = B80_campus.15.b
+		add_to_variable = { B80_academic_progress = 10 }
+		subtract_from_variable = { B80_admission_pressure = 10 }
+		add_stability = -0.04
+		add_timed_idea = { idea = B80_exam_sprint days = 120 }
+		B80_begin_new_semester = yes
+	}
+	option = {
+		name = B80_campus.15.c
+		add_to_variable = { B80_campus_vitality = 20 }
+		subtract_from_variable = { B80_admission_pressure = 22 }
+		add_to_variable = { B80_school_reputation = 4 }
+		B80_begin_new_semester = yes
+	}
+}
+
+# An ordinary term still offers a direction for the next one without handing
+# out permanent industry for free.
+country_event = {
+	id = B80_campus.16
+	title = B80_campus.16.t
+	desc = B80_campus.16.d
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+
+	option = {
+		name = B80_campus.16.a
+		add_to_variable = { B80_academic_progress = 8 }
+		add_to_variable = { B80_admission_pressure = 4 }
+		add_political_power = 35
+		B80_begin_new_semester = yes
+	}
+	option = {
+		name = B80_campus.16.b
+		add_to_variable = { B80_campus_vitality = 10 }
+		subtract_from_variable = { B80_admission_pressure = 8 }
+		add_stability = 0.02
+		B80_begin_new_semester = yes
+	}
+	option = {
+		name = B80_campus.16.c
+		add_to_variable = { B80_academic_progress = 5 }
+		add_to_variable = { B80_campus_vitality = 5 }
+		add_to_variable = { B80_school_reputation = 4 }
+		B80_begin_new_semester = yes
+	}
+}
+
+# Hundred-club recruitment day.
+country_event = {
+	id = B80_campus.20
+	title = B80_campus.20.t
+	desc = B80_campus.20.d
+	picture = GFX_report_event_generic_rally2
+	is_triggered_only = yes
+
+	option = {
+		name = B80_campus.20.a
+		add_to_variable = { B80_academic_progress = 6 }
+		add_timed_idea = { idea = B80_club_science_wave days = 120 }
+		add_breakthrough_progress = { specialization = specialization_land value = 0.025 }
+		add_breakthrough_progress = { specialization = specialization_air value = 0.025 }
+		add_breakthrough_progress = { specialization = specialization_naval value = 0.025 }
+		add_breakthrough_progress = { specialization = specialization_nuclear value = 0.025 }
+		B80_clamp_campus_values = yes
+	}
+	option = {
+		name = B80_campus.20.b
+		add_stability = 0.03
+		add_political_power = 35
+		add_timed_idea = { idea = B80_club_arts_wave days = 120 }
+	}
+	option = {
+		name = B80_campus.20.c
+		add_to_variable = { B80_school_reputation = 5 }
+		add_political_power = 50
+		add_timed_idea = { idea = B80_club_media_wave days = 120 }
+		B80_clamp_campus_values = yes
+	}
+	option = {
+		name = B80_campus.20.d_option
+		add_to_variable = { B80_campus_vitality = 8 }
+		add_manpower = 750
+		add_timed_idea = { idea = B80_club_everything_wave days = 120 }
+		B80_clamp_campus_values = yes
+	}
+}
+
+# The cafeteria is enormous. The queue is larger.
+country_event = {
+	id = B80_campus.30
+	title = B80_campus.30.t
+	desc = B80_campus.30.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+
+	option = {
+		name = B80_campus.30.a
+		add_to_variable = { B80_admission_pressure = 4 }
+		add_timed_idea = { idea = B80_lunch_rush_instinct days = 120 }
+		army_experience = 10
+		B80_clamp_campus_values = yes
+	}
+	option = {
+		name = B80_campus.30.b
+		subtract_from_variable = { B80_academic_progress = 4 }
+		add_to_variable = { B80_campus_vitality = 8 }
+		subtract_from_variable = { B80_admission_pressure = 8 }
+		B80_improve_cafeteria = yes
+		B80_clamp_campus_values = yes
+	}
+	option = {
+		name = B80_campus.30.c
+		trigger = { has_political_power > 49 }
+		add_political_power = -50
+		add_to_variable = { B80_campus_vitality = 10 }
+		add_to_variable = { B80_school_reputation = 4 }
+		B80_improve_cafeteria = yes
+		add_offsite_building = { type = industrial_complex level = 1 }
+		B80_clamp_campus_values = yes
+	}
+}
+
+# Running exercises are nominally mandatory, practically negotiable.
+country_event = {
+	id = B80_campus.40
+	title = B80_campus.40.t
+	desc = B80_campus.40.d
+	picture = GFX_report_event_generic_military_parade
+	is_triggered_only = yes
+
+	option = {
+		name = B80_campus.40.a
+		subtract_from_variable = { B80_campus_vitality = 8 }
+		add_to_variable = { B80_admission_pressure = 8 }
+		army_experience = 25
+		add_timed_idea = { idea = B80_compulsory_running days = 120 }
+		if = {
+			limit = { has_completed_focus = B80_legacy_newfocus_10 }
+			army_experience = 15
+			add_command_power = 10
+		}
+		B80_clamp_campus_values = yes
+	}
+	option = {
+		name = B80_campus.40.b
+		subtract_from_variable = { B80_campus_vitality = 2 }
+		add_to_variable = { B80_admission_pressure = 2 }
+		army_experience = 10
+		add_timed_idea = { idea = B80_symbolic_running days = 120 }
+		B80_clamp_campus_values = yes
+	}
+	option = {
+		name = B80_campus.40.c
+		add_to_variable = { B80_campus_vitality = 10 }
+		subtract_from_variable = { B80_admission_pressure = 6 }
+		add_timed_idea = { idea = B80_skip_running days = 120 }
+		if = {
+			limit = { has_completed_focus = BJ80_the_school_belongs_to_students }
+			add_to_variable = { B80_campus_vitality = 5 }
+			add_political_power = 25
+		}
+		B80_clamp_campus_values = yes
+	}
+}
+
+# Ruidé pipeline result.
+country_event = {
+	id = B80_campus.50
+	title = B80_campus.50.t
+	desc = B80_campus.50.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+
+	option = {
+		name = B80_campus.50.a
+		clr_country_flag = B80_ruide_cohort_underway
+		add_to_variable = { B80_academic_progress = 12 }
+		add_to_variable = { B80_admission_pressure = 5 }
+		add_timed_idea = { idea = B80_ruide_science_cohort days = 240 }
+		add_manpower = 1000
+		B80_clamp_campus_values = yes
+	}
+	option = {
+		name = B80_campus.50.b
+		clr_country_flag = B80_ruide_cohort_underway
+		add_to_variable = { B80_campus_vitality = 10 }
+		add_to_variable = { B80_school_reputation = 6 }
+		add_timed_idea = { idea = B80_ruide_humanities_cohort days = 240 }
+		add_manpower = 1000
+		B80_clamp_campus_values = yes
+	}
+	option = {
+		name = B80_campus.50.c
+		clr_country_flag = B80_ruide_cohort_underway
+		add_equipment_to_stockpile = { type = support_equipment_1 amount = 250 producer = B80 }
+		add_offsite_building = { type = industrial_complex level = 1 }
+		add_timed_idea = { idea = B80_ruide_engineering_cohort days = 240 }
+		add_manpower = 1000
+	}
+	option = {
+		name = B80_campus.50.d_option
+		clr_country_flag = B80_ruide_cohort_underway
+		add_to_variable = { B80_academic_progress = 6 }
+		add_to_variable = { B80_campus_vitality = 6 }
+		add_to_variable = { B80_school_reputation = 4 }
+		add_timed_idea = { idea = B80_ruide_allround_cohort days = 240 }
+		add_manpower = 1500
+		B80_clamp_campus_values = yes
+	}
+}
+
+# Wangjing Education Forum.
+country_event = {
+	id = B80_campus.60
+	title = B80_campus.60.t
+	desc = B80_campus.60.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = B80_campus.60.a
+		add_to_variable = { B80_academic_progress = 5 }
+		add_to_variable = { B80_campus_vitality = 8 }
+		add_to_variable = { B80_school_reputation = 5 }
+		add_political_power = 75
+		B80_clamp_campus_values = yes
+	}
+	option = {
+		name = B80_campus.60.b
+		add_to_variable = { B80_academic_progress = 10 }
+		add_to_variable = { B80_school_reputation = 8 }
+		add_breakthrough_progress = { specialization = specialization_land value = 0.04 }
+		add_breakthrough_progress = { specialization = specialization_air value = 0.04 }
+		add_breakthrough_progress = { specialization = specialization_naval value = 0.04 }
+		add_breakthrough_progress = { specialization = specialization_nuclear value = 0.04 }
+		add_tech_bonus = { name = B80_university_lab_bonus bonus = 0.50 uses = 2 category = electronics }
+		B80_clamp_campus_values = yes
+	}
+	option = {
+		name = B80_campus.60.c
+		add_offsite_building = { type = industrial_complex level = 1 }
+		add_offsite_building = { type = arms_factory level = 1 }
+		add_to_variable = { B80_school_reputation = 4 }
+		add_political_power = 50
+		B80_clamp_campus_values = yes
+	}
+}
+
+# Delayed mission restart: by this point the expired mission is inactive.
+country_event = {
+	id = B80_campus.70
+	hidden = yes
+	is_triggered_only = yes
+	immediate = { activate_mission = B80_semester_countdown }
+}

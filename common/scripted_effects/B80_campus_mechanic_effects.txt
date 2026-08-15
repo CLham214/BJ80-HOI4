@@ -1,0 +1,188 @@
+# Shared bookkeeping for the Wangjing semester system.
+
+B80_update_admission_pressure_idea = {
+	remove_ideas = {
+		B80_admission_pressure_relaxed
+		B80_admission_pressure_balanced
+		B80_admission_pressure_intense
+		B80_admission_pressure_all_out
+		B80_admission_pressure_breaking_point
+	}
+	if = {
+		limit = { check_variable = { B80_admission_pressure < 25 } }
+		add_ideas = B80_admission_pressure_relaxed
+	}
+	else_if = {
+		limit = {
+			OR = {
+				check_variable = { B80_admission_pressure < 60 }
+				AND = {
+					has_completed_focus = B80_legacy_newfocus_10
+					check_variable = { B80_admission_pressure < 70 }
+				}
+			}
+		}
+		add_ideas = B80_admission_pressure_balanced
+	}
+	else_if = {
+		limit = {
+			OR = {
+				check_variable = { B80_admission_pressure < 75 }
+				AND = {
+					has_completed_focus = B80_legacy_newfocus_10
+					check_variable = { B80_admission_pressure < 85 }
+				}
+			}
+		}
+		add_ideas = B80_admission_pressure_intense
+	}
+	else_if = {
+		limit = {
+			OR = {
+				check_variable = { B80_admission_pressure < 90 }
+				AND = {
+					has_completed_focus = B80_legacy_newfocus_10
+					check_variable = { B80_admission_pressure < 95 }
+				}
+			}
+		}
+		add_ideas = B80_admission_pressure_all_out
+	}
+	else = {
+		add_ideas = B80_admission_pressure_breaking_point
+	}
+}
+
+B80_clamp_campus_values = {
+	clamp_variable = { var = B80_academic_progress min = 0 max = 100 }
+	clamp_variable = { var = B80_campus_vitality min = 0 max = 100 }
+	clamp_variable = { var = B80_admission_pressure min = 0 max = 100 }
+	clamp_variable = { var = B80_school_reputation min = 0 max = 100 }
+	clamp_variable = { var = B80_semester_projects min = 0 max = 4 }
+	B80_update_admission_pressure_idea = yes
+}
+
+B80_record_semester_project = {
+	add_to_variable = { B80_semester_projects = 1 }
+	B80_clamp_campus_values = yes
+}
+
+B80_clear_semester_project_flags = {
+	clr_country_flag = B80_took_wangxuan_project
+	clr_country_flag = B80_took_wangshouguan_project
+	clr_country_flag = B80_took_math_physics_project
+	clr_country_flag = B80_took_hundred_clubs_project
+	clr_country_flag = B80_took_cafeteria_project
+	clr_country_flag = B80_took_running_project
+	clr_country_flag = B80_took_engineering_project
+	clr_country_flag = B80_took_international_project
+	clr_country_flag = B80_took_wartime_project
+}
+
+B80_begin_new_semester = {
+	set_variable = { B80_semester_projects = 0 }
+	add_to_variable = { B80_semester_number = 1 }
+	subtract_from_variable = { B80_academic_progress = 20 }
+	subtract_from_variable = { B80_campus_vitality = 10 }
+	subtract_from_variable = { B80_admission_pressure = 12 }
+	B80_clear_semester_project_flags = yes
+	B80_clamp_campus_values = yes
+	country_event = { id = B80_campus.70 hours = 1 }
+}
+
+B80_improve_cafeteria = {
+	if = {
+		limit = { has_idea = B80_cafeteria_queue }
+		swap_ideas = { remove_idea = B80_cafeteria_queue add_idea = B80_staggered_cafeteria }
+	}
+	else_if = {
+		limit = { has_idea = B80_staggered_cafeteria }
+		swap_ideas = { remove_idea = B80_staggered_cafeteria add_idea = B80_central_cafeteria_system }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_idea = B80_central_cafeteria_system }
+		}
+		add_ideas = B80_cafeteria_queue
+	}
+}
+
+B80_initialize_campus_system = {
+	if = {
+		limit = { NOT = { has_country_flag = B80_campus_system_initialized } }
+		set_country_flag = B80_campus_system_initialized
+		set_variable = { B80_academic_progress = 50 }
+		set_variable = { B80_campus_vitality = 55 }
+		set_variable = { B80_admission_pressure = 45 }
+		set_variable = { B80_school_reputation = 10 }
+		set_variable = { B80_semester_projects = 0 }
+		set_variable = { B80_semester_number = 1 }
+		set_variable = { B80_balanced_semester_streak = 0 }
+		remove_ideas = B80_gaokao_pressure
+		add_ideas = B80_cafeteria_queue
+		B80_clamp_campus_values = yes
+		country_event = { id = B80_campus.1 days = 1 }
+	}
+}
+
+B80_finish_semester = {
+	if = {
+		limit = {
+			OR = {
+				AND = {
+					NOT = { has_completed_focus = B80_legacy_newfocus_10 }
+					check_variable = { B80_admission_pressure > 89 }
+				}
+				AND = {
+					has_completed_focus = B80_legacy_newfocus_10
+					check_variable = { B80_admission_pressure > 94 }
+				}
+			}
+		}
+		set_variable = { B80_balanced_semester_streak = 0 }
+		country_event = { id = B80_campus.15 }
+	}
+	else_if = {
+		limit = {
+			OR = {
+				AND = {
+					check_variable = { B80_academic_progress > 69 }
+					check_variable = { B80_campus_vitality > 64 }
+					check_variable = { B80_admission_pressure < 75 }
+				}
+				AND = {
+					has_completed_focus = B80_legacy_newfocus_10
+					check_variable = { B80_academic_progress > 69 }
+					check_variable = { B80_campus_vitality > 64 }
+					check_variable = { B80_admission_pressure < 85 }
+				}
+			}
+		}
+		add_to_variable = { B80_balanced_semester_streak = 1 }
+		country_event = { id = B80_campus.11 }
+	}
+	else_if = {
+		limit = { check_variable = { B80_academic_progress > 74 } }
+		set_variable = { B80_balanced_semester_streak = 0 }
+		country_event = { id = B80_campus.12 }
+	}
+	else_if = {
+		limit = { check_variable = { B80_campus_vitality > 74 } }
+		set_variable = { B80_balanced_semester_streak = 0 }
+		country_event = { id = B80_campus.13 }
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_country_flag = B80_took_engineering_project
+				has_country_flag = B80_took_wartime_project
+			}
+		}
+		set_variable = { B80_balanced_semester_streak = 0 }
+		country_event = { id = B80_campus.14 }
+	}
+	else = {
+		set_variable = { B80_balanced_semester_streak = 0 }
+		country_event = { id = B80_campus.16 }
+	}
+}

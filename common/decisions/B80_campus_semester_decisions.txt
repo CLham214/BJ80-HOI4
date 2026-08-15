@@ -1,0 +1,362 @@
+B80_campus_semester_category = {
+	B80_initialize_campus_mechanic = {
+		icon = generic_research
+		cost = 0
+		fire_only_once = yes
+		visible = { NOT = { has_country_flag = B80_campus_system_initialized } }
+		available = { NOT = { has_country_flag = B80_campus_system_initialized } }
+		complete_effect = { B80_initialize_campus_system = yes }
+		ai_will_do = { factor = 0 }
+	}
+
+	B80_semester_countdown = {
+		icon = generic_research
+		days_mission_timeout = 120
+		is_good = yes
+		selectable_mission = no
+		fire_only_once = no
+		activation = { always = no }
+		available = { always = no }
+		timeout_effect = { country_event = { id = B80_campus.10 hours = 1 } }
+	}
+
+	B80_wangxuan_informatics_project = {
+		icon = generic_research
+		cost = 35
+		days_remove = 1
+		fire_only_once = no
+		visible = { has_country_flag = B80_campus_system_initialized }
+		available = {
+			has_active_mission = B80_semester_countdown
+			B80_has_semester_project_slot = yes
+			NOT = { has_country_flag = B80_took_wangxuan_project }
+		}
+		complete_effect = {
+			set_country_flag = B80_took_wangxuan_project
+			add_to_variable = { B80_academic_progress = 15 }
+			add_to_variable = { B80_admission_pressure = 10 }
+			add_to_variable = { B80_school_reputation = 5 }
+			add_tech_bonus = { name = B80_wangxuan_bonus bonus = 0.75 uses = 2 category = electronics }
+			if = {
+				limit = { has_completed_focus = B80_legacy_newfocus_12 }
+				if = {
+					limit = { has_intelligence_agency = no }
+					create_intelligence_agency = yes
+				}
+				if = {
+					limit = {
+						has_intelligence_agency = yes
+						NOT = { has_done_agency_upgrade = upgrade_blueprint_stealing }
+					}
+					upgrade_intelligence_agency = upgrade_blueprint_stealing
+				}
+			}
+			B80_record_semester_project = yes
+		}
+		ai_will_do = {
+			factor = 2
+			modifier = { factor = 0.2 check_variable = { B80_admission_pressure > 74 } }
+			modifier = { factor = 2 check_variable = { B80_academic_progress < 55 } }
+		}
+	}
+
+	B80_wangshouguan_science_project = {
+		icon = generic_research
+		cost = 35
+		days_remove = 1
+		fire_only_once = no
+		visible = { has_country_flag = B80_campus_system_initialized }
+		available = {
+			has_active_mission = B80_semester_countdown
+			B80_has_semester_project_slot = yes
+			NOT = { has_country_flag = B80_took_wangshouguan_project }
+		}
+		complete_effect = {
+			set_country_flag = B80_took_wangshouguan_project
+			add_to_variable = { B80_academic_progress = 12 }
+			add_to_variable = { B80_admission_pressure = 8 }
+			add_to_variable = { B80_school_reputation = 7 }
+			add_breakthrough_progress = { specialization = specialization_land value = 0.05 }
+			add_breakthrough_progress = { specialization = specialization_air value = 0.05 }
+			add_breakthrough_progress = { specialization = specialization_naval value = 0.05 }
+			add_breakthrough_progress = { specialization = specialization_nuclear value = 0.05 }
+			B80_record_semester_project = yes
+		}
+		ai_will_do = { factor = 2 modifier = { factor = 0.25 check_variable = { B80_admission_pressure > 79 } } }
+	}
+
+	B80_math_physics_project = {
+		icon = generic_research
+		cost = 30
+		days_remove = 1
+		fire_only_once = no
+		visible = { has_country_flag = B80_campus_system_initialized }
+		available = {
+			has_active_mission = B80_semester_countdown
+			B80_has_semester_project_slot = yes
+			NOT = { has_country_flag = B80_took_math_physics_project }
+		}
+		complete_effect = {
+			set_country_flag = B80_took_math_physics_project
+			add_to_variable = { B80_academic_progress = 12 }
+			add_to_variable = { B80_admission_pressure = 7 }
+			army_experience = 10
+			add_tech_bonus = { name = B80_math_physics_bonus bonus = 0.50 uses = 1 category = industry }
+			if = {
+				limit = { has_completed_focus = B80_legacy_newfocus_10 }
+				add_to_variable = { B80_academic_progress = 4 }
+				add_political_power = 25
+			}
+			B80_record_semester_project = yes
+		}
+		ai_will_do = { factor = 2 }
+	}
+
+	B80_hundred_clubs_project = {
+		icon = generic_research
+		cost = 25
+		days_remove = 1
+		fire_only_once = no
+		visible = { has_country_flag = B80_campus_system_initialized }
+		available = {
+			has_active_mission = B80_semester_countdown
+			B80_has_semester_project_slot = yes
+			NOT = { has_country_flag = B80_took_hundred_clubs_project }
+		}
+		complete_effect = {
+			set_country_flag = B80_took_hundred_clubs_project
+			add_to_variable = { B80_campus_vitality = 18 }
+			subtract_from_variable = { B80_admission_pressure = 10 }
+			add_to_variable = { B80_school_reputation = 5 }
+			if = {
+				limit = { has_completed_focus = BJ80_the_school_belongs_to_students }
+				add_to_variable = { B80_campus_vitality = 6 }
+				add_to_variable = { B80_school_reputation = 3 }
+			}
+			country_event = { id = B80_campus.20 days = 1 }
+			B80_record_semester_project = yes
+		}
+		ai_will_do = {
+			factor = 2
+			modifier = { factor = 4 check_variable = { B80_admission_pressure > 74 } }
+			modifier = { factor = 3 check_variable = { B80_campus_vitality < 45 } }
+		}
+	}
+
+	B80_cafeteria_reform_project = {
+		icon = generic_construction
+		cost = 25
+		days_remove = 1
+		fire_only_once = no
+		visible = { has_country_flag = B80_campus_system_initialized }
+		available = {
+			has_active_mission = B80_semester_countdown
+			B80_has_semester_project_slot = yes
+			NOT = { has_country_flag = B80_took_cafeteria_project }
+		}
+		complete_effect = {
+			set_country_flag = B80_took_cafeteria_project
+			add_to_variable = { B80_campus_vitality = 8 }
+			subtract_from_variable = { B80_admission_pressure = 5 }
+			if = {
+				limit = { has_completed_focus = B80_legacy_newfocus_11 }
+				add_manpower = 1000
+				add_to_variable = { B80_campus_vitality = 5 }
+			}
+			country_event = { id = B80_campus.30 days = 1 }
+			B80_record_semester_project = yes
+		}
+		ai_will_do = { factor = 2 modifier = { factor = 3 check_variable = { B80_campus_vitality < 50 } } }
+	}
+
+	B80_running_policy_project = {
+		icon = generic_military
+		cost = 20
+		days_remove = 1
+		fire_only_once = no
+		visible = { has_country_flag = B80_campus_system_initialized }
+		available = {
+			has_active_mission = B80_semester_countdown
+			B80_has_semester_project_slot = yes
+			NOT = { has_country_flag = B80_took_running_project }
+		}
+		complete_effect = {
+			set_country_flag = B80_took_running_project
+			country_event = { id = B80_campus.40 days = 1 }
+			B80_record_semester_project = yes
+		}
+		ai_will_do = { factor = 1.5 }
+	}
+
+	B80_engineering_practice_project = {
+		icon = generic_construction
+		cost = 30
+		days_remove = 1
+		fire_only_once = no
+		visible = { has_country_flag = B80_campus_system_initialized }
+		available = {
+			has_active_mission = B80_semester_countdown
+			B80_has_semester_project_slot = yes
+			NOT = { has_country_flag = B80_took_engineering_project }
+		}
+		complete_effect = {
+			set_country_flag = B80_took_engineering_project
+			add_to_variable = { B80_academic_progress = 6 }
+			subtract_from_variable = { B80_campus_vitality = 3 }
+			add_to_variable = { B80_admission_pressure = 5 }
+			army_experience = 15
+			add_equipment_to_stockpile = { type = support_equipment_1 amount = 150 producer = B80 }
+			if = {
+				limit = { has_completed_focus = B80_legacy_newfocus_11 }
+				add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 500 producer = B80 }
+				add_manpower = 1000
+			}
+			if = {
+				limit = { has_completed_focus = B80_legacy_newfocus_12 }
+				add_equipment_to_stockpile = { type = motorized_equipment_1 amount = 100 producer = JAP }
+				add_to_variable = { B80_school_reputation = 3 }
+			}
+			B80_record_semester_project = yes
+		}
+		ai_will_do = { factor = 2 }
+	}
+
+	B80_international_exchange_project = {
+		icon = generic_research
+		cost = 35
+		days_remove = 1
+		fire_only_once = no
+		visible = { has_country_flag = B80_campus_system_initialized }
+		available = {
+			has_active_mission = B80_semester_countdown
+			B80_has_semester_project_slot = yes
+			NOT = { has_country_flag = B80_took_international_project }
+		}
+		complete_effect = {
+			set_country_flag = B80_took_international_project
+			add_to_variable = { B80_academic_progress = 8 }
+			add_to_variable = { B80_campus_vitality = 6 }
+			add_to_variable = { B80_admission_pressure = 3 }
+			add_to_variable = { B80_school_reputation = 10 }
+			if = {
+				limit = { has_country_flag = B80_opponent_system_initialized }
+				B80_reduce_alarm_5 = yes
+			}
+			if = {
+				limit = { has_completed_focus = B80_legacy_newfocus_9 }
+				add_to_variable = { B80_school_reputation = 5 }
+				add_offsite_building = { type = industrial_complex level = 1 }
+			}
+			if = {
+				limit = { has_completed_focus = B80_legacy_newfocus_12 }
+				add_political_power = 25
+				add_breakthrough_progress = { specialization = specialization_air value = 0.10 }
+			}
+			B80_record_semester_project = yes
+		}
+		ai_will_do = { factor = 1.5 modifier = { factor = 3 has_completed_focus = B80_legacy_newfocus_9 } }
+	}
+
+	B80_wartime_curriculum_project = {
+		icon = generic_military
+		cost = 35
+		days_remove = 1
+		fire_only_once = no
+		visible = { has_country_flag = B80_campus_system_initialized has_war = yes }
+		available = {
+			has_active_mission = B80_semester_countdown
+			B80_has_semester_project_slot = yes
+			NOT = { has_country_flag = B80_took_wartime_project }
+		}
+		complete_effect = {
+			set_country_flag = B80_took_wartime_project
+			add_to_variable = { B80_academic_progress = 3 }
+			subtract_from_variable = { B80_campus_vitality = 10 }
+			add_to_variable = { B80_admission_pressure = 8 }
+			add_war_support = 0.03
+			army_experience = 25
+			add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 750 producer = B80 }
+			if = {
+				limit = { has_country_flag = B80_opponent_system_initialized }
+				B80_add_alarm_5 = yes
+			}
+			B80_record_semester_project = yes
+		}
+		ai_will_do = { factor = 2 }
+	}
+
+	B80_recruit_ruide_cohort = {
+		icon = generic_research
+		cost = 50
+		days_remove = 21
+		days_re_enable = 300
+		fire_only_once = no
+		visible = { has_country_flag = B80_campus_system_initialized }
+		available = {
+			B80_can_spend_25_reputation = yes
+			NOT = { has_country_flag = B80_ruide_cohort_underway }
+		}
+		complete_effect = {
+			subtract_from_variable = { B80_school_reputation = 25 }
+			set_country_flag = { flag = B80_ruide_cohort_underway days = 125 }
+			country_event = { id = B80_campus.50 days = 120 }
+		}
+		ai_will_do = { factor = 1 }
+	}
+
+	B80_invite_academician = {
+		icon = generic_research
+		cost = 15
+		days_remove = 7
+		days_re_enable = 180
+		fire_only_once = no
+		visible = { has_country_flag = B80_campus_system_initialized }
+		available = { B80_can_spend_25_reputation = yes }
+		complete_effect = {
+			subtract_from_variable = { B80_school_reputation = 25 }
+			add_to_variable = { B80_academic_progress = 10 }
+			add_to_variable = { B80_admission_pressure = 3 }
+			add_timed_idea = { idea = B80_academician_lecture days = 120 }
+			add_breakthrough_progress = { specialization = specialization_land value = 0.025 }
+			add_breakthrough_progress = { specialization = specialization_air value = 0.025 }
+			add_breakthrough_progress = { specialization = specialization_naval value = 0.025 }
+			add_breakthrough_progress = { specialization = specialization_nuclear value = 0.025 }
+			B80_clamp_campus_values = yes
+		}
+		ai_will_do = { factor = 1 }
+	}
+
+	B80_host_education_forum = {
+		icon = generic_research
+		cost = 25
+		days_remove = 14
+		days_re_enable = 365
+		fire_only_once = no
+		visible = { has_country_flag = B80_campus_system_initialized }
+		available = { B80_can_spend_40_reputation = yes }
+		complete_effect = {
+			subtract_from_variable = { B80_school_reputation = 40 }
+			country_event = { id = B80_campus.60 days = 1 }
+		}
+		ai_will_do = { factor = 0.7 }
+	}
+
+	B80_activate_alumni_network = {
+		icon = generic_military
+		cost = 20
+		days_remove = 7
+		days_re_enable = 180
+		fire_only_once = no
+		visible = { has_country_flag = B80_campus_system_initialized has_war = yes }
+		available = { B80_can_spend_35_reputation = yes }
+		complete_effect = {
+			subtract_from_variable = { B80_school_reputation = 35 }
+			add_manpower = 2500
+			add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1200 producer = B80 }
+			add_equipment_to_stockpile = { type = support_equipment_1 amount = 250 producer = B80 }
+			add_command_power = 15
+			B80_clamp_campus_values = yes
+		}
+		ai_will_do = { factor = 2 }
+	}
+}

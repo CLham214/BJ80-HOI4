@@ -1,0 +1,855 @@
+# Hand-written continuations for the three unfinished political branches.
+# The Japanese collaboration branch remains in B80_legacy_shared_focuses.txt.
+
+# -----------------------------------------------------------------------------
+# Allied democratic route
+# -----------------------------------------------------------------------------
+
+shared_focus = {
+	id = B80_allied_public_broadcast
+	icon = GFX_goal_generic_propaganda
+	x = 45
+	y = 8
+	cost = 5
+	prerequisite = { focus = B80_legacy_newfocus_8 }
+	completion_reward = {
+		set_politics = { ruling_party = democratic elections_allowed = yes election_frequency = 48 }
+		set_popularities = { democratic = 60 neutrality = 25 communism = 10 fascism = 5 }
+		add_ideas = B80_allied_democratic_mandate
+		add_political_power = 75
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_british_campus_mission
+	icon = GFX_goal_generic_major_alliance
+	x = 41
+	y = 9
+	cost = 5
+	prerequisite = { focus = B80_allied_public_broadcast }
+	completion_reward = {
+		ENG = {
+			give_guarantee = B80
+			add_opinion_modifier = { target = B80 modifier = B80_allied_education_partner }
+			add_ai_strategy = { type = protect id = B80 value = 100 }
+		}
+		add_offsite_building = { type = industrial_complex level = 1 }
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_american_educational_foundation
+	icon = GFX_goal_generic_scientific_exchange
+	x = 45
+	y = 9
+	cost = 5
+	prerequisite = { focus = B80_allied_public_broadcast }
+	completion_reward = {
+		USA = {
+			add_opinion_modifier = { target = B80 modifier = B80_allied_education_partner }
+			add_ai_strategy = { type = protect id = B80 value = 50 }
+		}
+		add_ideas = B80_allied_educational_foundation
+		add_offsite_building = { type = industrial_complex level = 1 }
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_french_cultural_delegation
+	icon = GFX_goal_generic_improve_relations
+	x = 49
+	y = 9
+	cost = 5
+	prerequisite = { focus = B80_allied_public_broadcast }
+	completion_reward = {
+		FRA = { add_opinion_modifier = { target = B80 modifier = B80_allied_education_partner } }
+		add_stability = 0.05
+		add_political_power = 50
+		add_offsite_building = { type = industrial_complex level = 1 }
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_allied_industrial_credit
+	icon = GFX_goal_generic_construct_civ_factory
+	x = 41
+	y = 10
+	cost = 5
+	prerequisite = { focus = B80_british_campus_mission }
+	completion_reward = {
+		add_offsite_building = { type = industrial_complex level = 2 }
+		add_ideas = B80_allied_industrial_credit_idea
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_commonwealth_officer_exchange
+	icon = GFX_goal_generic_allies_build_infantry
+	x = 45
+	y = 10
+	cost = 5
+	prerequisite = { focus = B80_american_educational_foundation }
+	completion_reward = {
+		army_experience = 25
+		air_experience = 15
+		add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1200 producer = ENG }
+		add_equipment_to_stockpile = { type = support_equipment_1 amount = 250 producer = ENG }
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_open_the_international_department
+	icon = GFX_focus_research
+	x = 49
+	y = 10
+	cost = 5
+	prerequisite = { focus = B80_french_cultural_delegation }
+	completion_reward = {
+		add_research_slot = 1
+		add_ideas = B80_allied_international_department
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_democratic_campus_constitution
+	icon = GFX_goal_generic_national_unity
+	x = 45
+	y = 11
+	cost = 5
+	prerequisite = { focus = B80_allied_industrial_credit focus = B80_commonwealth_officer_exchange focus = B80_open_the_international_department }
+	completion_reward = {
+		add_country_leader_role = {
+			character = B80_wu_wenqi
+			promote_leader = yes
+			country_leader = { ideology = conservatism expire = "1965.1.1.1" traits = { B80_international_campus_statesman } }
+		}
+		country_event = { id = B80_political.1 days = 1 }
+		add_stability = 0.05
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_join_the_allies
+	icon = GFX_goal_generic_major_alliance
+	x = 41
+	y = 12
+	cost = 5
+	prerequisite = { focus = B80_democratic_campus_constitution }
+	mutually_exclusive = { focus = B80_found_the_education_league }
+	completion_reward = {
+		if = {
+			limit = { ENG = { exists = yes is_faction_leader = yes } is_in_faction = no }
+			ENG = { add_to_faction = B80 }
+		}
+		else = {
+			if = {
+				limit = { is_in_faction = no is_subject = no }
+				set_rule = { can_create_factions = yes }
+				create_faction_from_template = {
+					template = faction_template_defensive_democratic
+					name = B80_EDUCATION_LEAGUE
+					icon = GFX_faction_logo_generic_democratic
+					color = { 0.20 0.45 0.85 }
+				}
+			}
+		}
+		add_war_support = 0.05
+		add_ideas = B80_allied_security_mission
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_found_the_education_league
+	icon = GFX_goal_generic_alliance
+	x = 49
+	y = 12
+	cost = 5
+	prerequisite = { focus = B80_democratic_campus_constitution }
+	mutually_exclusive = { focus = B80_join_the_allies }
+	completion_reward = {
+		set_rule = { can_create_factions = yes }
+		if = {
+			limit = { is_in_faction = no is_subject = no }
+			create_faction_from_template = {
+				template = faction_template_defensive_democratic
+				name = B80_EDUCATION_LEAGUE
+				icon = GFX_faction_logo_generic_democratic
+				color = { 0.20 0.45 0.85 }
+			}
+		}
+		add_political_power = 100
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_appeal_to_chinese_democrats
+	icon = GFX_goal_generic_political_pressure
+	x = 41
+	y = 13
+	cost = 5
+	prerequisite = { focus = B80_join_the_allies focus = B80_found_the_education_league }
+	completion_reward = {
+		add_manpower = 5000
+		add_popularity = { ideology = democratic popularity = 0.10 }
+		add_ideas = B80_allied_chinese_democratic_front
+		if = { limit = { CHI = { exists = yes } } CHI = { country_event = { id = B80_political.10 days = 2 } } }
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_arsenal_of_democracy
+	icon = GFX_goal_generic_construct_mil_factory
+	x = 45
+	y = 13
+	cost = 5
+	prerequisite = { focus = B80_join_the_allies focus = B80_found_the_education_league }
+	completion_reward = {
+		add_offsite_building = { type = arms_factory level = 2 }
+		add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 2000 producer = USA }
+		add_ideas = B80_allied_arsenal_of_democracy
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_allied_air_liaison
+	icon = GFX_goal_generic_air_fighter
+	x = 49
+	y = 13
+	cost = 5
+	prerequisite = { focus = B80_join_the_allies focus = B80_found_the_education_league }
+	completion_reward = {
+		add_equipment_to_stockpile = { type = fighter_equipment_0 amount = 150 producer = ENG }
+		air_experience = 25
+		capital_scope = { add_building_construction = { type = air_base level = 2 instant_build = yes } }
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_defend_north_china_democracy
+	icon = GFX_goal_generic_territory_or_war
+	x = 43
+	y = 14
+	cost = 5
+	prerequisite = { focus = B80_appeal_to_chinese_democrats focus = B80_arsenal_of_democracy focus = B80_allied_air_liaison }
+	completion_reward = {
+		add_state_claim = 611
+		add_state_claim = 614
+		add_state_claim = 597
+		if = { limit = { HBC = { exists = yes } } create_wargoal = { type = annex_everything target = HBC } }
+		add_war_support = 0.10
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_allied_china_command
+	icon = GFX_goal_generic_allies_build_infantry
+	x = 47
+	y = 14
+	cost = 5
+	prerequisite = { focus = B80_appeal_to_chinese_democrats focus = B80_arsenal_of_democracy focus = B80_allied_air_liaison }
+	completion_reward = {
+		add_ideas = B80_allied_china_command_idea
+		army_experience = 35
+		add_command_power = 25
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_beacon_of_eastern_democracy
+	icon = GFX_goal_generic_national_unity
+	x = 45
+	y = 15
+	cost = 10
+	prerequisite = { focus = B80_defend_north_china_democracy focus = B80_allied_china_command }
+	completion_reward = {
+		set_cosmetic_tag = B80_EASTERN_DEMOCRATIC_REPUBLIC
+		add_ideas = B80_allied_beacon_of_democracy
+		add_stability = 0.10
+		add_war_support = 0.10
+		add_political_power = 150
+	}
+	ai_will_do = { factor = 1 }
+}
+
+# -----------------------------------------------------------------------------
+# Education Department / administrative order route
+# -----------------------------------------------------------------------------
+
+shared_focus = {
+	id = B80_discipline_code
+	icon = GFX_goal_generic_political_pressure
+	x = 54
+	y = 6
+	cost = 5
+	prerequisite = { focus = B80_legacy_newfocus_10 }
+	completion_reward = {
+		set_politics = { ruling_party = neutrality elections_allowed = no }
+		set_popularities = { neutrality = 70 democratic = 15 communism = 10 fascism = 5 }
+		add_ideas = B80_order_discipline_code
+		add_political_power = 100
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_empower_grade_directors
+	icon = GFX_goal_generic_political_pressure
+	x = 51
+	y = 7
+	cost = 5
+	prerequisite = { focus = B80_discipline_code }
+	completion_reward = {
+		add_ideas = B80_order_grade_director_network
+		add_political_power = 75
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_standardize_daily_schedule
+	icon = GFX_goal_generic_production
+	x = 54
+	y = 7
+	cost = 5
+	prerequisite = { focus = B80_discipline_code }
+	completion_reward = {
+		add_ideas = B80_order_standardized_schedule
+		add_stability = 0.05
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_restore_examination_authority
+	icon = GFX_focus_research
+	x = 57
+	y = 7
+	cost = 5
+	prerequisite = { focus = B80_discipline_code }
+	completion_reward = {
+		add_ideas = B80_order_examination_authority
+		add_political_power = 50
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_campus_inspection_corps
+	icon = GFX_focus_generic_secret_service_agency
+	x = 51
+	y = 8
+	cost = 5
+	prerequisite = { focus = B80_empower_grade_directors }
+	completion_reward = {
+		if = { limit = { has_intelligence_agency = no } create_intelligence_agency = yes }
+		if = { limit = { NOT = { has_done_agency_upgrade = upgrade_training_centers } } upgrade_intelligence_agency = upgrade_training_centers }
+		add_ideas = B80_order_inspection_corps
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_quantified_campus_management
+	icon = GFX_goal_generic_construction2
+	x = 54
+	y = 8
+	cost = 5
+	prerequisite = { focus = B80_standardize_daily_schedule }
+	completion_reward = {
+		add_offsite_building = { type = industrial_complex level = 1 }
+		add_offsite_building = { type = arms_factory level = 1 }
+		add_ideas = B80_order_quantified_management
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_selective_merit_program
+	icon = GFX_goal_generic_scientific_exchange
+	x = 57
+	y = 8
+	cost = 5
+	prerequisite = { focus = B80_restore_examination_authority }
+	completion_reward = {
+		add_research_slot = 1
+		add_stability = 0.03
+		add_manpower = -1000
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_education_department_takes_command
+	icon = GFX_goal_generic_national_unity
+	x = 54
+	y = 9
+	cost = 5
+	prerequisite = { focus = B80_campus_inspection_corps focus = B80_quantified_campus_management focus = B80_selective_merit_program }
+	completion_reward = {
+		add_country_leader_role = {
+			character = B80_luo_jingqing
+			promote_leader = yes
+			country_leader = { ideology = despotism expire = "1965.1.1.1" traits = { B80_education_department_director } }
+		}
+		country_event = { id = B80_political.2 days = 1 }
+		add_stability = 0.05
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_professional_civil_service
+	icon = GFX_goal_generic_political_pressure
+	x = 51
+	y = 10
+	cost = 5
+	prerequisite = { focus = B80_education_department_takes_command }
+	completion_reward = {
+		add_ideas = B80_order_professional_civil_service
+		add_political_power = 100
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_centralized_budget_office
+	icon = GFX_goal_generic_construct_civ_factory
+	x = 54
+	y = 10
+	cost = 5
+	prerequisite = { focus = B80_education_department_takes_command }
+	completion_reward = {
+		add_offsite_building = { type = industrial_complex level = 2 }
+		add_ideas = B80_order_central_budget
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_school_security_bureau
+	icon = GFX_goal_generic_intelligence_exchange
+	x = 57
+	y = 10
+	cost = 5
+	prerequisite = { focus = B80_education_department_takes_command }
+	completion_reward = {
+		if = { limit = { has_intelligence_agency = no } create_intelligence_agency = yes }
+		if = { limit = { NOT = { has_done_agency_upgrade = upgrade_decryption_boost } } upgrade_intelligence_agency = upgrade_decryption_boost }
+		add_ideas = B80_order_security_bureau
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_expand_model_school_system
+	icon = GFX_goal_generic_construct_civilian
+	x = 51
+	y = 11
+	cost = 5
+	prerequisite = { focus = B80_professional_civil_service focus = B80_centralized_budget_office focus = B80_school_security_bureau }
+	completion_reward = {
+		add_state_claim = 611
+		add_state_claim = 614
+		add_state_claim = 597
+		if = { limit = { HBC = { exists = yes } } HBC = { country_event = { id = B80_political.20 days = 2 } } }
+		add_political_power = 75
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_administrative_mobilization
+	icon = GFX_goal_generic_construct_mil_factory
+	x = 54
+	y = 11
+	cost = 5
+	prerequisite = { focus = B80_professional_civil_service focus = B80_centralized_budget_office focus = B80_school_security_bureau }
+	completion_reward = {
+		add_offsite_building = { type = arms_factory level = 2 }
+		add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1500 producer = B80 }
+		add_manpower = 3000
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_continuity_of_command
+	icon = GFX_goal_generic_national_unity
+	x = 57
+	y = 11
+	cost = 5
+	prerequisite = { focus = B80_professional_civil_service focus = B80_centralized_budget_office focus = B80_school_security_bureau }
+	completion_reward = {
+		add_ideas = B80_order_continuity_of_command
+		add_stability = 0.08
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_demand_north_china_compliance
+	icon = GFX_goal_generic_demand_territory
+	x = 52
+	y = 12
+	cost = 5
+	prerequisite = { focus = B80_expand_model_school_system focus = B80_administrative_mobilization focus = B80_continuity_of_command }
+	completion_reward = {
+		if = { limit = { HBC = { exists = yes } } create_wargoal = { type = annex_everything target = HBC } }
+		if = { limit = { SND = { exists = yes } } create_wargoal = { type = annex_everything target = SND } }
+		add_war_support = 0.10
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_efficient_authoritarian_state
+	icon = GFX_goal_generic_production2
+	x = 56
+	y = 12
+	cost = 5
+	prerequisite = { focus = B80_expand_model_school_system focus = B80_administrative_mobilization focus = B80_continuity_of_command }
+	completion_reward = {
+		add_ideas = B80_order_efficient_state
+		add_offsite_building = { type = industrial_complex level = 2 }
+		add_political_power = 100
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_education_governs_the_nation
+	icon = GFX_goal_generic_national_unity
+	x = 54
+	y = 13
+	cost = 10
+	prerequisite = { focus = B80_demand_north_china_compliance focus = B80_efficient_authoritarian_state }
+	completion_reward = {
+		set_cosmetic_tag = B80_EDUCATION_ADMINISTRATION
+		add_ideas = B80_order_education_state
+		add_stability = 0.10
+		add_political_power = 150
+	}
+	ai_will_do = { factor = 1 }
+}
+
+# -----------------------------------------------------------------------------
+# Emergency Student Committee / student commune route
+# -----------------------------------------------------------------------------
+
+shared_focus = {
+	id = B80_all_student_congress
+	icon = GFX_goal_support_communism
+	x = 64
+	y = 6
+	cost = 5
+	prerequisite = { focus = B80_legacy_newfocus_11 }
+	completion_reward = {
+		set_politics = { ruling_party = communism elections_allowed = no }
+		set_popularities = { communism = 70 democratic = 15 neutrality = 10 fascism = 5 }
+		add_ideas = B80_commune_all_student_congress
+		add_political_power = 100
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_class_committee_network
+	icon = GFX_goal_generic_propaganda
+	x = 61
+	y = 7
+	cost = 5
+	prerequisite = { focus = B80_all_student_congress }
+	completion_reward = {
+		add_ideas = B80_commune_class_committees
+		add_political_power = 75
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_collectivize_the_canteen
+	icon = GFX_goal_generic_consumer_goods
+	x = 64
+	y = 7
+	cost = 5
+	prerequisite = { focus = B80_all_student_congress }
+	completion_reward = {
+		add_ideas = B80_commune_collective_canteen
+		add_stability = 0.05
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_red_education_groups
+	icon = GFX_goal_generic_scientific_exchange
+	x = 67
+	y = 7
+	cost = 5
+	prerequisite = { focus = B80_all_student_congress }
+	completion_reward = {
+		add_ideas = B80_commune_red_education
+		add_research_slot = 1
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_student_picketers
+	icon = GFX_goal_generic_allies_build_infantry
+	x = 61
+	y = 8
+	cost = 5
+	prerequisite = { focus = B80_class_committee_network }
+	completion_reward = {
+		add_manpower = 4000
+		add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 1000 producer = B80 }
+		army_experience = 15
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_workers_students_workshops
+	icon = GFX_goal_generic_construct_mil_factory
+	x = 64
+	y = 8
+	cost = 5
+	prerequisite = { focus = B80_collectivize_the_canteen }
+	completion_reward = {
+		add_offsite_building = { type = arms_factory level = 2 }
+		add_offsite_building = { type = industrial_complex level = 1 }
+		add_ideas = B80_commune_workshops
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_invite_underground_educators
+	icon = GFX_focus_generic_secret_service_agency
+	x = 67
+	y = 8
+	cost = 5
+	prerequisite = { focus = B80_red_education_groups }
+	completion_reward = {
+		if = { limit = { has_intelligence_agency = no } create_intelligence_agency = yes }
+		if = { limit = { NOT = { has_done_agency_upgrade = upgrade_invisible_ink } } upgrade_intelligence_agency = upgrade_invisible_ink }
+		add_ideas = B80_commune_underground_educators
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_proclaim_student_commune
+	icon = GFX_goal_generic_national_unity
+	x = 64
+	y = 9
+	cost = 5
+	prerequisite = { focus = B80_student_picketers focus = B80_workers_students_workshops focus = B80_invite_underground_educators }
+	completion_reward = {
+		add_country_leader_role = {
+			character = B80_shi_jiaao
+			promote_leader = yes
+			country_leader = { ideology = marxism expire = "1965.1.1.1" traits = { B80_student_commune_organizer } }
+		}
+		country_event = { id = B80_political.3 days = 1 }
+		set_cosmetic_tag = B80_STUDENT_COMMUNE
+		add_stability = 0.05
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_contact_the_ccp
+	icon = GFX_goal_support_communism
+	x = 61
+	y = 10
+	cost = 5
+	prerequisite = { focus = B80_proclaim_student_commune }
+	mutually_exclusive = { focus = B80_independent_student_revolution }
+	completion_reward = {
+		PRC = {
+			add_opinion_modifier = { target = B80 modifier = B80_revolutionary_education_partner }
+			give_guarantee = B80
+		}
+		add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 1500 producer = PRC }
+		add_war_support = 0.05
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_independent_student_revolution
+	icon = GFX_goal_generic_political_pressure
+	x = 67
+	y = 10
+	cost = 5
+	prerequisite = { focus = B80_proclaim_student_commune }
+	mutually_exclusive = { focus = B80_contact_the_ccp }
+	completion_reward = {
+		add_ideas = B80_commune_independent_revolution
+		add_political_power = 125
+		add_war_support = 0.05
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_peoples_arsenal
+	icon = GFX_goal_generic_construct_mil_factory
+	x = 61
+	y = 11
+	cost = 5
+	prerequisite = { focus = B80_contact_the_ccp focus = B80_independent_student_revolution }
+	completion_reward = {
+		add_offsite_building = { type = arms_factory level = 3 }
+		add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 2000 producer = B80 }
+		add_ideas = B80_commune_peoples_arsenal
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_literacy_and_technical_campaign
+	icon = GFX_focus_research
+	x = 64
+	y = 11
+	cost = 5
+	prerequisite = { focus = B80_contact_the_ccp focus = B80_independent_student_revolution }
+	completion_reward = {
+		add_ideas = B80_commune_mass_education
+		add_offsite_building = { type = industrial_complex level = 1 }
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_youth_vanguard
+	icon = GFX_goal_generic_army_doctrines
+	x = 67
+	y = 11
+	cost = 5
+	prerequisite = { focus = B80_contact_the_ccp focus = B80_independent_student_revolution }
+	completion_reward = {
+		add_ideas = B80_commune_youth_vanguard
+		add_manpower = 5000
+		army_experience = 25
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_ignite_north_china_campuses
+	icon = GFX_goal_generic_major_war
+	x = 61
+	y = 12
+	cost = 5
+	prerequisite = { focus = B80_peoples_arsenal focus = B80_literacy_and_technical_campaign focus = B80_youth_vanguard }
+	completion_reward = {
+		add_state_claim = 611
+		add_state_claim = 614
+		add_state_claim = 597
+		if = { limit = { HBC = { exists = yes } } HBC = { country_event = { id = B80_political.30 days = 2 } } }
+		add_war_support = 0.10
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_export_the_school_revolution
+	icon = GFX_goal_generic_propaganda
+	x = 64
+	y = 12
+	cost = 5
+	prerequisite = { focus = B80_peoples_arsenal focus = B80_literacy_and_technical_campaign focus = B80_youth_vanguard }
+	completion_reward = {
+		add_ideas = B80_commune_export_revolution
+		add_political_power = 100
+		add_war_support = 0.05
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_east_asian_student_international
+	icon = GFX_goal_generic_alliance
+	x = 67
+	y = 12
+	cost = 5
+	prerequisite = { focus = B80_peoples_arsenal focus = B80_literacy_and_technical_campaign focus = B80_youth_vanguard }
+	completion_reward = {
+		set_rule = { can_create_factions = yes }
+		if = {
+			limit = { is_in_faction = no is_subject = no }
+			create_faction_from_template = {
+				template = faction_template_generic_dominance
+				name = B80_STUDENT_INTERNATIONAL
+				icon = GFX_faction_logo_generic_5
+				color = { 0.75 0.10 0.10 }
+			}
+		}
+		add_political_power = 100
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_march_on_china
+	icon = GFX_goal_generic_occupy_start_war
+	x = 62
+	y = 13
+	cost = 5
+	prerequisite = { focus = B80_ignite_north_china_campuses focus = B80_export_the_school_revolution focus = B80_east_asian_student_international }
+	completion_reward = {
+		if = { limit = { CHI = { exists = yes } } create_wargoal = { type = annex_everything target = CHI } }
+		if = { limit = { SND = { exists = yes } } create_wargoal = { type = annex_everything target = SND } }
+		add_war_support = 0.10
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_revolutionary_curriculum
+	icon = GFX_goal_generic_scientific_exchange
+	x = 66
+	y = 13
+	cost = 5
+	prerequisite = { focus = B80_ignite_north_china_campuses focus = B80_export_the_school_revolution focus = B80_east_asian_student_international }
+	completion_reward = {
+		add_ideas = B80_commune_revolutionary_curriculum
+		add_stability = 0.05
+	}
+	ai_will_do = { factor = 1 }
+}
+
+shared_focus = {
+	id = B80_all_power_to_the_students
+	icon = GFX_goal_generic_national_unity
+	x = 64
+	y = 14
+	cost = 10
+	prerequisite = { focus = B80_march_on_china focus = B80_revolutionary_curriculum }
+	completion_reward = {
+		set_cosmetic_tag = B80_CHINESE_STUDENT_COMMUNE
+		add_ideas = B80_commune_all_power_to_students
+		add_stability = 0.08
+		add_war_support = 0.12
+		add_political_power = 150
+	}
+	ai_will_do = { factor = 1 }
+}
