@@ -174,12 +174,86 @@ tools/                  4 个 Python 工具（见第 7 节）
 
 | 脚本 | 用途 | 何时运行 |
 |---|---|---|
-| `validate_mod.py` | 全套静态校验：括号配平、BOM 检查、国策数量（127 legacy + 52 political，ID 唯一、坐标不冲突、互斥对称）、事件/国家精神引用完整性、学期制不变量（120 天任务、四变量本地化、事件集、食堂三连等）、意见修饰符 decay 数值化、旧状态 1082 不存在等 | **每次提交前必跑**：`python tools/validate_mod.py`，输出 `VALIDATION_OK` 才可推送 |
+| `validate_mod.py` | 全套静态校验：括号配平、BOM 检查、国策数量（127 legacy + 52 political + 25 学生自治爽游基底，ID 唯一、坐标不冲突、互斥对称）、事件/国家精神引用完整性、学期制不变量（120 天任务、四变量本地化、事件集、食堂三连等）、意见修饰符 decay 数值化、旧状态 1082 不存在等 | **每次提交前必跑**：`python tools/validate_mod.py`，输出 `VALIDATION_OK` 才可推送。⚠ 脚本内含数量/集合断言，**新增内容时必须同步修改**（见第 8 节） |
 | `generate_legacy_tree.py` | 从 `BSZ.xh4prj`（XMind 工程）重新生成旧国策树与汉化；含缺失汉化补全表 | 仅当旧工程更新国策时；**会覆盖** `B80_legacy_shared_focuses.txt`，生成后必须重跑校验 |
 | `boost_autonomy_focuses.py` | 一次性批量注入"爽游基底"的历史脚本（硬编码路径 `E:\钢铁雄心4mod`） | **不要再运行**（已生效，路径也是本机旧路径） |
 | `sanitize_hoi4_text.py` | 一次性图片 token 迁移脚本 | 不要再运行 |
 
-## 8. 已知注意事项 / 陷阱
+## 8. 新增内容操作规程（国策 / 国家精神 / 事件 / 其他）
+
+> 本节回答一个问题：**未来新增内容时，仓库要动哪些文件、README 要动哪些条目、validate_mod.py 要动哪些断言**。
+> 当前规模快照（与 validate 输出对应）：`shared_focuses=179 (legacy=127, political=52)`、`autonomy_focuses=25`、`custom_ideas=153`、`event_calls=47`、人物 12 名、事件命名空间 5 个。
+
+### 8.1 总流程（所有新增通用）
+
+1. **查重**：先全局搜索拟用的 ID / 变量 / 旗标 / 事件编号，避免与既有内容冲突（`grep` 全仓）。
+2. **选归属文件**：按下方分类表决定内容放哪个文件；新系统可新建文件。
+3. **写脚本 + 写本地化**：脚本 UTF-8 无 BOM；本地化 UTF-8 with BOM（键名与脚本引用逐字一致）。
+4. **同步改 `tools/validate_mod.py`**：凡触及数量/集合断言的，必须同步修改（见 8.2–8.4），否则校验必然失败。
+5. **跑校验**：`python tools/validate_mod.py` 直到 `VALIDATION_OK`。
+6. **同步 README**：按 8.7 的清单更新本节及第 2–5 节相关条目。
+7. **提交推送**：`git add` → commit（简短中文说明）→ `git pull` 确认同步 → push main。
+
+### 8.2 新增国策（focus）
+
+| 归属 | 文件 | 坐标区 | validate_mod.py 联动 |
+|---|---|---|---|
+| 学生自治主线 | `common/national_focus/BJ80_student_autonomy.txt`（手写段） | x25–35 | 若带"爽游基底"（`# Overpowered student-autonomy baseline` + 三件套），**必须**把 `autonomy.count(...) != 25` 的期望数改大（第 125 行附近） |
+| 政治路线扩展 | `common/national_focus/B80_political_expansion_shared.txt` | x41–67 | **必须**更新 `len(political_focus_blocks) != 52` 的期望数（第 79 行附近），并在 `BJ80_student_autonomy.txt` 的 `BEGIN HAND-WRITTEN POLITICAL EXPANSION BRANCHES` 段用 `shared_focus =` 挂载 |
+| 旧版树 | `common/national_focus/B80_legacy_shared_focuses.txt` | x45–131 | **勿手改**（生成文件）；改 `tools/generate_legacy_tree.py` 后重新生成；127 的断言由生成器保证 |
+
+其他硬性要求（validate 自动检查）：
+- 坐标 `(x,y)` 不得与任何既有节点重复；新增前先扫描同区域坐标。
+- `mutually_exclusive` 必须对称（A 互斥 B，B 也要互斥 A）。
+- `cost = 5`（35 天）为默认；终局国策可用 `cost = 10`。
+- 本地化：`国策ID` + `国策ID_desc` 两个键。
+- 图标用原版 `GFX_goal_*` / `GFX_focus_*`，不引入新图标文件。
+- 若新国策引用 `add_ideas` / `country_event`，被引用的对象必须真实存在（validate 会查引用完整性）。
+
+### 8.3 新增国家精神（idea）
+
+- **归属**：按系统放入现有 6 个 ideas 文件（`B80_starting_ideas` / `B80_campus_mechanic_ideas` / `B80_opponent_reaction_ideas` / `B80_political_route_ideas` / `B80_legacy_ideas` / `BJ80_student_autonomy_ideas`）；全新系统可新建 `B80_xxx_ideas.txt`。
+- `allowed = { original_tag = B80 }`（玩家精神）；对手专用精神用 `allowed = { always = yes }`（如 `B80_frontier_mobilization`）。
+- `picture` 用原版 `generic_*`；本地化 `ID` + `ID_desc`。
+- validate 自动校验：所有 `add_ideas` / `idea =` 引用必须存在；⚠ 下列 7 个"易重复授予"精神**只允许被一个国策直接授予**（`repeat_prone_ideas` 断言）：`B80_legacy_academic_network`、`B80_legacy_aviation_society`、`B80_legacy_campus_democracy`、`B80_legacy_japanese_manufacturers`、`B80_legacy_orderly_teaching`、`B80_legacy_student_welfare`、`B80_legacy_trade_committee`。升级类国家精神请用 `swap_ideas`，不要重复 `add_ideas`。
+- 若需按国策解锁：在 idea 上加 `visible = { has_completed_focus = ... }`（参考人物顾问写法）。
+
+### 8.4 新增事件（event）
+
+- **归属**：按命名空间放入 5 个事件文件（`BJ80_autonomy` → `events/BJ80_student_autonomy_events.txt`；`B80_campus` → `events/B80_campus_mechanic_events.txt`；`B80_opponents` → `events/B80_opponent_reaction_events.txt`；`B80_political` → `events/B80_political_events.txt`；`B80_legacy` → `events/B80_legacy_events.txt`）。新系统新建文件并在文件首行 `add_namespace = B80_xxx`。
+- 事件 ID 用 `命名空间.数字`，数字递增避免撞号；被引用的事件必须定义（validate 查 `country_event = { id = ... }` 引用完整性）。
+- 本地化：`ID.t`（标题）、`ID.d`（正文）、每个选项 `ID.a` / `ID.b` ...；`hidden = yes` 事件只需保证被引用，本地化键可省略（validate 对隐藏事件跳过文本检查）。
+- **validate 联动（campus 专用）**：`B80_campus` 命名空间的事件集被 `expected_campus_events` 集合严格断言（第 248 行附近）——**新增/删除 `B80_campus.N` 事件必须同步改该集合**；且非隐藏 campus 事件的 `t/d/选项` 本地化键会被逐一检查，缺一个就报错。其他命名空间无集合断言，但 `event_defs` 全集仍会做引用完整性检查。
+- 跨国家事件（发给 CHI/JAP/PRC/HBC 等）：用 `ROOT`/`FROM` 语义，`ai_chance` 控制 AI 选择权重（参考 `B80_opponents.10/.20/.30`、`B80_political.10/.20/.30`）。
+
+### 8.5 新增决策（decision）
+
+- **归属**：放入对应系统的 decisions 文件（学期/外交/整合），新系统新建文件并在 `decisions/categories/` 加对应分类（`B80_xxx_categories.txt`）。
+- 任务型决策（倒计时/可重复）参考 `B80_semester_countdown` 的写法：`days_mission_timeout` + `timeout_effect` + `selectable_mission = no`。
+- 一次性决策用 `fire_only_once = yes`；冷却用 `days_re_enable`；`available`/`visible` 区分"可点"与"可见"。
+- 本地化：分类 `分类ID` + `分类ID_desc`、决策 `决策ID` + `决策ID_desc`。
+
+### 8.6 其他类型新增
+
+- **变量 / 旗标**：一律 `B80_` 前缀（旧自治系统可 `BJ80_`）；新增前全局 grep；用后记得在 `B80_clamp_campus_values` / `B80_clamp_opponent_values` 等钳制函数中登记（如 0–100 变量）。README 第 5 节清单同步补充。
+- **cosmetic tag**：`gfx/flags/`（大 82×52）、`medium/`（41×26）、`small/`（10×7）三个 TGA + 本地化 `TAG_意识形态` 三键（参考 `BJ80_STUDENT_REPUBLIC_democratic` 等）；源图放 `gfx/flags/source/`。
+- **人物**：`common/characters/` + `gfx/leaders/B80/` 大头像 DDS + `gfx/interface/ideas/` 小头像 DDS + `interface/B80_portraits.gfx` 两个 sprite 映射 + 本地化姓名 + `history/countries` 里 `recruit_character`。
+- **意见修饰符**：`common/opinion_modifiers/`，`value` 必须数字，`decay` 必须数字（不能 yes/no，validate 检查）。
+- **开局配置**：改 `history/countries/B80 - The Eighty.txt` 或 `history/states/608-Beijing.txt`；不要新建自定义州（历史教训：旧自定义州 1082 已被移除，validate 会阻止它复活）。
+
+### 8.7 对 README（本 AI ReadMe）的同步义务
+
+每次新增内容后，至少更新以下条目，保证下一位 AI 协作者看到的是真实状态：
+
+1. **本节开头"当前规模快照"**：国策数（179+新增）、国家精神数（153+新增）、事件命名空间数、人物数。
+2. **第 2 节日录地图**：新文件、新目录、新本地化文件。
+3. **第 3 节国策树**：国策数量与挂载位置变化。
+4. **第 4 节系统描述**：新机制/新子系统的段落；新系统在这里加 4.x 小节。
+5. **第 5 节命名约定**：新变量、新旗标、新命名空间、新 ID 规则。
+6. **第 7 节工具表**：validate 断言数字的变化记录。
+7. **第 8 节本节**：新增类型与联动断言（如新的集合断言、新的文件归属）。
+
+## 9. 已知注意事项 / 陷阱
 
 - `B80_legacy_shared_focuses.txt` 是生成文件：手写改动会在下次生成时丢失；需要改旧树请改生成脚本或改政治扩展文件。
 - 学生自治树有 `# BEGIN/END GENERATED LEGACY SHARED FOCUSES` 注释段，生成器按注释段整段替换。
@@ -189,7 +263,7 @@ tools/                  4 个 Python 工具（见第 7 节）
 - 若游戏内出现键名不翻译：先查本地化文件是否为 UTF-8 with BOM，再查键名与脚本引用是否一致。
 - 新增国策/事件/国家精神后，若 validate_mod 报 missing，先全局 grep 确认拼写，再检查文件是否被 `allowed` 条件隐藏。
 
-## 9. 协作约定（重要）
+## 10. 协作约定（重要）
 
 本仓库为 **两人团队** 共同维护，两位成员均通过 AI 辅助编程。约定如下：
 
