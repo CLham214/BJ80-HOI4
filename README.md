@@ -269,7 +269,7 @@ tools/                  4 个 Python 工具（见第 7 节）
 
 1. **直接推 `main`**：不使用 fork，不强制走 PR。有需要就直接 commit + push 到 `main`。
 2. **推送前先拉取**：`git pull`（或 `git fetch` + `git merge`）保持本地与 `origin/main` 同步，避免互相覆盖；冲突时优先保留双方意图（必要时在群里沟通）。
-3. **git 身份独立**：两位成员各自使用独立的 `user.name` / `user.email`（当前机器配置为 CuminCom / cumin2008@126.com），提交时注意 `git config user.name` 是否为自己的身份。
+3. **git 身份独立**：两位成员各自使用独立的 `user.name` / `user.email`，提交时注意 `git config user.name` 是否为自己的身份。
 4. **提交权限（最重要，强制）**：AI 助手完成任何文本改动后**不得自行 `git commit` / `git push`**。所有改动必须先由维护者在本地校验通过，之后**由维护者本人提交，或在维护者明确指示"提交"后** AI 才可执行 git 操作。AI 在未获指示前只能报告改动内容并等待确认。
 5. **本地校验流程（提交前必做）**：维护者本地运行 `python tools/validate_mod.py`，必须输出 `VALIDATION_OK` 方可提交；必要时再用游戏错误日志复核（脚本 UTF-8 无 BOM、本地化 UTF-8 with BOM、无键名不翻译）。
 6. **编码纪律**：脚本 UTF-8 无 BOM；本地化 UTF-8 with BOM；提交后可用游戏错误日志复核。
