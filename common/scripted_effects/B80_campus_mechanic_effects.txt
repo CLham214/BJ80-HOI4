@@ -64,7 +64,7 @@ B80_clamp_campus_values = {
 
 B80_record_semester_project = {
 	add_to_variable = { B80_semester_projects = 1 }
-	B80_clamp_campus_values = yes
+	hidden_effect = { B80_clamp_campus_values = yes }
 }
 
 B80_clear_semester_project_flags = {
@@ -86,7 +86,7 @@ B80_begin_new_semester = {
 	subtract_from_variable = { B80_campus_vitality = 10 }
 	subtract_from_variable = { B80_admission_pressure = 12 }
 	B80_clear_semester_project_flags = yes
-	B80_clamp_campus_values = yes
+	hidden_effect = { B80_clamp_campus_values = yes }
 	country_event = { id = B80_campus.70 hours = 1 }
 }
 
@@ -120,7 +120,7 @@ B80_initialize_campus_system = {
 		set_variable = { B80_balanced_semester_streak = 0 }
 		remove_ideas = B80_gaokao_pressure
 		add_ideas = B80_cafeteria_queue
-		B80_clamp_campus_values = yes
+		hidden_effect = { B80_clamp_campus_values = yes }
 		country_event = { id = B80_campus.1 days = 1 }
 	}
 }

@@ -349,7 +349,7 @@ B80_campus_semester_category = {
 			add_breakthrough_progress = { specialization = specialization_air value = 0.025 }
 			add_breakthrough_progress = { specialization = specialization_naval value = 0.025 }
 			add_breakthrough_progress = { specialization = specialization_nuclear value = 0.025 }
-			B80_clamp_campus_values = yes
+			hidden_effect = { B80_clamp_campus_values = yes }
 		}
 		ai_will_do = { factor = 1 }
 	}
@@ -383,7 +383,7 @@ B80_campus_semester_category = {
 			add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1200 producer = B80 }
 			add_equipment_to_stockpile = { type = support_equipment_1 amount = 250 producer = B80 }
 			add_command_power = 15
-			B80_clamp_campus_values = yes
+			hidden_effect = { B80_clamp_campus_values = yes }
 		}
 		ai_will_do = { factor = 2 }
 	}

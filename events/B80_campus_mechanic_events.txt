@@ -234,7 +234,7 @@ country_event = {
 		add_breakthrough_progress = { specialization = specialization_air value = 0.025 }
 		add_breakthrough_progress = { specialization = specialization_naval value = 0.025 }
 		add_breakthrough_progress = { specialization = specialization_nuclear value = 0.025 }
-		B80_clamp_campus_values = yes
+		hidden_effect = { B80_clamp_campus_values = yes }
 	}
 	option = {
 		name = B80_campus.20.b
@@ -247,14 +247,14 @@ country_event = {
 		add_to_variable = { B80_school_reputation = 5 }
 		add_political_power = 50
 		add_timed_idea = { idea = B80_club_media_wave days = 120 }
-		B80_clamp_campus_values = yes
+		hidden_effect = { B80_clamp_campus_values = yes }
 	}
 	option = {
 		name = B80_campus.20.d_option
 		add_to_variable = { B80_campus_vitality = 8 }
 		add_manpower = 750
 		add_timed_idea = { idea = B80_club_everything_wave days = 120 }
-		B80_clamp_campus_values = yes
+		hidden_effect = { B80_clamp_campus_values = yes }
 	}
 }
 
@@ -271,7 +271,7 @@ country_event = {
 		add_to_variable = { B80_admission_pressure = 6 }
 		add_timed_idea = { idea = B80_lunch_rush_instinct days = 120 }
 		army_experience = 10
-		B80_clamp_campus_values = yes
+		hidden_effect = { B80_clamp_campus_values = yes }
 	}
 	option = {
 		name = B80_campus.30.b
@@ -279,7 +279,7 @@ country_event = {
 		add_to_variable = { B80_campus_vitality = 8 }
 		subtract_from_variable = { B80_admission_pressure = 8 }
 		B80_improve_cafeteria = yes
-		B80_clamp_campus_values = yes
+		hidden_effect = { B80_clamp_campus_values = yes }
 	}
 	option = {
 		name = B80_campus.30.c
@@ -289,7 +289,7 @@ country_event = {
 		add_to_variable = { B80_school_reputation = 4 }
 		B80_improve_cafeteria = yes
 		add_offsite_building = { type = industrial_complex level = 1 }
-		B80_clamp_campus_values = yes
+		hidden_effect = { B80_clamp_campus_values = yes }
 	}
 }
 
@@ -312,7 +312,7 @@ country_event = {
 			army_experience = 15
 			add_command_power = 10
 		}
-		B80_clamp_campus_values = yes
+		hidden_effect = { B80_clamp_campus_values = yes }
 	}
 	option = {
 		name = B80_campus.40.b
@@ -320,7 +320,7 @@ country_event = {
 		add_to_variable = { B80_admission_pressure = 3 }
 		army_experience = 10
 		add_timed_idea = { idea = B80_symbolic_running days = 120 }
-		B80_clamp_campus_values = yes
+		hidden_effect = { B80_clamp_campus_values = yes }
 	}
 	option = {
 		name = B80_campus.40.c
@@ -332,7 +332,7 @@ country_event = {
 			add_to_variable = { B80_campus_vitality = 5 }
 			add_political_power = 25
 		}
-		B80_clamp_campus_values = yes
+		hidden_effect = { B80_clamp_campus_values = yes }
 	}
 }
 
@@ -351,7 +351,7 @@ country_event = {
 		add_to_variable = { B80_admission_pressure = 5 }
 		add_timed_idea = { idea = B80_ruide_science_cohort days = 240 }
 		add_manpower = 1000
-		B80_clamp_campus_values = yes
+		hidden_effect = { B80_clamp_campus_values = yes }
 	}
 	option = {
 		name = B80_campus.50.b
@@ -360,7 +360,7 @@ country_event = {
 		add_to_variable = { B80_school_reputation = 6 }
 		add_timed_idea = { idea = B80_ruide_humanities_cohort days = 240 }
 		add_manpower = 1000
-		B80_clamp_campus_values = yes
+		hidden_effect = { B80_clamp_campus_values = yes }
 	}
 	option = {
 		name = B80_campus.50.c
@@ -378,7 +378,7 @@ country_event = {
 		add_to_variable = { B80_school_reputation = 4 }
 		add_timed_idea = { idea = B80_ruide_allround_cohort days = 240 }
 		add_manpower = 1500
-		B80_clamp_campus_values = yes
+		hidden_effect = { B80_clamp_campus_values = yes }
 	}
 }
 
@@ -396,7 +396,7 @@ country_event = {
 		add_to_variable = { B80_campus_vitality = 8 }
 		add_to_variable = { B80_school_reputation = 5 }
 		add_political_power = 50
-		B80_clamp_campus_values = yes
+		hidden_effect = { B80_clamp_campus_values = yes }
 	}
 	option = {
 		name = B80_campus.60.b
@@ -407,7 +407,7 @@ country_event = {
 		add_breakthrough_progress = { specialization = specialization_naval value = 0.04 }
 		add_breakthrough_progress = { specialization = specialization_nuclear value = 0.04 }
 		add_tech_bonus = { name = B80_university_lab_bonus bonus = 0.50 uses = 2 category = electronics }
-		B80_clamp_campus_values = yes
+		hidden_effect = { B80_clamp_campus_values = yes }
 	}
 	option = {
 		name = B80_campus.60.c
@@ -415,7 +415,7 @@ country_event = {
 		add_offsite_building = { type = arms_factory level = 1 }
 		add_to_variable = { B80_school_reputation = 4 }
 		add_political_power = 50
-		B80_clamp_campus_values = yes
+		hidden_effect = { B80_clamp_campus_values = yes }
 	}
 }
 

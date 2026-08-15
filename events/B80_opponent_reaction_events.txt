@@ -15,7 +15,7 @@ country_event = {
 		add_ideas = B80_open_campus_diplomacy
 		B80_reduce_alarm_5 = yes
 		add_to_variable = { B80_school_reputation = 5 }
-		B80_clamp_campus_values = yes
+		hidden_effect = { B80_clamp_campus_values = yes }
 		country_event = { id = B80_opponents.2 days = 14 }
 	}
 	option = {
@@ -124,7 +124,7 @@ country_event = {
 		subtract_from_variable = { B80_school_reputation = 30 }
 		B80_record_diplomatic_victory = yes
 		add_political_power = 75
-		B80_clamp_campus_values = yes
+		hidden_effect = { B80_clamp_campus_values = yes }
 	}
 	option = {
 		name = B80_opponents.12.c
@@ -221,7 +221,7 @@ country_event = {
 		JAP = { give_guarantee = B80 }
 		add_timed_idea = { idea = B80_border_observers days = 180 }
 		B80_record_diplomatic_victory = yes
-		B80_clamp_campus_values = yes
+		hidden_effect = { B80_clamp_campus_values = yes }
 	}
 	option = {
 		name = B80_opponents.22.c
@@ -316,7 +316,7 @@ country_event = {
 		subtract_from_variable = { B80_school_reputation = 30 }
 		B80_reduce_alarm_15 = yes
 		B80_record_diplomatic_victory = yes
-		B80_clamp_campus_values = yes
+		hidden_effect = { B80_clamp_campus_values = yes }
 	}
 	option = {
 		name = B80_opponents.40.c
@@ -440,7 +440,7 @@ country_event = {
 		add_political_power = -150
 		B80_secure_international_recognition = yes
 		B80_end_containment_crisis = yes
-		B80_clamp_campus_values = yes
+		hidden_effect = { B80_clamp_campus_values = yes }
 	}
 	option = {
 		name = B80_opponents.61.c
@@ -649,7 +649,7 @@ country_event = {
 		B80_reduce_alarm_10 = yes
 		add_stability = 0.03
 		add_to_variable = { B80_school_reputation = 5 }
-		B80_clamp_campus_values = yes
+		hidden_effect = { B80_clamp_campus_values = yes }
 	}
 	option = {
 		name = B80_opponents.90.b

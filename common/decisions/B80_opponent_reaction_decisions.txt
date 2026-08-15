@@ -10,14 +10,14 @@ B80_opponent_reaction_category = {
 			B80_reduce_alarm_10 = yes
 			add_to_variable = { B80_school_reputation = 3 }
 			if = { limit = { has_idea = B80_open_campus_diplomacy } B80_reduce_alarm_5 = yes }
-			B80_clamp_campus_values = yes
+			hidden_effect = { B80_clamp_campus_values = yes }
 		}
 		ai_will_do = { factor = 2 modifier = { factor = 3 check_variable = { B80_expansion_alarm > 64 } } }
 	}
 
 	B80_backchannel_diplomacy = {
 		icon = generic_political_discourse
-		cost = 100
+		cost = 70
 		days_remove = 14
 		days_re_enable = 150
 		visible = { check_variable = { B80_expansion_alarm > 24 } }
@@ -27,7 +27,7 @@ B80_opponent_reaction_category = {
 			B80_reduce_alarm_15 = yes
 			if = { limit = { CHI = { exists = yes } } CHI = { add_opinion_modifier = { target = B80 modifier = B80_mediated_crisis_opinion } } }
 			if = { limit = { JAP = { exists = yes } } JAP = { add_opinion_modifier = { target = B80 modifier = B80_mediated_crisis_opinion } } }
-			B80_clamp_campus_values = yes
+			hidden_effect = { B80_clamp_campus_values = yes }
 		}
 		ai_will_do = { factor = 1 }
 	}
@@ -39,7 +39,7 @@ B80_opponent_reaction_category = {
 		days_re_enable = 120
 		visible = { check_variable = { B80_expansion_alarm > 24 } }
 		complete_effect = {
-			B80_add_alarm_5 = yes
+			B80_add_alarm_10 = yes
 			army_experience = 20
 			add_war_support = 0.03
 			add_timed_idea = { idea = B80_encircled_campus_mobilization days = 60 }
@@ -49,7 +49,7 @@ B80_opponent_reaction_category = {
 
 	B80_reduce_alarm_with_exchange = {
 		icon = generic_political_discourse
-		cost = 25
+		cost = 30
 		days_remove = 10
 		days_re_enable = 120
 		visible = { has_country_flag = B80_campus_system_initialized }
@@ -61,7 +61,7 @@ B80_opponent_reaction_category = {
 				limit = { NOT = { has_idea = B80_open_campus_diplomacy } }
 				add_ideas = B80_open_campus_diplomacy
 			}
-			B80_clamp_campus_values = yes
+			hidden_effect = { B80_clamp_campus_values = yes }
 		}
 		ai_will_do = { factor = 1.5 }
 	}
@@ -114,7 +114,7 @@ B80_opponent_reaction_category = {
 				upgrade_intelligence_agency = upgrade_invisible_ink
 			}
 			add_command_power = 25
-			B80_add_alarm_5 = yes
+			B80_add_alarm_10 = yes
 		}
 		ai_will_do = { factor = 0.5 }
 	}
@@ -129,7 +129,7 @@ B80_opponent_reaction_category = {
 		complete_effect = {
 			subtract_from_variable = { B80_school_reputation = 50 }
 			B80_secure_international_recognition = yes
-			B80_clamp_campus_values = yes
+			hidden_effect = { B80_clamp_campus_values = yes }
 			country_event = { id = B80_opponents.100 hours = 2 }
 		}
 		ai_will_do = { factor = 5 }
@@ -203,7 +203,7 @@ B80_opponent_reaction_category = {
 			B80_receive_route_patron_support = yes
 			B80_clear_hostile_ai_strategies = yes
 			B80_end_containment_crisis = yes
-			B80_clamp_campus_values = yes
+			hidden_effect = { B80_clamp_campus_values = yes }
 			country_event = { id = B80_opponents.83 hours = 2 }
 		}
 		ai_will_do = { factor = 3 }
