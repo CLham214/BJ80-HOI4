@@ -263,4 +263,32 @@ characters = {
 			cost = 150
 		}
 	}
+
+	B80_shen_zhengyang = {
+		name = B80_shen_zhengyang
+		portraits = { army = { large = GFX_portrait_B80_shen_zhengyang small = GFX_idea_B80_shen_zhengyang } }
+		corps_commander = {
+			traits = { infantry_officer }
+			skill = 1
+			attack_skill = 1
+			defense_skill = 2
+			planning_skill = 1
+			logistics_skill = 1
+			legacy_id = -1
+		}
+	}
+
+	B80_yin_zihe = {
+		name = B80_yin_zihe
+		portraits = { army = { large = GFX_portrait_B80_yin_zihe small = GFX_idea_B80_yin_zihe } }
+		corps_commander = {
+			traits = { brilliant_strategist organizer }
+			skill = 4
+			attack_skill = 4
+			defense_skill = 3
+			planning_skill = 4
+			logistics_skill = 3
+			legacy_id = -1
+		}
+	}
 }

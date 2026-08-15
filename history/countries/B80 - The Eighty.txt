@@ -38,6 +38,8 @@ recruit_character = B80_li_weisi
 recruit_character = B80_song_sitong
 recruit_character = B80_huang_zhenyu
 recruit_character = B80_zhang_zihan
+recruit_character = B80_shen_zhengyang
+recruit_character = B80_yin_zihe
 
 # 八十中自开局拥有全中国的核心。
 every_state = {

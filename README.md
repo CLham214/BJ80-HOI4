@@ -76,7 +76,7 @@ HOI4 的国家标签只能使用三个字符，因此设计稿中的 `BJ80` 实�
 
 ## 人物
 
-`B80` 共有 **12 位角色**，部分角色需要完成特定国策后才可招募（体现成长系统）：
+`B80` 共有 **14 位角色**，部分角色需要完成特定国策后才可招募（体现成长系统）：
 
 ### 初始可用角色
 
@@ -89,6 +89,8 @@ HOI4 的国家标签只能使用三个字符，因此设计稿中的 `BJ80` 实�
 | **刘易达** | 陆军参谋长、军长 | 学生共和国线国家元首（`自治议会召集人`） |
 | **吴文琦** | 总参谋部、军长 | 同盟国民主线国家元首（`国际校园政治家`） |
 | **张梓涵** | 海军领袖、海军/空军参谋长 | 海军顾问+航空爱好者 |
+| **申正阳** | 陆军军长 | 开局可用的见习步兵军官，能力较低但可随战争成长 |
+| **尹子赫** | 陆军军长 | 开局可用的优秀组织者，擅长进攻与作战计划 |
 
 ### 国策解锁角色
 
@@ -190,7 +192,7 @@ HOI4 的国家标签只能使用三个字符，因此设计稿中的 `BJ80` 实�
 
 ```
 common/
-  characters/           12 名人物：任炜东（开局领袖，despotism）、顾问、将领
+  characters/           14 名人物：任炜东（开局领袖，despotism）、顾问、将领
   countries/            国家定义（graphical_culture = asian_gfx）
   country_leader/       领袖特质 B80_pragmatic_education_helmsman 等 8 个
   country_tags/         B80 = "countries/B80 - The Eighty.txt"
@@ -272,7 +274,7 @@ tools/                  4 个 Python 工具（见第 7 节）
 ## 8. 新增内容操作规程（国策 / 国家精神 / 事件 / 其他）
 
 > 本节回答一个问题：**未来新增内容时，仓库要动哪些文件、README 要动哪些条目、validate_mod.py 要动哪些断言**。
-> 当前规模快照（与 validate 输出对应）：`shared_focuses=179 (legacy=127, political=52)`、`autonomy_focuses=25`、`custom_ideas=153`、`event_calls=47`、人物 12 名、事件命名空间 5 个。
+> 当前规模快照（与 validate 输出对应）：`shared_focuses=179 (legacy=127, political=52)`、`autonomy_focuses=25`、`custom_ideas=153`、`event_calls=47`、人物 14 名、事件命名空间 5 个。
 
 ### 8.1 总流程（所有新增通用）
 

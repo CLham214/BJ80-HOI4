@@ -28,4 +28,8 @@ spriteTypes = {
 	spriteType = { name = "GFX_idea_B80_zhang_zihan" texturefile = "gfx/interface/ideas/portrait_B80_zhang_zihan_small.dds" }
 	spriteType = { name = "GFX_idea_B80_zhang_zihan_navy_chief" texturefile = "gfx/interface/ideas/portrait_B80_zhang_zihan_small.dds" }
 	spriteType = { name = "GFX_idea_B80_zhang_zihan_air_chief" texturefile = "gfx/interface/ideas/portrait_B80_zhang_zihan_small.dds" }
+	spriteType = { name = "GFX_portrait_B80_shen_zhengyang" texturefile = "gfx/leaders/B80/portrait_B80_shen_zhengyang.dds" }
+	spriteType = { name = "GFX_idea_B80_shen_zhengyang" texturefile = "gfx/interface/ideas/portrait_B80_shen_zhengyang_small.dds" }
+	spriteType = { name = "GFX_portrait_B80_yin_zihe" texturefile = "gfx/leaders/B80/portrait_B80_yin_zihe.dds" }
+	spriteType = { name = "GFX_idea_B80_yin_zihe" texturefile = "gfx/interface/ideas/portrait_B80_yin_zihe_small.dds" }
 }
