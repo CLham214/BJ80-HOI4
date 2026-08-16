@@ -180,5 +180,111 @@ ideas = {
 			allowed = { original_tag = B80 }
 			modifier = { political_power_factor = 0.10 stability_factor = 0.08 war_support_factor = 0.08 industrial_capacity_factory = 0.08 army_attack_factor = 0.08 }
 		}
+
+		# Political endgame ideas
+		B80_endgame_constitutional_reconstruction = {
+			picture = generic_democratic_opposition
+			allowed = { original_tag = B80 }
+			modifier = { stability_factor = 0.05 political_power_factor = 0.05 }
+		}
+		B80_endgame_federal_campus_system = {
+			picture = generic_pp_unity_bonus
+			allowed = { original_tag = B80 }
+			modifier = { stability_factor = 0.04 research_sharing_per_country_bonus = 0.03 }
+		}
+		B80_endgame_allied_intelligence_network = {
+			picture = generic_spy_intel
+			allowed = { original_tag = B80 }
+			modifier = { operative_slot = 1 intel_network_gain_factor = 0.10 decryption_power_factor = 0.05 }
+		}
+		B80_endgame_democratic_federation = {
+			picture = generic_democratic_opposition
+			allowed = { original_tag = B80 }
+			modifier = { political_power_factor = 0.06 stability_factor = 0.05 compliance_growth = 0.05 }
+		}
+		B80_endgame_educated_citizens_republic = {
+			picture = generic_research_bonus
+			allowed = { original_tag = B80 }
+			modifier = { research_speed_factor = 0.06 stability_factor = 0.06 army_defence_factor = 0.05 }
+		}
+
+		B80_endgame_examination_government = {
+			picture = generic_neutrality_drift_bonus
+			allowed = { original_tag = B80 }
+			modifier = { political_power_factor = 0.06 stability_factor = 0.05 }
+		}
+		B80_endgame_national_inspectorate_idea = {
+			picture = generic_spy_intel
+			allowed = { original_tag = B80 }
+			modifier = { operative_slot = 1 enemy_operative_detection_chance_factor = 0.12 intelligence_agency_defense = 0.08 }
+		}
+		B80_endgame_exam_state_industry = {
+			picture = generic_improved_industries
+			allowed = { original_tag = B80 }
+			modifier = { industrial_capacity_factory = 0.06 production_factory_efficiency_gain_factor = 0.05 }
+		}
+		B80_endgame_national_registry_idea = {
+			picture = generic_manpower_bonus
+			allowed = { original_tag = B80 }
+			modifier = { conscription_factor = 0.10 training_time_army_factor = -0.05 }
+		}
+		B80_endgame_one_timetable_state = {
+			picture = generic_neutrality_drift_bonus
+			allowed = { original_tag = B80 }
+			modifier = { political_power_factor = 0.08 stability_factor = 0.08 production_speed_buildings_factor = 0.08 army_org_factor = 0.05 }
+		}
+
+		B80_endgame_armed_study_societies_idea = {
+			picture = generic_infantry_bonus
+			allowed = { original_tag = B80 }
+			modifier = { conscription_factor = 0.10 army_org_factor = 0.04 }
+		}
+		B80_endgame_commune_industrial_brigades_idea = {
+			picture = generic_improved_industries
+			allowed = { original_tag = B80 }
+			modifier = { industrial_capacity_factory = 0.06 production_speed_arms_factory_factor = 0.08 }
+		}
+		B80_endgame_international_student_radio_idea = {
+			picture = generic_pp_unity_bonus
+			allowed = { original_tag = B80 }
+			modifier = { political_power_factor = 0.05 war_support_factor = 0.05 drift_defence_factor = 0.10 }
+		}
+		B80_endgame_east_asian_student_congress_idea = {
+			picture = generic_democratic_opposition
+			allowed = { original_tag = B80 }
+			modifier = { research_sharing_per_country_bonus = 0.04 political_power_factor = 0.05 }
+		}
+		B80_endgame_student_commune_federation = {
+			picture = generic_manpower_bonus
+			allowed = { original_tag = B80 }
+			modifier = { compliance_growth = 0.05 conscription_factor = 0.10 stability_factor = 0.04 }
+		}
+		B80_endgame_continental_student_revolution = {
+			picture = generic_infantry_bonus
+			allowed = { original_tag = B80 }
+			modifier = { army_attack_factor = 0.06 army_org_factor = 0.05 war_support_factor = 0.06 }
+		}
+
+		B80_endgame_anti_japanese_curriculum_idea = {
+			picture = generic_spy_intel
+			allowed = { original_tag = B80 }
+			modifier = { intel_network_gain_factor = 0.10 enemy_operative_detection_chance_factor = 0.08 }
+		}
+		B80_endgame_reverse_imperial_network_idea = {
+			picture = generic_spy_intel
+			allowed = { original_tag = B80 }
+			modifier = { operative_slot = 1 decryption_power_factor = 0.08 agency_upgrade_time = -0.08 }
+		}
+		B80_endgame_eastward_campus_fleet_idea = {
+			picture = generic_navy_bonus
+			allowed = { original_tag = B80 }
+			modifier = { naval_speed_factor = 0.05 navy_org_factor = 0.05 naval_coordination = 0.05 }
+		}
+		B80_endgame_east_asian_counteroffensive = {
+			picture = generic_infantry_bonus
+			allowed = { original_tag = B80 }
+			targeted_modifier = { tag = JAP attack_bonus_against = 0.15 defense_bonus_against = 0.15 }
+			modifier = { war_support_factor = 0.06 }
+		}
 	}
 }

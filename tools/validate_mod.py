@@ -35,6 +35,24 @@ if not re.search(r"(?m)^\s*owner\s*=\s*B80\s*$", beijing_state):
 if "9843" not in beijing_state:
     errors.append("Beijing province 9843 is missing from state 608")
 
+oob_path = ROOT / "history/units/B80_1936.txt"
+division_names_path = ROOT / "common/units/names_divisions/B80_names_divisions.txt"
+if not oob_path.exists() or not division_names_path.exists():
+    errors.append("B80 starting OOB or division name groups are missing")
+else:
+    oob_text = oob_path.read_text(encoding="utf-8")
+    division_names_text = division_names_path.read_text(encoding="utf-8")
+    if len(re.findall(r"(?m)^\s*division\s*=\s*\{", oob_text)) != 4:
+        errors.append("B80 must start with four campus divisions")
+    required_name_groups = {"B80_INF_01", "B80_GAR_01", "B80_CAV_01", "B80_ARM_01"}
+    present_name_groups = set(re.findall(r"(?m)^(B80_[A-Z0-9_]+)\s*=\s*\{", division_names_text))
+    if not required_name_groups.issubset(present_name_groups):
+        errors.append(f"missing division name groups: {sorted(required_name_groups - present_name_groups)}")
+
+for variant_name in ["八十式校卫步枪", "望京综合保障套件"]:
+    if variant_name not in country_history:
+        errors.append(f"missing starting equipment variant: {variant_name}")
+
 opinion_modifiers = (ROOT / "common/opinion_modifiers/BJ80_opinion_modifiers.txt").read_text(encoding="utf-8")
 if re.search(r"(?m)^\s*decay\s*=\s*(?:yes|no)\s*$", opinion_modifiers):
     errors.append("opinion modifier decay must be numeric, not yes/no")
@@ -79,13 +97,20 @@ political_focus_ids = [re.search(r"(?m)^\s*id\s*=\s*(\S+)", block).group(1) for 
 if len(political_focus_ids) != 52 or len(set(political_focus_ids)) != 52:
     errors.append(f"expected 52 unique political shared focuses, got {len(political_focus_ids)}/{len(set(political_focus_ids))}")
 
-focus_blocks = legacy_focus_blocks + political_focus_blocks
-focus_ids = legacy_focus_ids + political_focus_ids
+endgame_tree_path = ROOT / "common/national_focus/B80_political_endgame_shared.txt"
+endgame_tree = endgame_tree_path.read_text(encoding="utf-8")
+endgame_focus_blocks = blocks(endgame_tree, "shared_focus")
+endgame_focus_ids = [re.search(r"(?m)^\s*id\s*=\s*(\S+)", block).group(1) for block in endgame_focus_blocks]
+if len(endgame_focus_ids) != 32 or len(set(endgame_focus_ids)) != 32:
+    errors.append(f"expected 32 unique political endgame focuses, got {len(endgame_focus_ids)}/{len(set(endgame_focus_ids))}")
+
+focus_blocks = legacy_focus_blocks + political_focus_blocks + endgame_focus_blocks
+focus_ids = legacy_focus_ids + political_focus_ids + endgame_focus_ids
 if len(focus_ids) != len(set(focus_ids)):
     errors.append("duplicate IDs across legacy and political shared focuses")
 
 focus_by_id = dict(zip(focus_ids, focus_blocks))
-all_refs = set(re.findall(r"focus\s*=\s*(B80_[A-Za-z0-9_]+)", tree + "\n" + political_tree))
+all_refs = set(re.findall(r"focus\s*=\s*(B80_[A-Za-z0-9_]+)", tree + "\n" + political_tree + "\n" + endgame_tree))
 missing_refs = all_refs - set(focus_ids)
 if missing_refs:
     errors.append(f"missing focus references: {sorted(missing_refs)}")
@@ -96,9 +121,17 @@ political_roots = {
     "B80_discipline_code",
     "B80_all_student_congress",
 }
+endgame_roots = {
+    "B80_endgame_national_education_assembly",
+    "B80_endgame_national_examination_government",
+    "B80_endgame_second_all_student_congress",
+    "B80_endgame_tear_up_the_unequal_school_pact",
+}
 included_political_roots = set(re.findall(r"shared_focus\s*=\s*(B80_[A-Za-z0-9_]+)", tree_membership))
 if not political_roots.issubset(included_political_roots):
     errors.append(f"political shared roots missing from B80 tree: {sorted(political_roots - included_political_roots)}")
+if not endgame_roots.issubset(included_political_roots):
+    errors.append(f"political endgame roots missing from B80 tree: {sorted(endgame_roots - included_political_roots)}")
 
 coordinates: dict[tuple[int, int], str] = {}
 for focus_id, block in zip(focus_ids, focus_blocks):
@@ -122,8 +155,11 @@ for focus_id, targets in mutual.items():
 autonomy = (ROOT / "common/national_focus/BJ80_student_autonomy.txt").read_text(encoding="utf-8")
 if "$15" in autonomy:
     errors.append("literal $15 remains in autonomy focus tree")
-if autonomy.count("# Overpowered student-autonomy baseline") != 25:
-    errors.append("not all 25 autonomy focuses have the overpowered baseline")
+autonomy_focus_count = len(re.findall(r"(?m)^\s*focus\s*=\s*\{", autonomy))
+if autonomy_focus_count != 25:
+    errors.append(f"expected 25 autonomy focuses, got {autonomy_focus_count}")
+if "# Overpowered student-autonomy baseline" in autonomy:
+    errors.append("obsolete overpowered autonomy baseline remains")
 
 required_snippets = {
     "B80_legacy_newfocus_19": "add_research_slot = 1",
@@ -145,8 +181,8 @@ for focus_id, snippet in required_snippets.items():
 route_identity_snippets = {
     "B80_legacy_newfocus_61": "B80_legacy_cavalry_tank_group",
     "B80_legacy_newfocus_62": "B80_legacy_infantry_tank_coordination",
-    "B80_legacy_newfocus_63": "medium_tank_chassis_1",
-    "B80_legacy_newfocus_64": "heavy_tank_chassis_1",
+    "B80_legacy_newfocus_63": "哈基米中型坦克",
+    "B80_legacy_newfocus_64": "哆啦B梦重型坦克",
     "B80_legacy_newfocus_68": "B80_legacy_multirole_air_tactics",
     "B80_legacy_newfocus_69": "B80_legacy_strategic_bombing_tactics",
     "B80_legacy_newfocus_70": "B80_legacy_rapid_air_assault",
@@ -184,7 +220,7 @@ idea_ids: set[str] = set()
 for path in (ROOT / "common/ideas").glob("*.txt"):
     idea_ids.update(re.findall(r"(?m)^\s{2,}([A-Za-z0-9_]+)\s*=\s*\{", path.read_text(encoding="utf-8")))
 idea_refs = set()
-for path in [tree_path, political_tree_path, ROOT / "common/national_focus/BJ80_student_autonomy.txt", *list((ROOT / "events").glob("*.txt"))]:
+for path in [tree_path, political_tree_path, endgame_tree_path, ROOT / "common/national_focus/BJ80_student_autonomy.txt", *list((ROOT / "events").glob("*.txt"))]:
     text = path.read_text(encoding="utf-8")
     idea_refs.update(re.findall(r"add_ideas\s*=\s*(B(?:80|J80)_[A-Za-z0-9_]+)", text))
     idea_refs.update(re.findall(r"idea\s*=\s*(B(?:80|J80)_[A-Za-z0-9_]+)", text))
@@ -199,6 +235,7 @@ event_calls = set()
 event_call_paths = [
     tree_path,
     political_tree_path,
+    endgame_tree_path,
     ROOT / "common/national_focus/BJ80_student_autonomy.txt",
     *list((ROOT / "common/decisions").glob("*.txt")),
     *list((ROOT / "common/scripted_effects").glob("*.txt")),
@@ -270,7 +307,7 @@ if errors:
     raise SystemExit(1)
 
 print("VALIDATION_OK")
-print(f"shared_focuses={len(focus_ids)} (legacy={len(legacy_focus_ids)}, political={len(political_focus_ids)})")
+print(f"shared_focuses={len(focus_ids)} (legacy={len(legacy_focus_ids)}, political={len(political_focus_ids)}, endgame={len(endgame_focus_ids)})")
 print("autonomy_focuses=25")
 print(f"custom_ideas={len(idea_ids)}")
 print(f"event_calls={len(event_calls)}")

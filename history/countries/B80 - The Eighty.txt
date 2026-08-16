@@ -75,8 +75,28 @@ add_manpower = 10000
 
 oob = "B80_1936"
 
+create_equipment_variant = {
+	name = "八十式校卫步枪"
+	type = infantry_equipment_0
+	show_position = yes
+}
+
+create_equipment_variant = {
+	name = "望京综合保障套件"
+	type = support_equipment_1
+	show_position = yes
+}
+
 add_equipment_to_stockpile = {
 	type = infantry_equipment_0
-	amount = 3000
+	variant_name = "八十式校卫步枪"
+	amount = 4500
+	producer = B80
+}
+
+add_equipment_to_stockpile = {
+	type = support_equipment_1
+	variant_name = "望京综合保障套件"
+	amount = 250
 	producer = B80
 }

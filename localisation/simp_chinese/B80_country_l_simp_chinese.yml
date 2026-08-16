@@ -1,5 +1,8 @@
 ﻿l_simp_chinese:
  B80: "北京市第八十中学共和国"
+ BJ80_student_guard_template: "学生国防师"
+ BJ80_campus_security_template: "校园警备团"
+ BJ80_campus_mobile_template: "校园机动支队"
  B80_DEF: "北京市第八十中学共和国"
  B80_ADJ: "八十中"
  B80_neutrality: "北京市第八十中学"

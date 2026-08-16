@@ -1,0 +1,69 @@
+B80_INF_01 = {
+	name = "八十中学生国防军第%d师"
+	for_countries = { B80 }
+	can_use = { original_tag = B80 }
+	division_types = { "infantry" }
+	fallback_name = "八十中学生国防军第%d师"
+	ordered = {
+		1 = { "望京第一学生卫队" }
+		2 = { "望京第二学生卫队" }
+		3 = { "国际部志愿师" }
+		4 = { "王选创新实验师" }
+		5 = { "王绶琯科学师" }
+		6 = { "学生代表大会近卫师" }
+		7 = { "食堂秩序保卫师" }
+		8 = { "竞时体育场训练师" }
+		9 = { "社团联合防卫师" }
+		10 = { "望京校园解放师" }
+		11 = { "睿德学生志愿师" }
+		12 = { "华北教育联合师" }
+	}
+}
+
+B80_GAR_01 = {
+	name = "八十中校园警备第%d团"
+	for_countries = { B80 }
+	can_use = { original_tag = B80 }
+	division_types = { "infantry" }
+	fallback_name = "八十中校园警备第%d团"
+	ordered = {
+		1 = { "望京校区警备团" }
+		2 = { "睿德校区预备团" }
+		3 = { "学生宿舍警备团" }
+		4 = { "校园广播站警备团" }
+		5 = { "实验楼警备团" }
+		6 = { "国际部警备团" }
+		7 = { "大食堂警备团" }
+		8 = { "操场秩序团" }
+	}
+}
+
+B80_CAV_01 = {
+	name = "八十中机动第%d支队"
+	for_countries = { B80 }
+	can_use = { original_tag = B80 }
+	division_types = { "cavalry" }
+	fallback_name = "八十中机动第%d支队"
+	ordered = {
+		1 = { "竞时机动支队" }
+		2 = { "跑操先锋支队" }
+		3 = { "望京快速反应队" }
+		4 = { "学生会联络支队" }
+		5 = { "社团巡回支队" }
+		6 = { "华北校园机动队" }
+	}
+}
+
+B80_ARM_01 = {
+	name = "八十中装甲第%d旅"
+	for_countries = { B80 }
+	can_use = { original_tag = B80 }
+	division_types = { "armor" }
+	fallback_name = "八十中装甲第%d旅"
+	ordered = {
+		1 = { "哈基米装甲旅" }
+		2 = { "哆啦B梦重装旅" }
+		3 = { "竞时突击旅" }
+		4 = { "望京装甲教导旅" }
+	}
+}

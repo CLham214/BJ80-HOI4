@@ -1,0 +1,361 @@
+# Hand-written late-game continuations for the four political routes.
+# Keep this file separate from the generated legacy tree.
+
+# Allied democratic route
+shared_focus = {
+	id = B80_endgame_national_education_assembly
+	icon = GFX_goal_generic_demand_territory
+	x = 45
+	y = 16
+	cost = 5
+	prerequisite = { focus = B80_beacon_of_eastern_democracy }
+	completion_reward = { add_political_power = 75 add_stability = 0.04 add_ideas = B80_endgame_constitutional_reconstruction }
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_allied_war_materials_board
+	icon = GFX_goal_generic_construct_civ_factory
+	x = 42
+	y = 17
+	cost = 5
+	prerequisite = { focus = B80_endgame_national_education_assembly }
+	completion_reward = {
+		add_offsite_building = { type = industrial_complex level = 1 }
+		add_offsite_building = { type = arms_factory level = 1 }
+		add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1000 producer = USA }
+		add_equipment_to_stockpile = { type = support_equipment_1 amount = 200 producer = ENG }
+	}
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_federal_campus_convention
+	icon = GFX_goal_support_democracy
+	x = 45
+	y = 17
+	cost = 5
+	prerequisite = { focus = B80_endgame_national_education_assembly }
+	completion_reward = { add_stability = 0.05 add_popularity = { ideology = democratic popularity = 0.05 } add_ideas = B80_endgame_federal_campus_system }
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_allied_intelligence_board
+	icon = GFX_focus_generic_secret_service_agency
+	x = 48
+	y = 17
+	cost = 5
+	prerequisite = { focus = B80_endgame_national_education_assembly }
+	completion_reward = {
+		if = { limit = { has_intelligence_agency = no } create_intelligence_agency = yes }
+		if = { limit = { NOT = { has_done_agency_upgrade = upgrade_decryption_boost } } upgrade_intelligence_agency = upgrade_decryption_boost }
+		add_ideas = B80_endgame_allied_intelligence_network
+	}
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_democratic_liberation_charter
+	icon = GFX_goal_generic_major_war
+	x = 42
+	y = 18
+	cost = 5
+	prerequisite = { focus = B80_endgame_allied_war_materials_board }
+	completion_reward = {
+		add_state_claim = 611
+		add_state_claim = 614
+		add_state_claim = 597
+		if = { limit = { CHI = { exists = yes NOT = { has_government = democratic } } } create_wargoal = { type = annex_everything target = CHI } }
+		add_war_support = 0.08
+	}
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_republics_in_education_federation
+	icon = GFX_goal_generic_improve_relations
+	x = 45
+	y = 18
+	cost = 5
+	prerequisite = { focus = B80_endgame_federal_campus_convention }
+	completion_reward = { add_political_power = 100 add_ideas = B80_endgame_democratic_federation set_country_flag = B80_democratic_federal_integration }
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_pacific_air_bridge
+	icon = GFX_goal_generic_air_fighter
+	x = 48
+	y = 18
+	cost = 5
+	prerequisite = { focus = B80_endgame_allied_intelligence_board }
+	completion_reward = {
+		add_equipment_to_stockpile = { type = fighter_equipment_0 amount = 150 producer = USA }
+		air_experience = 30
+		capital_scope = { add_building_construction = { type = air_base level = 2 instant_build = yes } add_building_construction = { type = anti_air_building level = 1 instant_build = yes } }
+	}
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_republic_of_educated_citizens
+	icon = GFX_goal_generic_national_unity
+	x = 45
+	y = 19
+	cost = 10
+	prerequisite = { focus = B80_endgame_democratic_liberation_charter }
+	prerequisite = { focus = B80_endgame_republics_in_education_federation }
+	prerequisite = { focus = B80_endgame_pacific_air_bridge }
+	completion_reward = { add_ideas = B80_endgame_educated_citizens_republic add_stability = 0.08 add_war_support = 0.05 if = { limit = { JAP = { exists = yes } } create_wargoal = { type = annex_everything target = JAP } } }
+	ai_will_do = { factor = 1 }
+}
+
+# Education department route
+shared_focus = {
+	id = B80_endgame_national_examination_government
+	icon = GFX_goal_generic_neutrality_focus
+	x = 54
+	y = 14
+	cost = 5
+	prerequisite = { focus = B80_education_governs_the_nation }
+	completion_reward = { add_political_power = 100 add_stability = 0.05 add_ideas = B80_endgame_examination_government }
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_national_inspectorate
+	icon = GFX_focus_generic_secret_service_agency
+	x = 51
+	y = 15
+	cost = 5
+	prerequisite = { focus = B80_endgame_national_examination_government }
+	completion_reward = { if = { limit = { has_intelligence_agency = no } create_intelligence_agency = yes } if = { limit = { NOT = { has_done_agency_upgrade = upgrade_training_centers } } upgrade_intelligence_agency = upgrade_training_centers } add_ideas = B80_endgame_national_inspectorate_idea }
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_exam_state_industrial_plan
+	icon = GFX_goal_generic_construct_mil_factory
+	x = 54
+	y = 15
+	cost = 5
+	prerequisite = { focus = B80_endgame_national_examination_government }
+	completion_reward = { add_offsite_building = { type = industrial_complex level = 1 } add_offsite_building = { type = arms_factory level = 2 } add_ideas = B80_endgame_exam_state_industry }
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_national_student_registry
+	icon = GFX_goal_generic_more_territorial_claims
+	x = 57
+	y = 15
+	cost = 5
+	prerequisite = { focus = B80_endgame_national_examination_government }
+	completion_reward = { add_manpower = 4000 add_stability = 0.03 add_ideas = B80_endgame_national_registry_idea }
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_administrative_integration_orders
+	icon = GFX_goal_demand_sudetenland
+	x = 52
+	y = 16
+	cost = 5
+	prerequisite = { focus = B80_endgame_national_inspectorate }
+	prerequisite = { focus = B80_endgame_exam_state_industrial_plan }
+	completion_reward = { if = { limit = { CHI = { exists = yes } } create_wargoal = { type = annex_everything target = CHI } } if = { limit = { SHX = { exists = yes } } create_wargoal = { type = annex_everything target = SHX } } add_war_support = 0.08 }
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_standardized_provincial_academies
+	icon = GFX_goal_generic_scientific_exchange
+	x = 56
+	y = 16
+	cost = 5
+	prerequisite = { focus = B80_endgame_exam_state_industrial_plan }
+	prerequisite = { focus = B80_endgame_national_student_registry }
+	completion_reward = { add_research_slot = 1 add_tech_bonus = { name = B80_endgame_administrative_technology bonus = 0.50 uses = 2 category = industry } set_country_flag = B80_administrative_core_integration }
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_national_command_college
+	icon = GFX_goal_generic_army_doctrines
+	x = 54
+	y = 17
+	cost = 5
+	prerequisite = { focus = B80_endgame_administrative_integration_orders focus = B80_endgame_standardized_provincial_academies }
+	completion_reward = { army_experience = 40 add_command_power = 25 add_tech_bonus = { name = B80_endgame_command_college_bonus bonus = 0.50 uses = 2 category = land_doctrine } }
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_one_nation_one_timetable
+	icon = GFX_goal_generic_national_unity
+	x = 54
+	y = 18
+	cost = 10
+	prerequisite = { focus = B80_endgame_national_command_college }
+	completion_reward = { add_ideas = B80_endgame_one_timetable_state add_stability = 0.10 add_political_power = 150 if = { limit = { PRC = { exists = yes } } create_wargoal = { type = annex_everything target = PRC } } }
+	ai_will_do = { factor = 1 }
+}
+
+# Student commune route
+shared_focus = {
+	id = B80_endgame_second_all_student_congress
+	icon = GFX_goal_support_communism
+	x = 64
+	y = 15
+	cost = 5
+	prerequisite = { focus = B80_all_power_to_the_students }
+	completion_reward = { add_political_power = 75 add_stability = 0.04 add_popularity = { ideology = communism popularity = 0.05 } }
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_armed_study_societies
+	icon = GFX_goal_generic_army_doctrines
+	x = 61
+	y = 16
+	cost = 5
+	prerequisite = { focus = B80_endgame_second_all_student_congress }
+	completion_reward = { add_manpower = 4000 add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1500 producer = B80 } add_ideas = B80_endgame_armed_study_societies_idea }
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_commune_industrial_brigades
+	icon = GFX_goal_generic_construct_mil_factory
+	x = 64
+	y = 16
+	cost = 5
+	prerequisite = { focus = B80_endgame_second_all_student_congress }
+	completion_reward = { add_offsite_building = { type = industrial_complex level = 1 } add_offsite_building = { type = arms_factory level = 2 } add_ideas = B80_endgame_commune_industrial_brigades_idea }
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_international_student_radio
+	icon = GFX_goal_generic_propaganda
+	x = 67
+	y = 16
+	cost = 5
+	prerequisite = { focus = B80_endgame_second_all_student_congress }
+	completion_reward = { add_political_power = 100 add_war_support = 0.05 add_ideas = B80_endgame_international_student_radio_idea }
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_workers_students_united_front
+	icon = GFX_goal_generic_demand_territory
+	x = 62
+	y = 17
+	cost = 5
+	prerequisite = { focus = B80_endgame_armed_study_societies }
+	prerequisite = { focus = B80_endgame_commune_industrial_brigades }
+	completion_reward = { if = { limit = { PRC = { exists = yes } has_completed_focus = B80_contact_the_ccp } PRC = { give_guarantee = B80 add_opinion_modifier = { target = B80 modifier = B80_revolutionary_education_partner } } } if = { limit = { CHI = { exists = yes } } create_wargoal = { type = annex_everything target = CHI } } add_war_support = 0.08 }
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_east_asian_student_congress
+	icon = GFX_goal_generic_improve_relations
+	x = 66
+	y = 17
+	cost = 5
+	prerequisite = { focus = B80_endgame_commune_industrial_brigades }
+	prerequisite = { focus = B80_endgame_international_student_radio }
+	completion_reward = { add_political_power = 100 add_ideas = B80_endgame_east_asian_student_congress_idea if = { limit = { SND = { exists = yes } } create_wargoal = { type = annex_everything target = SND } } }
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_federation_of_student_communes
+	icon = GFX_goal_generic_national_unity
+	x = 64
+	y = 18
+	cost = 5
+	prerequisite = { focus = B80_endgame_workers_students_united_front }
+	prerequisite = { focus = B80_endgame_east_asian_student_congress }
+	completion_reward = { add_ideas = B80_endgame_student_commune_federation set_country_flag = B80_commune_federal_integration add_stability = 0.06 }
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_from_classroom_to_continent
+	icon = GFX_goal_generic_major_war
+	x = 64
+	y = 19
+	cost = 10
+	prerequisite = { focus = B80_endgame_federation_of_student_communes }
+	completion_reward = { add_ideas = B80_endgame_continental_student_revolution add_war_support = 0.10 if = { limit = { JAP = { exists = yes } } create_wargoal = { type = annex_everything target = JAP } } if = { limit = { MAN = { exists = yes } } create_wargoal = { type = annex_everything target = MAN } } }
+	ai_will_do = { factor = 1 }
+}
+
+# Break with Japan route
+shared_focus = {
+	id = B80_endgame_tear_up_the_unequal_school_pact
+	icon = GFX_goal_anti_comintern_pact
+	x = 74
+	y = 11
+	cost = 5
+	prerequisite = { focus = B80_legacy_newfocus_38 }
+	completion_reward = { if = { limit = { JAP = { exists = yes } } JAP = { diplomatic_relation = { country = B80 relation = guarantee active = no } add_opinion_modifier = { target = B80 modifier = B80_rejected_ultimatum_opinion } } } add_political_power = 100 add_war_support = 0.08 }
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_clandestine_anti_japanese_curriculum
+	icon = GFX_focus_generic_secret_service_agency
+	x = 70
+	y = 12
+	cost = 5
+	prerequisite = { focus = B80_endgame_tear_up_the_unequal_school_pact }
+	completion_reward = { if = { limit = { has_intelligence_agency = no } create_intelligence_agency = yes } add_intel = { target = JAP civilian_intel = 15 army_intel = 15 navy_intel = 15 airforce_intel = 15 } add_ideas = B80_endgame_anti_japanese_curriculum_idea }
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_seize_japanese_assets_in_china
+	icon = GFX_goal_generic_construct_mil_factory
+	x = 74
+	y = 12
+	cost = 5
+	prerequisite = { focus = B80_endgame_tear_up_the_unequal_school_pact }
+	completion_reward = { add_offsite_building = { type = arms_factory level = 2 } add_offsite_building = { type = dockyard level = 1 } add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1200 producer = JAP } add_stability = -0.02 }
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_reverse_the_imperial_network
+	icon = GFX_goal_generic_intelligence_exchange
+	x = 78
+	y = 12
+	cost = 5
+	prerequisite = { focus = B80_endgame_tear_up_the_unequal_school_pact }
+	completion_reward = { if = { limit = { has_intelligence_agency = no } create_intelligence_agency = yes } if = { limit = { NOT = { has_done_agency_upgrade = upgrade_blueprint_stealing } } upgrade_intelligence_agency = upgrade_blueprint_stealing } if = { limit = { JAP = { exists = yes } } add_decryption = { target = JAP ratio = 0.35 } } add_ideas = B80_endgame_reverse_imperial_network_idea }
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_liberate_the_northeastern_campuses
+	icon = GFX_goal_generic_demand_territory
+	x = 72
+	y = 13
+	cost = 5
+	prerequisite = { focus = B80_endgame_clandestine_anti_japanese_curriculum }
+	prerequisite = { focus = B80_endgame_seize_japanese_assets_in_china }
+	completion_reward = { if = { limit = { MAN = { exists = yes } } create_wargoal = { type = annex_everything target = MAN } } if = { limit = { MEN = { exists = yes } } create_wargoal = { type = annex_everything target = MEN } } add_war_support = 0.08 }
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_korean_student_liberation_committee
+	icon = GFX_goal_generic_more_territorial_claims
+	x = 76
+	y = 13
+	cost = 5
+	prerequisite = { focus = B80_endgame_seize_japanese_assets_in_china }
+	prerequisite = { focus = B80_endgame_reverse_the_imperial_network }
+	completion_reward = { add_state_claim = 525 add_state_claim = 527 add_state_claim = 1028 add_state_claim = 1029 add_state_claim = 1030 add_state_claim = 1031 if = { limit = { JAP = { exists = yes } } create_wargoal = { type = annex_everything target = JAP } } }
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_eastward_campus_fleet
+	icon = GFX_goal_generic_build_navy
+	x = 74
+	y = 14
+	cost = 5
+	prerequisite = { focus = B80_endgame_liberate_the_northeastern_campuses }
+	prerequisite = { focus = B80_endgame_korean_student_liberation_committee }
+	completion_reward = { add_offsite_building = { type = dockyard level = 2 } navy_experience = 35 add_equipment_to_stockpile = { type = convoy_1 amount = 50 producer = B80 } add_ideas = B80_endgame_eastward_campus_fleet_idea }
+	ai_will_do = { factor = 1 }
+}
+shared_focus = {
+	id = B80_endgame_tokyo_graduation_ceremony
+	icon = GFX_goal_generic_major_war
+	x = 74
+	y = 15
+	cost = 10
+	prerequisite = { focus = B80_endgame_eastward_campus_fleet }
+	completion_reward = { add_ideas = B80_endgame_east_asian_counteroffensive add_stability = 0.08 add_war_support = 0.12 if = { limit = { JAP = { exists = yes } } create_wargoal = { type = annex_everything target = JAP } } }
+	ai_will_do = { factor = 1 }
+}
+
+# END POLITICAL ENDGAME FOCUSES

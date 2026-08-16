@@ -787,7 +787,29 @@ shared_focus = {
 	prerequisite = { focus = B80_legacy_newfocus_61 }
 	completion_reward = {
 		add_ideas = B80_legacy_hakimi_medium_tank_program
-		if = { limit = { has_dlc = "No Step Back" } add_equipment_to_stockpile = { type = medium_tank_chassis_1 amount = 120 producer = B80 } }
+		if = {
+			limit = { has_dlc = "No Step Back" }
+			set_technology = { basic_medium_tank_chassis = 1 }
+			create_equipment_variant = {
+				name = "哈基米中型坦克"
+				type = medium_tank_chassis_1
+				parent_version = 0
+				allow_without_tech = yes
+				modules = {
+					main_armament_slot = tank_small_cannon_2
+					turret_type_slot = tank_medium_two_man_tank_turret
+					suspension_type_slot = tank_christie_suspension
+					armor_type_slot = tank_welded_armor
+					engine_type_slot = tank_diesel_engine
+					special_type_slot_1 = sloped_armor
+				}
+				upgrades = {
+					tank_nsb_engine_upgrade = 5
+					tank_nsb_armor_upgrade = 2
+				}
+			}
+			add_equipment_to_stockpile = { type = medium_tank_chassis_1 variant_name = "哈基米中型坦克" amount = 120 producer = B80 }
+		}
 		else = { add_equipment_to_stockpile = { type = medium_tank_equipment_1 amount = 120 producer = B80 } }
 		add_tech_bonus = {
 			name = B80_legacy_hakimi_medium_tank_bonus
@@ -856,7 +878,28 @@ shared_focus = {
 	prerequisite = { focus = B80_legacy_newfocus_62 }
 	completion_reward = {
 		add_ideas = B80_legacy_doraemon_heavy_tank_program
-		if = { limit = { has_dlc = "No Step Back" } add_equipment_to_stockpile = { type = heavy_tank_chassis_1 amount = 60 producer = B80 } }
+		if = {
+			limit = { has_dlc = "No Step Back" }
+			set_technology = { basic_heavy_tank_chassis = 1 }
+			create_equipment_variant = {
+				name = "哆啦B梦重型坦克"
+				type = heavy_tank_chassis_1
+				parent_version = 0
+				allow_without_tech = yes
+				modules = {
+					main_armament_slot = tank_medium_cannon
+					turret_type_slot = tank_heavy_three_man_tank_turret
+					suspension_type_slot = tank_torsion_bar_suspension
+					armor_type_slot = tank_welded_armor
+					engine_type_slot = tank_diesel_engine
+				}
+				upgrades = {
+					tank_nsb_engine_upgrade = 3
+					tank_nsb_armor_upgrade = 5
+				}
+			}
+			add_equipment_to_stockpile = { type = heavy_tank_chassis_1 variant_name = "哆啦B梦重型坦克" amount = 60 producer = B80 }
+		}
 		else = { add_equipment_to_stockpile = { type = heavy_tank_equipment_1 amount = 60 producer = B80 } }
 		add_tech_bonus = {
 			name = B80_legacy_doraemon_heavy_tank_bonus

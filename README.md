@@ -1,12 +1,12 @@
 # The Eighty: 八十崛起
 
-> **当前版本：1.2.0** ｜ 支持《钢铁雄心4》1.19 ｜ Steam 创意工坊：3780267949
+> **当前版本：1.3.0** ｜ 支持《钢铁雄心4》1.19 ｜ Steam 创意工坊：3780267949
 
 ## 版本与兼容性
 
 | 项目 | 说明 |
 |---|---|
-| 当前版本 | **1.2.0** |
+| 当前版本 | **1.3.0** |
 | 支持游戏版本 | 1.19.*（支持最新正式版） |
 | **DLC 要求** | **需要全 DLC**（见下方说明） |
 | 地图 Mod 兼容性 | **兼容**，不修改任何地图文件 |
@@ -41,6 +41,8 @@
 - 望京学期制特色机制（120 天学期循环）
 - 国际反应与对手参与系统
 - 四条政治路线（同盟国民主 / 教育处集权 / 学生公社 / 日本合作）
+- 四条政治路线各自新增一套后期终局，共 32 个新国策
+- 四支开局部队、校园主题师级名称库与命名装备变体
 - 简体中文本地化
 
 ## 望京学期制特色机制
@@ -109,14 +111,13 @@ HOI4 的国家标签只能使用三个字符，因此设计稿中的 `BJ80` 实�
 - `B80` 开局拥有所有中国势力核心地区的核心（CHI/PRC/GXC/YUN/SHX/XSM/SIK/MAN/MEN/HBC/SND）。
 - 国旗源于用户提供的八十中校徽，游戏旗帜已导出为 82×52、41×26 和 10×7 三种 TGA 尺寸。
 
-## 爽游平衡
+## 平衡原则
 
-- 全部普通国策统一为 35 天。
-- 八个关键事件均为三选一，并提供和平吞并、附属国、外国保独、工业援助、科研跃迁或大规模军援。
-- “周边学校的回应”可以无战争吞并察南；“山东问题”可以无战争吞并或附庸鲁系。
-- “华北教育革命”可以直接获得京津、河北、察哈尔和山东地块。
-- 开局增加 10000 人力、3000 步枪和“天选校园”国家精神。
-- 地区整合公投只需 21 天，并会一次性核心化全部已拥有的非核心地区。
+- 全部普通国策统一为 35 天，主要奖励按原版国家树常见强度设计。
+- 学生自治线不再为每个国策重复赠送政治点、稳定度和人力；关键事件改为有限工业援助、附属协定、宣称或战争准备。
+- 和平扩张仍然存在，但通常需要政治成本，并以附属或自治保护代替无条件吞并。
+- 开局拥有四支规模较小的校园部队、4500 支“八十式校卫步枪”和少量“望京综合保障套件”。
+- 地区整合公投仍可核心化已控制地区，但需要完成三阶段决议链。
 
 ## 旧版综合国策草稿
 
@@ -137,7 +138,7 @@ HOI4 的国家标签只能使用三个字符，因此设计稿中的 `BJ80` 实�
 - 学生公社线：建设班级委员会、工学合作社和人民兵工厂，可依靠中共或坚持独立革命，最终建立中华学生公社联盟。
 - 日本合作线：保留既有教育、代理扩张、帝国军备、反噬日本和反向傀儡日本内容。
 
-三条续写路线共新增 52 个国策、6 个多选事件和 35 个路线国家精神。新增共享国策位于 `common/national_focus/B80_political_expansion_shared.txt`，不会被旧树生成器覆盖。
+三条初次续写路线共 52 个国策；四条路线的后期终局又新增 32 个国策与 20 个国家精神。民主线可建立受教育公民共和国，教育处线可走向全国考试政府，学生公社可发动大陆学生革命，反噬日本线则可夺取日本资产、解放东北与朝鲜并准备进军东京。后期内容位于 `common/national_focus/B80_political_endgame_shared.txt`，不会被旧树生成器覆盖。
 
 ## 文件编码
 
@@ -183,10 +184,10 @@ HOI4 的国家标签只能使用三个字符，因此设计稿中的 `BJ80` 实�
 ## 1. 仓库身份与模组定位
 
 - 模组名：**The Eighty: 八十崛起**，北京市第八十中学（望京校区）题材的 HOI4 架空历史模组。
-- `descriptor.mod`：`version="1.2.0"`，`supported_version="1.19.*"`，Steam 创意工坊 ID `3780267949`。
+- `descriptor.mod`：`version="1.3.0"`，`supported_version="1.19.*"`，Steam 创意工坊 ID `3780267949`。
 - 真实国家标签为 **`B80`**（HOI4 限制 3 字符，设计稿 `BJ80` 被缩短）。**脚本前缀两套并存**：学生自治等早期系统用 `BJ80_`，学期制、警觉系统、政治路线等新系统用 `B80_`。新增内容统一用 `B80_` 前缀，除非明确属于学生自治旧系统。
 - 开局即拥有原版北京州 `608`（不新建自定义州），并拥有全中国势力的核心州核心（CHI/PRC/GXC/YUN/SHX/XSM/SIK/MAN/MEN/HBC/SND 的核心全部 `add_core_of = B80`）。
-- 平衡哲学：**爽游**。开局 10000 人力、3000 步枪、四枚强力国家精神；普通国策统一 35 天；学生自治线每个国策都带"爽游基底"（+100 政治点 / +0.03 稳定 / +2500 人力）；关键事件多为三选一且数值慷慨。升学压力是唯一会"难受"的软惩罚，但刻意设计为不锁死游戏。
+- 平衡哲学：**有特色但接近原版强度**。普通国策统一 35 天；学生自治线已移除逐国策叠加的“爽游基底”，关键事件保留多选与和平扩张特色，但奖励控制在原版国家树常见区间。升学压力是会让玩家感到压力、但不会锁死游戏的软惩罚。
 
 ## 2. 目录地图
 
@@ -199,7 +200,7 @@ common/
   decisions/            三个决策系统（学期项目 / 外交反应 / 占领区整合）
   decisions/categories/ 对应三个决策分类
   ideas/                六组国家精神：starting / campus_mechanic / opponent_reaction / political_route / legacy / student_autonomy
-  national_focus/       三个国策文件（见第 3 节）
+  national_focus/       四组国策文件（见第 3 节）
   on_actions/           学期初始化(on_startup)、警觉月度结算(on_monthly_B80)、战争/吞并反应(on_war_relation_added / on_annex)
   opinion_modifiers/    外交意见修饰符（value 必须为数字，decay 必须为数字，不能用 yes/no）
   scripted_effects/     三个系统的共享效果函数（命名全部 `B80_*` / `BJ80_*`）
@@ -208,7 +209,7 @@ events/                 五个命名空间：BJ80_autonomy / B80_campus / B80_op
 gfx/                    国旗（含各 cosmetic tag 与四种意识形态旗）、领导人/顾问 DDS 头像、旗帜源 PNG
 history/countries/      国家历史（科技、政治、人物、开局国家精神、初始化调用）
 history/states/         608 北京州（B80 所有，含 CHI/PRC 核心）
-history/units/          学生警卫师模板 + 1 个开局师
+history/units/          三种校园编制 + 4 支开局部队
 interface/              B80_portraits.gfx 头像映射
 localisation/simp_chinese/  8 个简体中文本地化文件（UTF-8 with BOM，必须！）
 tools/                  4 个 Python 工具（见第 7 节）
@@ -220,6 +221,7 @@ tools/                  4 个 Python 工具（见第 7 节）
 |---|---|---|
 | `BJ80_student_autonomy.txt` | 手写学生自治主线（25 个 focus，坐标 x25–35），树尾部用 `shared_focus =` 挂载政治扩展与 127 个旧国策 | 手写维护；`# BEGIN/END` 注释段由生成器管理，手写段不要放进生成段 |
 | `B80_political_expansion_shared.txt` | 手写续写的三条政治路线共 52 个 shared_focus（同盟国民主线 / 教育处集权线 / 学生公社线），坐标 x41–67 | 手写维护 |
+| `B80_political_endgame_shared.txt` | 四条政治路线的后期终局共 32 个 shared_focus，坐标 x42–78、y11–19 | 手写维护 |
 | `B80_legacy_shared_focuses.txt` | 127 个旧版国策节点（`B80_legacy_newfocus_N`），坐标 x45–131，含日本合作线 | **生成文件，勿手改**；由 `tools/generate_legacy_tree.py` 重新生成 |
 
 四条政治路线在旧树的四个互斥入口（`newfocus_9` 同盟国民主 / `newfocus_10` 教育处 / `newfocus_11` 学生公社 / `newfocus_12` 日本合作）之后分叉，每条最终 `set_cosmetic_tag`。所有 cosmetic tag：`BJ80_STUDENT_REPUBLIC`、`BJ80_NEW_BEIJING_REPUBLIC`、`BJ80_CHINESE_STUDENT_REPUBLIC`、`B80_EASTERN_DEMOCRATIC_REPUBLIC`、`B80_EDUCATION_ADMINISTRATION`、`B80_STUDENT_COMMUNE`、`B80_CHINESE_STUDENT_COMMUNE`。
@@ -266,15 +268,15 @@ tools/                  4 个 Python 工具（见第 7 节）
 
 | 脚本 | 用途 | 何时运行 |
 |---|---|---|
-| `validate_mod.py` | 全套静态校验：括号配平、BOM 检查、国策数量（127 legacy + 52 political + 25 学生自治爽游基底，ID 唯一、坐标不冲突、互斥对称）、事件/国家精神引用完整性、学期制不变量（120 天任务、四变量本地化、事件集、食堂三连等）、意见修饰符 decay 数值化、旧状态 1082 不存在等 | **每次提交前必跑**：`python tools/validate_mod.py`，输出 `VALIDATION_OK` 才可推送。⚠ 脚本内含数量/集合断言，**新增内容时必须同步修改**（见第 8 节） |
-| `generate_legacy_tree.py` | 从 `BSZ.xh4prj`（XMind 工程）重新生成旧国策树与汉化；含缺失汉化补全表 | 仅当旧工程更新国策时；**会覆盖** `B80_legacy_shared_focuses.txt`，生成后必须重跑校验 |
-| `boost_autonomy_focuses.py` | 一次性批量注入"爽游基底"的历史脚本（硬编码路径 `E:\钢铁雄心4mod`） | **不要再运行**（已生效，路径也是本机旧路径） |
+| `validate_mod.py` | 全套静态校验：括号配平、BOM 检查、国策数量（127 legacy + 52 political + 32 endgame + 25 学生自治，ID 唯一、坐标不冲突、互斥对称）、事件/国家精神引用完整性、学期制不变量（120 天任务、四变量本地化、事件集、食堂三连等）、意见修饰符 decay 数值化、旧状态 1082 不存在等 | **每次提交前必跑**：`python tools/validate_mod.py`，输出 `VALIDATION_OK` 才可推送。⚠ 脚本内含数量/集合断言，**新增内容时必须同步修改**（见第 8 节） |
+| `generate_legacy_tree.py` | 从 `BSZ.xh4prj`（XMind 工程）重新生成旧国策树与汉化；含缺失汉化补全表 | 仅当旧工程更新国策时；运行前需把脚本中的 `PROJECT` 指向原工程实际位置。**会覆盖** `B80_legacy_shared_focuses.txt`，生成后必须重跑校验 |
+| `boost_autonomy_focuses.py` | 曾用于批量注入“爽游基底”的历史脚本 | **永久停用**；当前平衡已移除该基底，重新运行会破坏自治线平衡 |
 | `sanitize_hoi4_text.py` | 一次性图片 token 迁移脚本 | 不要再运行 |
 
 ## 8. 新增内容操作规程（国策 / 国家精神 / 事件 / 其他）
 
 > 本节回答一个问题：**未来新增内容时，仓库要动哪些文件、README 要动哪些条目、validate_mod.py 要动哪些断言**。
-> 当前规模快照（与 validate 输出对应）：`shared_focuses=179 (legacy=127, political=52)`、`autonomy_focuses=25`、`custom_ideas=153`、`event_calls=47`、人物 14 名、事件命名空间 5 个。
+> 当前规模快照（与 validate 输出对应）：`shared_focuses=211 (legacy=127, political=52, endgame=32)`、`autonomy_focuses=25`、`custom_ideas=173`、`event_calls=47`、人物 14 名、事件命名空间 5 个。
 
 ### 8.1 总流程（所有新增通用）
 
@@ -290,8 +292,9 @@ tools/                  4 个 Python 工具（见第 7 节）
 
 | 归属 | 文件 | 坐标区 | validate_mod.py 联动 |
 |---|---|---|---|
-| 学生自治主线 | `common/national_focus/BJ80_student_autonomy.txt`（手写段） | x25–35 | 若带"爽游基底"（`# Overpowered student-autonomy baseline` + 三件套），**必须**把 `autonomy.count(...) != 25` 的期望数改大（第 125 行附近） |
+| 学生自治主线 | `common/national_focus/BJ80_student_autonomy.txt`（手写段） | x25–35 | 更新 25 个普通 `focus` 的数量断言；禁止重新加入已废弃的逐国策“爽游基底” |
 | 政治路线扩展 | `common/national_focus/B80_political_expansion_shared.txt` | x41–67 | **必须**更新 `len(political_focus_blocks) != 52` 的期望数（第 79 行附近），并在 `BJ80_student_autonomy.txt` 的 `BEGIN HAND-WRITTEN POLITICAL EXPANSION BRANCHES` 段用 `shared_focus =` 挂载 |
+| 政治路线终局 | `common/national_focus/B80_political_endgame_shared.txt` | x42–78、y11–19 | **必须**更新 32 个 endgame shared_focus 的数量断言，并在主树的 `HAND-WRITTEN POLITICAL ENDGAME BRANCHES` 段挂载对应根节点 |
 | 旧版树 | `common/national_focus/B80_legacy_shared_focuses.txt` | x45–131 | **勿手改**（生成文件）；改 `tools/generate_legacy_tree.py` 后重新生成；127 的断言由生成器保证 |
 
 其他硬性要求（validate 自动检查）：
